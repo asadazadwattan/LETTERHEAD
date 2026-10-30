@@ -1,0 +1,1983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Letterhead Studio - Azad Wattan General Trading Co.</title>
+  <style>
+    :root {
+      --bg-workspace: #0f172a;
+      --bg-panel: #1e293b;
+      --bg-card: #334155;
+      --bg-input: #0f172a;
+      --border-color: #334155;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #3b82f6;
+      --accent-hover: #2563eb;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --sidebar-width: 330px;
+      --header-height: 58px;
+      --statusbar-height: 32px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-workspace);
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ================= TOP RIBBON NAVBAR ================= */
+    .top-navbar {
+      height: var(--header-height);
+      background-color: var(--bg-panel);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+    }
+
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-badge {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 14px;
+      color: #fff;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+    }
+
+    .brand-title {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title h1 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: 0.2px;
+    }
+
+    .brand-title span {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* Center Formatting Ribbon */
+    .formatting-ribbon {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background-color: var(--bg-input);
+      padding: 5px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+    }
+
+    .ribbon-divider {
+      width: 1px;
+      height: 22px;
+      background-color: var(--border-color);
+      margin: 0 4px;
+    }
+
+    .icon-btn {
+      background: transparent;
+      color: var(--text-main);
+      border: 1px solid transparent;
+      width: 30px;
+      height: 30px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 13px;
+      transition: all 0.15s ease;
+    }
+
+    .icon-btn:hover {
+      background-color: var(--bg-card);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .icon-btn svg {
+      width: 15px;
+      height: 15px;
+      fill: currentColor;
+    }
+
+    .ribbon-select {
+      background-color: var(--bg-panel);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+      padding: 4px 8px;
+      border-radius: 5px;
+      font-size: 12px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .ribbon-select:hover {
+      border-color: var(--accent);
+    }
+
+    /* Right Action Buttons */
+    .action-buttons {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 7px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      background-color: var(--bg-card);
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .btn:hover {
+      background-color: #475569;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      border-color: #2563eb;
+      color: #fff;
+      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.35);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    }
+
+    .btn-success {
+      background-color: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.4);
+      color: #34d399;
+    }
+
+    .btn-success:hover {
+      background-color: rgba(16, 185, 129, 0.25);
+    }
+
+    .btn-danger {
+      background-color: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.4);
+      color: #f87171;
+    }
+
+    .btn-danger:hover {
+      background-color: rgba(239, 68, 68, 0.25);
+    }
+
+    .settings-trigger {
+      width: 34px;
+      height: 34px;
+      padding: 0;
+      border-radius: 6px;
+    }
+
+    .settings-trigger svg {
+      width: 17px;
+      height: 17px;
+      fill: currentColor;
+      transition: transform 0.25s ease;
+    }
+
+    .settings-trigger:hover svg {
+      transform: rotate(45deg);
+    }
+
+    /* ================= MAIN WORKSPACE AREA ================= */
+    .workspace-body {
+      display: flex;
+      flex: 1;
+      height: calc(100vh - var(--header-height) - var(--statusbar-height));
+      overflow: hidden;
+    }
+
+    /* Left Inspector Sidebar with Tabs */
+    .sidebar {
+      width: var(--sidebar-width);
+      background-color: var(--bg-panel);
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+
+    .sidebar-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background-color: var(--bg-input);
+      padding: 6px;
+      gap: 6px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .tab-btn {
+      background: transparent;
+      color: var(--text-muted);
+      border: none;
+      padding: 8px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .tab-btn.active {
+      background-color: var(--accent);
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(59, 130, 246, 0.3);
+    }
+
+    .tab-badge {
+      background: rgba(0, 0, 0, 0.25);
+      padding: 1px 6px;
+      border-radius: 10px;
+      font-size: 10px;
+    }
+
+    .tab-pane {
+      display: none;
+      flex-direction: column;
+      gap: 14px;
+      padding: 14px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .tab-pane.active {
+      display: flex;
+    }
+
+    .panel-card {
+      background-color: rgba(15, 23, 42, 0.55);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .panel-header {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 6px;
+    }
+
+    .saved-badge {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 10px;
+      background-color: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      font-weight: 600;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .form-group label {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 6px;
+    }
+
+    .form-control {
+      width: 100%;
+      background-color: var(--bg-input);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 7px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      outline: none;
+    }
+
+    .form-control:focus {
+      border-color: var(--accent);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+
+    /* Asset Thumbnail Gallery (Saved Letterheads & Stamps) */
+    .asset-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-top: 2px;
+    }
+
+    .asset-thumb {
+      position: relative;
+      height: 54px;
+      border-radius: 6px;
+      border: 2px solid var(--border-color);
+      background-color: #ffffff;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .asset-thumb.active {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.35);
+    }
+
+    .asset-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .asset-thumb .del-asset {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: rgba(239, 68, 68, 0.9);
+      color: #fff;
+      font-size: 10px;
+      border: none;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .asset-thumb:hover .del-asset {
+      display: flex;
+    }
+
+    /* History Tab List Cards */
+    .history-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .history-item {
+      background-color: rgba(15, 23, 42, 0.65);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: border-color 0.15s ease;
+    }
+
+    .history-item:hover {
+      border-color: var(--accent);
+    }
+
+    .history-item-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .history-ref {
+      font-size: 12px;
+      font-weight: 700;
+      color: #60a5fa;
+    }
+
+    .history-date {
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    .history-meta {
+      font-size: 11px;
+      color: var(--text-main);
+      line-height: 1.35;
+      word-break: break-word;
+    }
+
+    .history-actions {
+      display: flex;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .history-actions .btn {
+      flex: 1;
+      padding: 5px 8px;
+      font-size: 11px;
+    }
+
+    .empty-history {
+      text-align: center;
+      padding: 30px 12px;
+      color: var(--text-muted);
+      font-size: 12px;
+      border: 1px dashed var(--border-color);
+      border-radius: 8px;
+    }
+
+    /* Center Scrollable Canvas Viewport */
+    .canvas-viewport {
+      flex: 1;
+      overflow: auto;
+      padding: 35px 20px 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 0);
+      background-size: 24px 24px;
+    }
+
+    #pages-container {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      transform-origin: top center;
+      transition: transform 0.15s ease;
+    }
+
+    /* A4 Page Paper Styling */
+    .page {
+      width: 210mm;
+      height: 297mm;
+      background-color: #ffffff;
+      position: relative;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+      page-break-after: always;
+      border-radius: 2px;
+    }
+
+    .page.overflowing .content-area {
+      outline: 2px dashed var(--danger) !important;
+      background-color: rgba(239, 68, 68, 0.04);
+    }
+
+    .bg-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Safe-Margin Content Area */
+    .content-area {
+      position: absolute;
+      top: 130px;
+      left: 70px;
+      width: 650px;
+      height: 820px;
+      z-index: 2;
+      outline: 1px dashed rgba(59, 130, 246, 0.35);
+      padding: 6px;
+      font-family: Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      color: #000000;
+      overflow-y: auto;
+      border-radius: 2px;
+      transition: background-color 0.15s, outline 0.15s;
+    }
+
+    body.hide-guides .content-area {
+      outline: none;
+    }
+
+    .content-area:focus {
+      outline: 1.5px solid var(--accent);
+      background-color: rgba(255, 255, 255, 0.45);
+    }
+
+    .content-area table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+      font-size: inherit;
+    }
+
+    .content-area th, .content-area td {
+      border: 1px solid #1e293b;
+      padding: 7px 10px;
+      text-align: left;
+    }
+
+    .content-area th {
+      background-color: rgba(15, 23, 42, 0.07);
+      font-weight: bold;
+    }
+
+    /* Draggable Stamp / Signature Overlay */
+    .stamp-overlay {
+      position: absolute;
+      bottom: 145px;
+      right: 95px;
+      width: 150px;
+      z-index: 3;
+      cursor: grab;
+      user-select: none;
+      border: 1px dashed transparent;
+      border-radius: 4px;
+      display: none;
+    }
+
+    .stamp-overlay:active {
+      cursor: grabbing;
+    }
+
+    .stamp-overlay:hover {
+      border-color: var(--accent);
+      background-color: rgba(59, 130, 246, 0.06);
+    }
+
+    .stamp-overlay img {
+      width: 100%;
+      height: auto;
+      pointer-events: none;
+    }
+
+    /* Floating Page Badge */
+    .page-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 10;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(4px);
+      color: #f8fafc;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .page-badge button {
+      background: var(--danger);
+      border: none;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    /* ================= SETTINGS MODAL ================= */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(3px);
+      z-index: 999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-window {
+      background-color: var(--bg-panel);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 560px;
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65);
+      overflow: hidden;
+    }
+
+    .modal-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-header h2 {
+      font-size: 15px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .modal-body {
+      padding: 18px 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .modal-footer {
+      padding: 12px 20px;
+      border-top: 1px solid var(--border-color);
+      background-color: var(--bg-input);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    /* ================= BOTTOM STATUS BAR ================= */
+    .status-bar {
+      height: var(--statusbar-height);
+      background-color: var(--bg-panel);
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px;
+      font-size: 11px;
+      color: var(--text-muted);
+      z-index: 100;
+    }
+
+    .status-left, .status-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .dot-online {
+      width: 7px;
+      height: 7px;
+      background-color: var(--success);
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .overflow-warning {
+      color: #f87171;
+      font-weight: 700;
+      display: none;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .zoom-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .zoom-btn {
+      background: var(--bg-card);
+      color: var(--text-main);
+      border: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .zoom-btn:hover {
+      background: var(--accent);
+    }
+
+    /* ================= PRINT MEDIA SETUP ================= */
+    @media print {
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      body {
+        background: transparent !important;
+        height: auto !important;
+        overflow: visible !important;
+        display: block !important;
+      }
+
+      .top-navbar, .sidebar, .status-bar, .page-badge, .modal-backdrop {
+        display: none !important;
+      }
+
+      .workspace-body, .canvas-viewport {
+        display: block !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        overflow: visible !important;
+        height: auto !important;
+        background: none !important;
+      }
+
+      #pages-container {
+        display: block !important;
+        transform: none !important;
+        gap: 0 !important;
+      }
+
+      .page {
+        box-shadow: none !important;
+        border: none !important;
+        width: 210mm !important;
+        height: 297mm !important;
+        page-break-after: always !important;
+        margin: 0 !important;
+      }
+
+      .page:last-child {
+        page-break-after: auto !important;
+      }
+
+      .content-area {
+        overflow: hidden !important;
+        outline: none !important;
+        background-color: transparent !important;
+      }
+
+      .stamp-overlay {
+        border: none !important;
+        background: transparent !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= TOP RIBBON NAVBAR ================= -->
+  <header class="top-navbar">
+    <div class="brand-section">
+      <div class="brand-badge" id="navBrandBadge">AW</div>
+      <div class="brand-title">
+        <h1 id="navCompanyName">Azad Wattan General Trading Co.</h1>
+        <span>Official Letterhead & Document Studio</span>
+      </div>
+    </div>
+
+    <!-- Center Rich Text Formatting Ribbon -->
+    <div class="formatting-ribbon">
+      <select class="ribbon-select" id="fontFamilySelect" onchange="changeFontFamily(this.value)" title="Font Family">
+        <option value="Arial, sans-serif">Arial</option>
+        <option value="'Times New Roman', serif">Times New Roman</option>
+        <option value="'Calibri', sans-serif">Calibri</option>
+        <option value="'Georgia', serif">Georgia</option>
+      </select>
+
+      <select class="ribbon-select" id="fontSizeSelect" onchange="changeFontSize(this.value)" title="Font Size">
+        <option value="13px">13 px</option>
+        <option value="14px">14 px</option>
+        <option value="15px" selected>15 px</option>
+        <option value="16px">16 px</option>
+        <option value="18px">18 px</option>
+      </select>
+
+      <select class="ribbon-select" id="lineHeightSelect" onchange="changeLineHeight(this.value)" title="Line Spacing">
+        <option value="1.3">1.3x</option>
+        <option value="1.5">1.5x</option>
+        <option value="1.6" selected>1.6x</option>
+        <option value="1.8">1.8x</option>
+      </select>
+
+      <div class="ribbon-divider"></div>
+
+      <button class="icon-btn" onclick="formatDoc('bold')" title="Bold (Ctrl+B)"><b>B</b></button>
+      <button class="icon-btn" onclick="formatDoc('italic')" title="Italic (Ctrl+I)"><i>I</i></button>
+      <button class="icon-btn" onclick="formatDoc('underline')" title="Underline (Ctrl+U)"><u>U</u></button>
+
+      <div class="ribbon-divider"></div>
+
+      <button class="icon-btn" onclick="formatDoc('justifyLeft')" title="Align Left">
+        <svg viewBox="0 0 24 24"><path d="M3 4h18v2H3V4zm0 5h12v2H3V9zm0 5h18v2H3v-2zm0 5h12v2H3v-2z"/></svg>
+      </button>
+      <button class="icon-btn" onclick="formatDoc('justifyCenter')" title="Align Center">
+        <svg viewBox="0 0 24 24"><path d="M3 4h18v2H3V4zm3 5h12v2H6V9zm-3 5h18v2H3v-2zm3 5h12v2H6v-2z"/></svg>
+      </button>
+      <button class="icon-btn" onclick="formatDoc('justifyFull')" title="Justify Full">
+        <svg viewBox="0 0 24 24"><path d="M3 4h18v2H3V4zm0 5h18v2H3V9zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+      </button>
+
+      <div class="ribbon-divider"></div>
+
+      <button class="icon-btn" onclick="formatDoc('insertUnorderedList')" title="Bullet List">
+        <svg viewBox="0 0 24 24"><path d="M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-6c-.83 0-1.5.67-1.5 1.5S3.17 7.5 4 7.5 5.5 6.83 5.5 6 4.83 4.5 4 4.5zm0 12c-.83 0-1.5.68-1.5 1.5s.68 1.5 1.5 1.5 1.5-.68 1.5-1.5-.67-1.5-1.5-1.5zM7 19h14v-2H7v2zm0-6h14v-2H7v2zm0-8v2h14V5H7z"/></svg>
+      </button>
+      <button class="icon-btn" onclick="formatDoc('insertOrderedList')" title="Numbered List">
+        <svg viewBox="0 0 24 24"><path d="M2 17h2v.5H3v1h1v.5H2v1h3v-4H2v1zm1-9h1V4H2v1h1v3zm-1 3h1.8L2 13.1v.9h3v-1H3.2L5 10.9V10H2v1zm5-6v2h14V5H7zm0 14h14v-2H7v2zm0-6h14v-2H7v2z"/></svg>
+      </button>
+
+      <div class="ribbon-divider"></div>
+
+      <button class="btn" style="padding: 4px 10px;" onclick="insertCustomTable()" title="Insert Commercial Table">
+        + Table
+      </button>
+    </div>
+
+    <!-- Right Action Bar (Includes Settings Icon) -->
+    <div class="action-buttons">
+      <button class="btn" onclick="toggleGuides()" title="Show/Hide Blue Safe Zone Border">Guides</button>
+      <button class="btn btn-success" onclick="addNewPage()">+ Page</button>
+      <button class="btn btn-primary" onclick="printDocument()">Print / PDF</button>
+      <button class="btn settings-trigger" onclick="openSettingsModal()" title="Application Settings">
+        <svg viewBox="0 0 24 24">
+          <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ================= MAIN WORKSPACE ================= -->
+  <div class="workspace-body">
+
+    <!-- Left Sidebar Inspector with EDITOR & HISTORY Tabs -->
+    <aside class="sidebar">
+      <div class="sidebar-tabs">
+        <button class="tab-btn active" id="tabBtnEditor" onclick="switchSidebarTab('editor')">
+          <span>✏️ Editor</span>
+        </button>
+        <button class="tab-btn" id="tabBtnHistory" onclick="switchSidebarTab('history')">
+          <span>🗂️ History</span>
+          <span class="tab-badge" id="historyCountBadge">0</span>
+        </button>
+      </div>
+
+      <!-- TAB 1: EDITOR & SAVED STATIONERY ASSETS -->
+      <div class="tab-pane active" id="tabPaneEditor">
+
+        <!-- Document Metadata & Templates -->
+        <div class="panel-card">
+          <div class="panel-header">
+            <span>Document & Templates</span>
+          </div>
+
+          <div class="form-group">
+            <label>Quick Commercial Template</label>
+            <select id="templateSelect" class="form-control" onchange="applyTemplate(this.value)">
+              <option value="">-- Choose Preset --</option>
+              <option value="default">Standard Business Letter</option>
+              <option value="loi">Letter of Intent (LOI)</option>
+              <option value="noc">Customs / Port NOC</option>
+              <option value="packing">Cargo & Container Declaration</option>
+              <option value="receipt">Official Payment Receipt</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Reference Number</label>
+            <div class="input-row">
+              <input type="text" id="refInput" class="form-control" value="AW/LTR/2026/001" oninput="syncMetadata()">
+              <button class="btn" onclick="incrementRef()" title="Increment Reference Number">+1</button>
+            </div>
+          </div>
+
+          <button class="btn btn-success" style="width:100%;" onclick="saveLetterToHistory()">
+            💾 Save Letter to History
+          </button>
+        </div>
+
+        <!-- Saved Letterhead Backgrounds (Auto-Saved Forever) -->
+        <div class="panel-card">
+          <div class="panel-header">
+            <span>Saved Letterheads</span>
+            <span class="saved-badge" id="bgSavedBadge">Auto-Saved</span>
+          </div>
+
+          <div class="grid-2">
+            <button class="btn" onclick="document.getElementById('bgFileInput').click()">+ Upload New BG</button>
+            <button class="btn" onclick="toggleBgVisibility()">Show / Hide BG</button>
+          </div>
+          <input type="file" id="bgFileInput" accept="image/*" style="display:none" onchange="uploadBackground(event)">
+
+          <div class="form-group">
+            <label>Click a saved letterhead below to switch:</label>
+            <div class="asset-gallery" id="bgGallery"></div>
+          </div>
+        </div>
+
+        <!-- Saved Stamps / Signatures (Auto-Saved Forever) -->
+        <div class="panel-card">
+          <div class="panel-header">
+            <span>Saved Stamps & Signatures</span>
+            <span class="saved-badge" id="stampSavedBadge">Auto-Saved</span>
+          </div>
+
+          <div class="grid-2">
+            <button class="btn" onclick="document.getElementById('stampFileInput').click()">+ Upload Stamp</button>
+            <button class="btn" onclick="toggleStamp()">Show / Hide</button>
+          </div>
+          <input type="file" id="stampFileInput" accept="image/*" style="display:none" onchange="uploadStamp(event)">
+
+          <div class="form-group">
+            <label>Click a saved stamp below to apply:</label>
+            <div class="asset-gallery" id="stampGallery"></div>
+          </div>
+
+          <div class="form-group">
+            <label>Stamp Size (<span id="stampSizeVal">150</span>px)</label>
+            <input type="range" id="stampSizeRange" min="80" max="260" value="150" oninput="resizeStamp(this.value)">
+          </div>
+        </div>
+
+        <button class="btn btn-danger" style="width:100%;" onclick="resetEditor()">
+          Clear Current Draft
+        </button>
+
+      </div>
+
+      <!-- TAB 2: ALL-TIME SAVED LETTERS HISTORY -->
+      <div class="tab-pane" id="tabPaneHistory">
+        <div class="panel-card">
+          <div class="panel-header">
+            <span>All-Time Saved Archive</span>
+            <button class="btn btn-success" style="padding:3px 8px; font-size:10px;" onclick="saveLetterToHistory()">+ Save Current</button>
+          </div>
+
+          <div class="form-group">
+            <input type="text" id="historySearchInput" class="form-control" placeholder="🔍 Search by Ref No, Recipient, Subject..." oninput="renderHistoryList()">
+          </div>
+        </div>
+
+        <div class="history-list" id="historyListContainer"></div>
+      </div>
+
+    </aside>
+
+    <!-- Center A4 Canvas Viewport -->
+    <main class="canvas-viewport">
+      <div id="pages-container">
+        <div class="page" id="page-1">
+          <div class="page-badge"><span>Page 1 of 1</span></div>
+          <img class="bg-image" src="AL JAMEEL LOI EDIT.jpg" alt="Letterhead Background">
+
+          <div class="content-area" contenteditable="true" oninput="handleEditorInput()">
+            <p><strong>Date:</strong> <span class="doc-date">October 30, 2026</span></p>
+            <p><strong>Ref No:</strong> <span class="doc-ref">AW/LTR/2026/001</span></p>
+            <br>
+            <p><strong>To:</strong> <span class="doc-recipient">[Recipient Name / Company Name]</span></p>
+            <p><strong>Subject:</strong> <span class="doc-subject">[Insert Subject Here]</span></p>
+            <br>
+            <p>Dear Sir/Madam,</p>
+            <br>
+            <p>Type your letter content here. The text area is calibrated to fit between the top header and the stamp/footer area at the bottom.</p>
+            <br><br><br>
+            <p>Sincerely,</p>
+            <br><br>
+            <p><strong class="doc-signatory">Authorized Signatory</strong><br><span class="doc-company">Azad Wattan General Trading Co.</span></p>
+          </div>
+
+          <!-- Draggable Stamp Layer -->
+          <div class="stamp-overlay" id="stampOverlay">
+            <img id="stampImg" src="" alt="Company Stamp">
+          </div>
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- ================= SETTINGS MODAL ================= -->
+  <div class="modal-backdrop" id="settingsModal">
+    <div class="modal-window">
+      <div class="modal-header">
+        <h2>⚙️ Application Settings — Azad Wattan Studio</h2>
+        <button class="btn" style="padding:4px 9px;" onclick="closeSettingsModal()">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Company Branding & Signatory Defaults -->
+        <div class="panel-card">
+          <div class="panel-header"><span>Company Profile & Defaults</span></div>
+          <div class="form-group">
+            <label>Company Name (Used in Header, Templates & Sign-off)</label>
+            <input type="text" id="setCompanyName" class="form-control" value="Azad Wattan General Trading Co.">
+          </div>
+          <div class="grid-2">
+            <div class="form-group">
+              <label>Default Ref Prefix</label>
+              <input type="text" id="setRefPrefix" class="form-control" value="AW/LTR/2026/">
+            </div>
+            <div class="form-group">
+              <label>Default Signatory Title</label>
+              <input type="text" id="setSignatory" class="form-control" value="Authorized Signatory">
+            </div>
+          </div>
+        </div>
+
+        <!-- Text Box Calibration / Margins -->
+        <div class="panel-card">
+          <div class="panel-header"><span>Text Safe-Zone Calibration (Pixels)</span></div>
+          <div class="grid-4">
+            <div class="form-group">
+              <label>Top (px)</label>
+              <input type="number" id="setMarginTop" class="form-control" value="130">
+            </div>
+            <div class="form-group">
+              <label>Left (px)</label>
+              <input type="number" id="setMarginLeft" class="form-control" value="70">
+            </div>
+            <div class="form-group">
+              <label>Width (px)</label>
+              <input type="number" id="setMarginWidth" class="form-control" value="650">
+            </div>
+            <div class="form-group">
+              <label>Height (px)</label>
+              <input type="number" id="setMarginHeight" class="form-control" value="820">
+            </div>
+          </div>
+        </div>
+
+        <!-- Backup & Restore Data -->
+        <div class="panel-card">
+          <div class="panel-header"><span>Full Backup, Export & Storage Management</span></div>
+          <p style="font-size:11px; color:var(--text-muted);">
+            Export all saved letters, uploaded letterheads, stamps, and settings into a single JSON backup file, or restore from a backup on any computer.
+          </p>
+          <div class="grid-2">
+            <button class="btn btn-primary" onclick="exportFullBackup()">⬇️ Export Full Backup (.json)</button>
+            <button class="btn" onclick="document.getElementById('importBackupInput').click()">⬆️ Import Backup (.json)</button>
+            <input type="file" id="importBackupInput" accept=".json" style="display:none" onchange="importFullBackup(event)">
+          </div>
+          <div class="grid-2" style="margin-top:4px;">
+            <button class="btn btn-danger" onclick="clearSavedAssets()">Clear Saved Images</button>
+            <button class="btn btn-danger" onclick="clearAllHistory()">Clear All Letter History</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <span style="font-size:11px; color:var(--text-muted);">All settings & images persist automatically in browser storage.</span>
+        <div style="display:flex; gap:8px;">
+          <button class="btn" onclick="closeSettingsModal()">Cancel</button>
+          <button class="btn btn-primary" onclick="saveAppSettings()">Save & Apply Settings</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= BOTTOM STATUS BAR ================= -->
+  <footer class="status-bar">
+    <div class="status-left">
+      <span class="status-pill"><span class="dot-online"></span> <span id="saveStatus">Auto-saved locally</span></span>
+      <span id="wordCountStatus">Words: 0</span>
+      <span id="overflowAlert" class="overflow-warning">⚠️ Text exceeds safe print area! Reduce font size or add a page.</span>
+    </div>
+
+    <div class="status-right">
+      <span>A4 Portrait (210mm × 297mm)</span>
+      <div class="zoom-controls">
+        <button class="zoom-btn" onclick="adjustZoom(-0.1)" title="Zoom Out">−</button>
+        <span id="zoomLabel">100%</span>
+        <button class="zoom-btn" onclick="adjustZoom(0.1)" title="Zoom In">+</button>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Persistent Storage Keys
+    const DRAFT_KEY = 'aw_letterhead_draft_v3';
+    const HISTORY_KEY = 'aw_letterhead_history_v3';
+    const BG_LIST_KEY = 'aw_letterhead_bg_list_v3';
+    const ACTIVE_BG_KEY = 'aw_letterhead_active_bg_v3';
+    const STAMP_LIST_KEY = 'aw_letterhead_stamp_list_v3';
+    const ACTIVE_STAMP_KEY = 'aw_letterhead_active_stamp_v3';
+    const SETTINGS_KEY = 'aw_letterhead_settings_v3';
+
+    let bgVisible = true;
+    let currentZoom = 1;
+
+    let appSettings = {
+      companyName: 'Azad Wattan General Trading Co.',
+      refPrefix: 'AW/LTR/2026/',
+      signatory: 'Authorized Signatory',
+      marginTop: 130,
+      marginLeft: 70,
+      marginWidth: 650,
+      marginHeight: 820
+    };
+
+    function getFormattedDate() {
+      const opts = { year: 'numeric', month: 'long', day: '2-digit' };
+      return new Date().toLocaleDateString('en-US', opts);
+    }
+
+    function getInitials(name) {
+      return name.split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0].toUpperCase()).join('') || 'AW';
+    }
+
+    // Initialize Application on Load
+    window.addEventListener('DOMContentLoaded', () => {
+      loadAppSettings();
+      migrateLegacyAssetsIfAny();
+
+      // Restore Draft Content or Initialize Default Date & Branding
+      const savedDraft = localStorage.getItem(DRAFT_KEY);
+      if (savedDraft) {
+        document.getElementById('pages-container').innerHTML = savedDraft;
+        const currentRef = document.querySelector('.doc-ref');
+        if (currentRef) document.getElementById('refInput').value = currentRef.innerText.trim();
+      } else {
+        document.querySelectorAll('.doc-date').forEach(el => el.innerText = getFormattedDate());
+        applyBrandingToDocument();
+      }
+
+      // Restore Saved Letterhead & Stamp Automatically (No Re-Upload Needed)
+      restoreSavedStationery();
+
+      applyAreaMargins();
+      attachPageEvents();
+      renderHistoryList();
+      updatePageBadges();
+      checkOverflowAndStats();
+    });
+
+    // Migrate any background/stamp uploaded in previous versions automatically
+    function migrateLegacyAssetsIfAny() {
+      const oldBg = localStorage.getItem('al_jameel_letterhead_bg_base64');
+      if (oldBg && !localStorage.getItem(BG_LIST_KEY)) {
+        const list = [{ id: 'bg_default', name: 'Saved Letterhead 1', dataUrl: oldBg }];
+        localStorage.setItem(BG_LIST_KEY, JSON.stringify(list));
+        localStorage.setItem(ACTIVE_BG_KEY, oldBg);
+      }
+      const oldStamp = localStorage.getItem('al_jameel_letterhead_stamp_base64');
+      if (oldStamp && !localStorage.getItem(STAMP_LIST_KEY)) {
+        const list = [{ id: 'st_default', name: 'Saved Stamp 1', dataUrl: oldStamp }];
+        localStorage.setItem(STAMP_LIST_KEY, JSON.stringify(list));
+        localStorage.setItem(ACTIVE_STAMP_KEY, oldStamp);
+      }
+    }
+
+    // Compress image via HTML5 Canvas so multiple high-res letterheads fit in localStorage forever
+    function compressImageFile(file, maxWidth, quality, isPng, callback) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          let w = img.width;
+          let h = img.height;
+          if (w > maxWidth) {
+            h = Math.round((h * maxWidth) / w);
+            w = maxWidth;
+          }
+          canvas.width = w;
+          canvas.height = h;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, w, h);
+          const mime = isPng ? 'image/png' : 'image/jpeg';
+          const dataUrl = canvas.toDataURL(mime, quality);
+          callback(dataUrl);
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Restore Active Letterhead & Stamp + Render Galleries
+    function restoreSavedStationery() {
+      const activeBg = localStorage.getItem(ACTIVE_BG_KEY);
+      if (activeBg) {
+        document.querySelectorAll('.bg-image').forEach(img => img.src = activeBg);
+      }
+      const activeStamp = localStorage.getItem(ACTIVE_STAMP_KEY);
+      if (activeStamp) {
+        const stampImg = document.getElementById('stampImg');
+        if (stampImg) {
+          stampImg.src = activeStamp;
+          document.getElementById('stampOverlay').style.display = 'block';
+        }
+      }
+      renderAssetGalleries();
+    }
+
+    function renderAssetGalleries() {
+      // Letterhead Gallery
+      const bgList = JSON.parse(localStorage.getItem(BG_LIST_KEY) || '[]');
+      const activeBg = localStorage.getItem(ACTIVE_BG_KEY) || '';
+      const bgGallery = document.getElementById('bgGallery');
+      document.getElementById('bgSavedBadge').innerText = `${bgList.length} Saved`;
+
+      if (bgList.length === 0) {
+        bgGallery.innerHTML = `<div style="grid-column:span 3; font-size:11px; color:var(--text-muted);">No custom BG uploaded yet. Upload once to save permanently.</div>`;
+      } else {
+        bgGallery.innerHTML = bgList.map(item => `
+          <div class="asset-thumb ${item.dataUrl === activeBg ? 'active' : ''}" onclick="selectSavedBg('${item.id}')" title="${item.name}">
+            <img src="${item.dataUrl}" alt="${item.name}">
+            <button class="del-asset" onclick="deleteSavedBg(event, '${item.id}')" title="Delete">✕</button>
+          </div>
+        `).join('');
+      }
+
+      // Stamp Gallery
+      const stampList = JSON.parse(localStorage.getItem(STAMP_LIST_KEY) || '[]');
+      const activeStamp = localStorage.getItem(ACTIVE_STAMP_KEY) || '';
+      const stampGallery = document.getElementById('stampGallery');
+      document.getElementById('stampSavedBadge').innerText = `${stampList.length} Saved`;
+
+      if (stampList.length === 0) {
+        stampGallery.innerHTML = `<div style="grid-column:span 3; font-size:11px; color:var(--text-muted);">No stamp uploaded yet. Upload once to save permanently.</div>`;
+      } else {
+        stampGallery.innerHTML = stampList.map(item => `
+          <div class="asset-thumb ${item.dataUrl === activeStamp ? 'active' : ''}" onclick="selectSavedStamp('${item.id}')" title="${item.name}">
+            <img src="${item.dataUrl}" alt="${item.name}">
+            <button class="del-asset" onclick="deleteSavedStamp(event, '${item.id}')" title="Delete">✕</button>
+          </div>
+        `).join('');
+      }
+    }
+
+    // Upload & Permanently Save Letterhead Background
+    function uploadBackground(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      compressImageFile(file, 1650, 0.84, false, (dataUrl) => {
+        const bgList = JSON.parse(localStorage.getItem(BG_LIST_KEY) || '[]');
+        const newItem = {
+          id: 'bg_' + Date.now(),
+          name: file.name,
+          dataUrl: dataUrl
+        };
+        bgList.unshift(newItem);
+        try {
+          localStorage.setItem(BG_LIST_KEY, JSON.stringify(bgList.slice(0, 8)));
+          localStorage.setItem(ACTIVE_BG_KEY, dataUrl);
+        } catch (err) {
+          alert('Browser storage full! Please delete an old letterhead thumbnail first.');
+        }
+        document.querySelectorAll('.bg-image').forEach(img => img.src = dataUrl);
+        renderAssetGalleries();
+        handleEditorInput();
+      });
+      event.target.value = '';
+    }
+
+    function selectSavedBg(id) {
+      const bgList = JSON.parse(localStorage.getItem(BG_LIST_KEY) || '[]');
+      const found = bgList.find(x => x.id === id);
+      if (found) {
+        localStorage.setItem(ACTIVE_BG_KEY, found.dataUrl);
+        document.querySelectorAll('.bg-image').forEach(img => img.src = found.dataUrl);
+        renderAssetGalleries();
+        handleEditorInput();
+      }
+    }
+
+    function deleteSavedBg(e, id) {
+      e.stopPropagation();
+      let bgList = JSON.parse(localStorage.getItem(BG_LIST_KEY) || '[]');
+      bgList = bgList.filter(x => x.id !== id);
+      localStorage.setItem(BG_LIST_KEY, JSON.stringify(bgList));
+      if (bgList.length > 0) {
+        localStorage.setItem(ACTIVE_BG_KEY, bgList[0].dataUrl);
+        document.querySelectorAll('.bg-image').forEach(img => img.src = bgList[0].dataUrl);
+      } else {
+        localStorage.removeItem(ACTIVE_BG_KEY);
+      }
+      renderAssetGalleries();
+    }
+
+    // Upload & Permanently Save Stamp PNG
+    function uploadStamp(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      compressImageFile(file, 600, 0.9, true, (dataUrl) => {
+        const stampList = JSON.parse(localStorage.getItem(STAMP_LIST_KEY) || '[]');
+        const newItem = {
+          id: 'st_' + Date.now(),
+          name: file.name,
+          dataUrl: dataUrl
+        };
+        stampList.unshift(newItem);
+        try {
+          localStorage.setItem(STAMP_LIST_KEY, JSON.stringify(stampList.slice(0, 10)));
+          localStorage.setItem(ACTIVE_STAMP_KEY, dataUrl);
+        } catch (err) {}
+        const stampImg = document.getElementById('stampImg');
+        if (stampImg) {
+          stampImg.src = dataUrl;
+          document.getElementById('stampOverlay').style.display = 'block';
+        }
+        renderAssetGalleries();
+        handleEditorInput();
+      });
+      event.target.value = '';
+    }
+
+    function selectSavedStamp(id) {
+      const stampList = JSON.parse(localStorage.getItem(STAMP_LIST_KEY) || '[]');
+      const found = stampList.find(x => x.id === id);
+      if (found) {
+        localStorage.setItem(ACTIVE_STAMP_KEY, found.dataUrl);
+        const stampImg = document.getElementById('stampImg');
+        if (stampImg) {
+          stampImg.src = found.dataUrl;
+          document.getElementById('stampOverlay').style.display = 'block';
+        }
+        renderAssetGalleries();
+        handleEditorInput();
+      }
+    }
+
+    function deleteSavedStamp(e, id) {
+      e.stopPropagation();
+      let stampList = JSON.parse(localStorage.getItem(STAMP_LIST_KEY) || '[]');
+      stampList = stampList.filter(x => x.id !== id);
+      localStorage.setItem(STAMP_LIST_KEY, JSON.stringify(stampList));
+      if (stampList.length > 0) {
+        localStorage.setItem(ACTIVE_STAMP_KEY, stampList[0].dataUrl);
+        document.getElementById('stampImg').src = stampList[0].dataUrl;
+      } else {
+        localStorage.removeItem(ACTIVE_STAMP_KEY);
+        document.getElementById('stampOverlay').style.display = 'none';
+      }
+      renderAssetGalleries();
+    }
+
+    // Sidebar Tab Switching (Editor vs. History)
+    function switchSidebarTab(tab) {
+      document.getElementById('tabBtnEditor').classList.toggle('active', tab === 'editor');
+      document.getElementById('tabBtnHistory').classList.toggle('active', tab === 'history');
+      document.getElementById('tabPaneEditor').classList.toggle('active', tab === 'editor');
+      document.getElementById('tabPaneHistory').classList.toggle('active', tab === 'history');
+      if (tab === 'history') renderHistoryList();
+    }
+
+    // Save Current Letter to All-Time History
+    function saveLetterToHistory() {
+      const ref = document.getElementById('refInput').value.trim() || 'AW/LTR/2026/001';
+      const recipientEl = document.querySelector('.doc-recipient');
+      const subjectEl = document.querySelector('.doc-subject');
+      const recipient = recipientEl ? recipientEl.innerText.replace(/[\[\]]/g, '').trim() : 'General Recipient';
+      const subject = subjectEl ? subjectEl.innerText.replace(/[\[\]]/g, '').trim() : 'Official Letter';
+
+      const history = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
+      const entry = {
+        id: 'ltr_' + Date.now(),
+        ref: ref,
+        recipient: recipient,
+        subject: subject,
+        timestamp: new Date().toLocaleString([], { year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit' }),
+        html: document.getElementById('pages-container').innerHTML
+      };
+
+      history.unshift(entry);
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+      renderHistoryList();
+      switchSidebarTab('history');
+    }
+
+    function renderHistoryList() {
+      const history = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
+      document.getElementById('historyCountBadge').innerText = history.length;
+
+      const query = (document.getElementById('historySearchInput')?.value || '').toLowerCase().trim();
+      const filtered = history.filter(item =>
+        item.ref.toLowerCase().includes(query) ||
+        item.recipient.toLowerCase().includes(query) ||
+        item.subject.toLowerCase().includes(query)
+      );
+
+      const container = document.getElementById('historyListContainer');
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="empty-history">No saved letters found.<br>Click <b>"Save Letter to History"</b> to store letters here permanently.</div>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map(item => `
+        <div class="history-item">
+          <div class="history-item-top">
+            <span class="history-ref">${item.ref}</span>
+            <span class="history-date">${item.timestamp}</span>
+          </div>
+          <div class="history-meta">
+            <strong>To:</strong> ${item.recipient}<br>
+            <strong>Sub:</strong> ${item.subject}
+          </div>
+          <div class="history-actions">
+            <button class="btn btn-primary" onclick="loadHistoryLetter('${item.id}')">📂 Load</button>
+            <button class="btn" onclick="duplicateHistoryLetter('${item.id}')">📄 Clone</button>
+            <button class="btn btn-danger" style="flex:0.4;" onclick="deleteHistoryLetter('${item.id}')" title="Delete">🗑️</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function loadHistoryLetter(id) {
+      const history = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
+      const found = history.find(x => x.id === id);
+      if (!found) return;
+      document.getElementById('pages-container').innerHTML = found.html;
+      document.getElementById('refInput').value = found.ref;
+      restoreSavedStationery();
+      attachPageEvents();
+      updatePageBadges();
+      handleEditorInput();
+    }
+
+    function duplicateHistoryLetter(id) {
+      loadHistoryLetter(id);
+      incrementRef();
+      document.querySelectorAll('.doc-date').forEach(el => el.innerText = getFormattedDate());
+      switchSidebarTab('editor');
+    }
+
+    function deleteHistoryLetter(id) {
+      if (!confirm('Remove this letter from your saved history?')) return;
+      let history = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
+      history = history.filter(x => x.id !== id);
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+      renderHistoryList();
+    }
+
+    // Settings Modal Functions
+    function loadAppSettings() {
+      const saved = localStorage.getItem(SETTINGS_KEY);
+      if (saved) {
+        try { appSettings = { ...appSettings, ...JSON.parse(saved) }; } catch (e) {}
+      }
+      document.getElementById('navCompanyName').innerText = appSettings.companyName;
+      document.getElementById('navBrandBadge').innerText = getInitials(appSettings.companyName);
+      document.title = `Letterhead Studio - ${appSettings.companyName}`;
+
+      document.getElementById('setCompanyName').value = appSettings.companyName;
+      document.getElementById('setRefPrefix').value = appSettings.refPrefix;
+      document.getElementById('setSignatory').value = appSettings.signatory;
+      document.getElementById('setMarginTop').value = appSettings.marginTop;
+      document.getElementById('setMarginLeft').value = appSettings.marginLeft;
+      document.getElementById('setMarginWidth').value = appSettings.marginWidth;
+      document.getElementById('setMarginHeight').value = appSettings.marginHeight;
+    }
+
+    function openSettingsModal() {
+      loadAppSettings();
+      document.getElementById('settingsModal').classList.add('open');
+    }
+
+    function closeSettingsModal() {
+      document.getElementById('settingsModal').classList.remove('open');
+    }
+
+    function saveAppSettings() {
+      appSettings.companyName = document.getElementById('setCompanyName').value.trim() || 'Azad Wattan General Trading Co.';
+      appSettings.refPrefix = document.getElementById('setRefPrefix').value.trim() || 'AW/LTR/2026/';
+      appSettings.signatory = document.getElementById('setSignatory').value.trim() || 'Authorized Signatory';
+      appSettings.marginTop = parseInt(document.getElementById('setMarginTop').value, 10) || 130;
+      appSettings.marginLeft = parseInt(document.getElementById('setMarginLeft').value, 10) || 70;
+      appSettings.marginWidth = parseInt(document.getElementById('setMarginWidth').value, 10) || 650;
+      appSettings.marginHeight = parseInt(document.getElementById('setMarginHeight').value, 10) || 820;
+
+      localStorage.setItem(SETTINGS_KEY, JSON.stringify(appSettings));
+      loadAppSettings();
+      applyBrandingToDocument();
+      applyAreaMargins();
+      handleEditorInput();
+      closeSettingsModal();
+    }
+
+    function applyBrandingToDocument() {
+      document.querySelectorAll('.doc-company').forEach(el => el.innerText = appSettings.companyName);
+      document.querySelectorAll('.doc-signatory').forEach(el => el.innerText = appSettings.signatory);
+    }
+
+    function applyAreaMargins() {
+      document.querySelectorAll('.content-area').forEach(area => {
+        area.style.top = appSettings.marginTop + 'px';
+        area.style.left = appSettings.marginLeft + 'px';
+        area.style.width = appSettings.marginWidth + 'px';
+        area.style.height = appSettings.marginHeight + 'px';
+      });
+      checkOverflowAndStats();
+    }
+
+    // Export & Import Full JSON Backup
+    function exportFullBackup() {
+      const backup = {
+        exportedAt: new Date().toISOString(),
+        settings: appSettings,
+        history: JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]'),
+        bgList: JSON.parse(localStorage.getItem(BG_LIST_KEY) || '[]'),
+        activeBg: localStorage.getItem(ACTIVE_BG_KEY),
+        stampList: JSON.parse(localStorage.getItem(STAMP_LIST_KEY) || '[]'),
+        activeStamp: localStorage.getItem(ACTIVE_STAMP_KEY)
+      };
+      const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `Azad_Wattan_Letterhead_Backup_${new Date().toISOString().slice(0,10)}.json`;
+      a.click();
+    }
+
+    function importFullBackup(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const data = JSON.parse(e.target.result);
+          if (data.settings) localStorage.setItem(SETTINGS_KEY, JSON.stringify(data.settings));
+          if (data.history) localStorage.setItem(HISTORY_KEY, JSON.stringify(data.history));
+          if (data.bgList) localStorage.setItem(BG_LIST_KEY, JSON.stringify(data.bgList));
+          if (data.activeBg) localStorage.setItem(ACTIVE_BG_KEY, data.activeBg);
+          if (data.stampList) localStorage.setItem(STAMP_LIST_KEY, JSON.stringify(data.stampList));
+          if (data.activeStamp) localStorage.setItem(ACTIVE_STAMP_KEY, data.activeStamp);
+          alert('Backup restored! Reloading studio...');
+          location.reload();
+        } catch (err) {
+          alert('Invalid backup JSON file.');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function clearSavedAssets() {
+      if (!confirm('Delete all saved letterhead backgrounds and stamps from browser storage?')) return;
+      localStorage.removeItem(BG_LIST_KEY);
+      localStorage.removeItem(ACTIVE_BG_KEY);
+      localStorage.removeItem(STAMP_LIST_KEY);
+      localStorage.removeItem(ACTIVE_STAMP_KEY);
+      renderAssetGalleries();
+    }
+
+    function clearAllHistory() {
+      if (!confirm('Delete ALL saved letters from History permanently?')) return;
+      localStorage.removeItem(HISTORY_KEY);
+      renderHistoryList();
+    }
+
+    // Core Editor Formatting & Event Handlers
+    function attachPageEvents() {
+      document.querySelectorAll('.content-area').forEach(area => {
+        area.onpaste = function(e) {
+          e.preventDefault();
+          const text = (e.originalEvent || e).clipboardData.getData('text/plain');
+          document.execCommand('insertText', false, text);
+        };
+      });
+      const stamp = document.getElementById('stampOverlay');
+      if (stamp) makeDraggable(stamp);
+    }
+
+    function formatDoc(cmd, value = null) {
+      document.execCommand(cmd, false, value);
+      handleEditorInput();
+    }
+
+    function changeFontFamily(font) {
+      document.querySelectorAll('.content-area').forEach(el => el.style.fontFamily = font);
+      handleEditorInput();
+    }
+
+    function changeFontSize(size) {
+      document.querySelectorAll('.content-area').forEach(el => el.style.fontSize = size);
+      handleEditorInput();
+    }
+
+    function changeLineHeight(lh) {
+      document.querySelectorAll('.content-area').forEach(el => el.style.lineHeight = lh);
+      handleEditorInput();
+    }
+
+    function toggleGuides() {
+      document.body.classList.toggle('hide-guides');
+    }
+
+    function adjustZoom(delta) {
+      currentZoom = Math.min(1.25, Math.max(0.5, +(currentZoom + delta).toFixed(2)));
+      document.getElementById('pages-container').style.transform = `scale(${currentZoom})`;
+      document.getElementById('zoomLabel').innerText = `${Math.round(currentZoom * 100)}%`;
+    }
+
+    function insertCustomTable() {
+      const rows = prompt('Number of rows:', '4');
+      const cols = prompt('Number of columns:', '4');
+      if (!rows || !cols) return;
+
+      let html = '<table><thead><tr>';
+      for (let c = 0; c < cols; c++) html += `<th>Header ${c + 1}</th>`;
+      html += '</tr></thead><tbody>';
+      for (let r = 0; r < rows - 1; r++) {
+        html += '<tr>';
+        for (let c = 0; c < cols; c++) html += '<td>Data</td>';
+        html += '</tr>';
+      }
+      html += '</tbody></table><p><br></p>';
+
+      const activeArea = document.querySelector('.content-area');
+      activeArea.focus();
+      document.execCommand('insertHTML', false, html);
+      handleEditorInput();
+    }
+
+    function syncMetadata() {
+      const val = document.getElementById('refInput').value;
+      document.querySelectorAll('.doc-ref').forEach(el => el.innerText = val);
+      handleEditorInput();
+    }
+
+    function incrementRef() {
+      const input = document.getElementById('refInput');
+      input.value = input.value.replace(/(\d+)$/, (match) => {
+        return String(parseInt(match, 10) + 1).padStart(match.length, '0');
+      });
+      syncMetadata();
+    }
+
+    // Commercial Templates with Dynamic Azad Wattan Branding
+    function applyTemplate(type) {
+      if (!type) return;
+      const dateStr = getFormattedDate();
+      const refStr = document.getElementById('refInput').value;
+      const comp = appSettings.companyName;
+      const sig = appSettings.signatory;
+      const firstArea = document.querySelector('.content-area');
+
+      const templates = {
+        default: `
+          <p><strong>Date:</strong> <span class="doc-date">${dateStr}</span></p>
+          <p><strong>Ref No:</strong> <span class="doc-ref">${refStr}</span></p>
+          <br>
+          <p><strong>To:</strong> <span class="doc-recipient">[Recipient Name / Company Name]</span></p>
+          <p><strong>Subject:</strong> <span class="doc-subject">[Insert Subject Here]</span></p>
+          <br>
+          <p>Dear Sir/Madam,</p>
+          <br>
+          <p>Type your letter content here. The text area is calibrated to fit between the top header and the stamp/footer area at the bottom.</p>
+          <br><br><br>
+          <p>Sincerely,</p>
+          <br><br>
+          <p><strong class="doc-signatory">${sig}</strong><br><span class="doc-company">${comp}</span></p>
+        `,
+        loi: `
+          <p><strong>Date:</strong> <span class="doc-date">${dateStr}</span></p>
+          <p><strong>Ref No:</strong> <span class="doc-ref">${refStr}</span></p>
+          <br>
+          <p><strong>To:</strong> <span class="doc-recipient">[Supplier / Exporter Company Name]</span></p>
+          <p><strong>Subject:</strong> <span class="doc-subject">LETTER OF INTENT (LOI) FOR PURCHASE OF COMMODITIES</span></p>
+          <br>
+          <p>Dear Sir/Madam,</p>
+          <br>
+          <p>We, <strong class="doc-company">${comp}</strong>, hereby confirm our official intent with full corporate responsibility to purchase the following goods under the terms specified below:</p>
+          <table>
+            <thead>
+              <tr><th>Commodity / Specification</th><th>Origin</th><th>Quantity</th><th>Target Price / Incoterms</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>[Specify Product & Grade]</td><td>[Origin Country]</td><td>[e.g., 5 x 40' FCL]</td><td>[USD / MT CIF Jebel Ali]</td></tr>
+            </tbody>
+          </table>
+          <p><strong>Packing:</strong> Export Standard Containerized Packing<br>
+          <strong>Discharge Port:</strong> Jebel Ali Port, UAE / Bandar Abbas<br>
+          <strong>Payment Terms:</strong> 100% TT against Shipping Documents</p>
+          <br>
+          <p>Please issue your official Full Corporate Offer (FCO) and Proforma Invoice at your earliest convenience.</p>
+          <br><br>
+          <p>Sincerely,</p>
+          <br>
+          <p><strong class="doc-signatory">${sig}</strong><br><span class="doc-company">${comp}</span></p>
+        `,
+        noc: `
+          <p><strong>Date:</strong> <span class="doc-date">${dateStr}</span></p>
+          <p><strong>Ref No:</strong> <span class="doc-ref">${refStr}</span></p>
+          <br>
+          <p><strong>To:</strong> <span class="doc-recipient">The Director of Customs / Port Authority</span></p>
+          <p><strong>Subject:</strong> <span class="doc-subject">NO OBJECTION CERTIFICATE (NOC) FOR CARGO CLEARANCE</span></p>
+          <br>
+          <p>Dear Sir,</p>
+          <br>
+          <p>This is to certify that we, <strong class="doc-company">${comp}</strong>, have no objection to authorizing <strong>[Clearing Agent / Transferee Company Name]</strong> to handle customs clearance, documentation, and container delivery for the shipment detailed below:</p>
+          <table>
+            <thead>
+              <tr><th>B/L Number</th><th>Container No.</th><th>Vessel / Voyage</th><th>Description of Goods</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>[B/L No.]</td><td>[Container No.]</td><td>[Vessel Name]</td><td>[General Cargo]</td></tr>
+            </tbody>
+          </table>
+          <p>This certificate is issued at the request of the concerned party without any financial liability on our part.</p>
+          <br><br>
+          <p>Sincerely,</p>
+          <br><br>
+          <p><strong class="doc-signatory">${sig}</strong><br><span class="doc-company">${comp}</span></p>
+        `,
+        packing: `
+          <p><strong>Date:</strong> <span class="doc-date">${dateStr}</span></p>
+          <p><strong>Ref No:</strong> <span class="doc-ref">${refStr}</span></p>
+          <br>
+          <p><strong>To:</strong> <span class="doc-recipient">[Consignee / Logistics Partner]</span></p>
+          <p><strong>Subject:</strong> <span class="doc-subject">SHIPMENT & CONTAINER PACKING DECLARATION</span></p>
+          <br>
+          <p>Please find below the verified container and cargo dispatch summary:</p>
+          <table>
+            <thead>
+              <tr><th>Container / Truck No.</th><th>Seal No.</th><th>Packages / Cartons</th><th>Net Weight (KG)</th><th>Gross Weight (KG)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>[CONT-001]</td><td>[SEAL-01]</td><td>[1,200 CTNS]</td><td>[22,000.00]</td><td>[23,400.00]</td></tr>
+              <tr><td>[CONT-002]</td><td>[SEAL-02]</td><td>[1,200 CTNS]</td><td>[22,000.00]</td><td>[23,400.00]</td></tr>
+            </tbody>
+          </table>
+          <p><strong>Route / Destination:</strong> Jebel Ali &rarr; Bandar Abbas &rarr; [Final Border Point]<br>
+          <strong>Remarks:</strong> All packages inspected and loaded in sound export condition.</p>
+          <br><br>
+          <p><strong class="doc-signatory">${sig}</strong><br><span class="doc-company">${comp}</span></p>
+        `,
+        receipt: `
+          <p><strong>Date:</strong> <span class="doc-date">${dateStr}</span></p>
+          <p><strong>Ref No:</strong> <span class="doc-ref">${refStr}</span></p>
+          <br>
+          <p><strong>To:</strong> <span class="doc-recipient">[Payer / Client Company Name]</span></p>
+          <p><strong>Subject:</strong> <span class="doc-subject">OFFICIAL PAYMENT CONFIRMATION & RECEIPT</span></p>
+          <br>
+          <p>Dear Sir/Madam,</p>
+          <br>
+          <p>We hereby acknowledge with thanks the receipt of payment as per the following settlement breakdown:</p>
+          <table>
+            <thead>
+              <tr><th>Invoice / Reference</th><th>Payment Mode</th><th>Currency</th><th>Amount Received</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>[INV-2026-001]</td><td>[Bank TT / Cash]</td><td>[USD / AED]</td><td>[00,000.00]</td></tr>
+            </tbody>
+          </table>
+          <p><strong>Remaining Balance:</strong> [USD / AED 0.00]</p>
+          <br>
+          <p>Thank you for your continued business.</p>
+          <br><br>
+          <p><strong class="doc-signatory">${sig}</strong><br><span class="doc-company">${comp}</span></p>
+        `
+      };
+
+      if (templates[type]) {
+        firstArea.innerHTML = templates[type];
+        handleEditorInput();
+      }
+    }
+
+    function toggleBgVisibility() {
+      bgVisible = !bgVisible;
+      document.querySelectorAll('.bg-image').forEach(img => {
+        img.style.visibility = bgVisible ? 'visible' : 'hidden';
+      });
+    }
+
+    function toggleStamp() {
+      const stamp = document.getElementById('stampOverlay');
+      if (!stamp) return;
+      stamp.style.display = (stamp.style.display === 'none' || !stamp.style.display) ? 'block' : 'none';
+    }
+
+    function resizeStamp(val) {
+      document.getElementById('stampSizeVal').innerText = val;
+      const stamp = document.getElementById('stampOverlay');
+      if (stamp) stamp.style.width = val + 'px';
+      handleEditorInput();
+    }
+
+    function makeDraggable(el) {
+      let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+      el.onmousedown = function(e) {
+        e.preventDefault();
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = function() {
+          document.onmouseup = null;
+          document.onmousemove = null;
+          handleEditorInput();
+        };
+        document.onmousemove = function(e) {
+          e.preventDefault();
+          pos1 = pos3 - e.clientX;
+          pos2 = pos4 - e.clientY;
+          pos3 = e.clientX;
+          pos4 = e.clientY;
+          el.style.top = (el.offsetTop - pos2) + "px";
+          el.style.left = (el.offsetLeft - pos1) + "px";
+          el.style.bottom = "auto";
+          el.style.right = "auto";
+        };
+      };
+    }
+
+    function addNewPage() {
+      const container = document.getElementById('pages-container');
+      const pageCount = container.querySelectorAll('.page').length + 1;
+      const firstBgSrc = document.querySelector('.bg-image').src;
+
+      const pageDiv = document.createElement('div');
+      pageDiv.className = 'page';
+      pageDiv.id = `page-${pageCount}`;
+      pageDiv.innerHTML = `
+        <div class="page-badge">
+          <span>Page ${pageCount}</span>
+          <button onclick="removePage(this)">Remove</button>
+        </div>
+        <img class="bg-image" src="${firstBgSrc}" alt="Letterhead Background" style="visibility: ${bgVisible ? 'visible' : 'hidden'}">
+        <div class="content-area" contenteditable="true" oninput="handleEditorInput()">
+          <p><strong>Ref No:</strong> <span class="doc-ref">${document.getElementById('refInput').value}</span> (Continued - Page ${pageCount})</p>
+          <br>
+          <p>Continue typing here...</p>
+        </div>
+      `;
+      container.appendChild(pageDiv);
+      applyAreaMargins();
+      attachPageEvents();
+      updatePageBadges();
+      handleEditorInput();
+    }
+
+    function removePage(btn) {
+      const page = btn.closest('.page');
+      if (page) {
+        page.remove();
+        updatePageBadges();
+        handleEditorInput();
+      }
+    }
+
+    function updatePageBadges() {
+      const pages = document.querySelectorAll('.page');
+      pages.forEach((p, idx) => {
+        const span = p.querySelector('.page-badge span');
+        if (span) span.innerText = `Page ${idx + 1} of ${pages.length}`;
+      });
+    }
+
+    function handleEditorInput() {
+      checkOverflowAndStats();
+      localStorage.setItem(DRAFT_KEY, document.getElementById('pages-container').innerHTML);
+      document.getElementById('saveStatus').innerText = 'Saved ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    }
+
+    function checkOverflowAndStats() {
+      let anyOverflow = false;
+      let totalWords = 0;
+
+      document.querySelectorAll('.page').forEach(page => {
+        const area = page.querySelector('.content-area');
+        const text = area.innerText.trim();
+        if (text) totalWords += text.split(/\s+/).length;
+
+        if (area.scrollHeight > area.clientHeight + 2) {
+          page.classList.add('overflowing');
+          anyOverflow = true;
+        } else {
+          page.classList.remove('overflowing');
+        }
+      });
+
+      document.getElementById('wordCountStatus').innerText = `Words: ${totalWords}`;
+      document.getElementById('overflowAlert').style.display = anyOverflow ? 'inline-flex' : 'none';
+    }
+
+    function resetEditor() {
+      if (!confirm('Clear current draft text? (Your saved letterheads, stamps, and history will remain intact)')) return;
+      localStorage.removeItem(DRAFT_KEY);
+      location.reload();
+    }
+
+    function printDocument() {
+      const ref = (document.getElementById('refInput').value || 'Letter').replace(/[^a-zA-Z0-9-_]/g, '-');
+      const recipientEl = document.querySelector('.doc-recipient');
+      let recipient = recipientEl ? recipientEl.innerText.replace(/[\[\]]/g, '').trim() : '';
+      recipient = recipient.replace(/[^a-zA-Z0-9-_ ]/g, '').trim().replace(/\s+/g, '_');
+
+      const originalTitle = document.title;
+      document.title = recipient && recipient !== 'Recipient_Name__Company_Name'
+        ? `${ref}_${recipient}`
+        : `${ref}_Azad_Wattan`;
+
+      window.print();
+      setTimeout(() => { document.title = originalTitle; }, 1000);
+    }
+  </script>
+</body>
+</html>
