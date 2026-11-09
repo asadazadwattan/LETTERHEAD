@@ -3,24 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Letterhead Studio - Azad Wattan General Trading Co.</title>
+  <title>Letterhead Studio Enterprise 3D - Azad Wattan General Trading Co.</title>
   <style>
     :root {
-      --bg-workspace: #0f172a;
-      --bg-panel: #1e293b;
-      --bg-card: #334155;
-      --bg-input: #0f172a;
-      --border-color: #334155;
-      --border-subtle: rgba(255, 255, 255, 0.08);
+      --bg-workspace: #070b14;
+      --bg-header: #0d1424;
+      --bg-toolbar: #111a2f;
+      --bg-panel: #0f172a;
+      --bg-card: rgba(22, 33, 56, 0.7);
+      --bg-card-hover: rgba(30, 45, 77, 0.9);
+      --bg-input: #080d1a;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-subtle: rgba(255, 255, 255, 0.04);
+      --border-focus: #3b82f6;
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
+      --text-dim: #64748b;
       --accent: #3b82f6;
       --accent-hover: #2563eb;
+      --accent-glow: rgba(59, 130, 246, 0.4);
       --success: #10b981;
       --danger: #ef4444;
       --warning: #f59e0b;
-      --sidebar-width: 330px;
-      --header-height: 58px;
+      --gold-1: #fef08a;
+      --gold-2: #ca8a04;
+      --gold-3: #854d0e;
+      --sidebar-width: 360px;
+      --header-height: 48px;
+      --toolbar-height: 42px;
       --statusbar-height: 32px;
     }
 
@@ -33,24 +43,37 @@
     body {
       background-color: var(--bg-workspace);
       color: var(--text-main);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       height: 100vh;
       overflow: hidden;
       display: flex;
       flex-direction: column;
+      user-select: none;
     }
 
-    /* ================= TOP RIBBON NAVBAR ================= */
-    .top-navbar {
+    .icon {
+      width: 15px;
+      height: 15px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    /* ================= 1. APP HEADER WITH TACTILE 3D BUTTONS ================= */
+    .app-header {
       height: var(--header-height);
-      background-color: var(--bg-panel);
+      background: linear-gradient(180deg, #111a2e, #0c1322);
       border-bottom: 1px solid var(--border-color);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 18px;
+      padding: 0 16px;
       z-index: 100;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.45);
+      gap: 12px;
     }
 
     .brand-section {
@@ -59,197 +82,312 @@
       gap: 12px;
     }
 
+    .sidebar-toggle-btn {
+      background: linear-gradient(180deg, #1e293b, #0f172a);
+      border: 1px solid var(--border-color);
+      border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+      color: var(--text-muted);
+      width: 30px;
+      height: 30px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+      transition: all 0.1s ease;
+    }
+
+    .sidebar-toggle-btn:hover {
+      color: var(--text-main);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .sidebar-toggle-btn:active {
+      transform: translateY(1.5px);
+      border-bottom-width: 1px;
+    }
+
     .brand-badge {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
+      width: 30px;
+      height: 30px;
+      border-radius: 6px;
       background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      border-top: 1px solid rgba(255, 255, 255, 0.3);
+      border-bottom: 2px solid #1e3a8a;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 800;
-      font-size: 14px;
-      color: #fff;
-      letter-spacing: 0.5px;
-      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
-    }
-
-    .brand-title {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .brand-title h1 {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text-main);
-      letter-spacing: 0.2px;
-    }
-
-    .brand-title span {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    /* Center Formatting Ribbon */
-    .formatting-ribbon {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background-color: var(--bg-input);
-      padding: 5px 10px;
-      border-radius: 8px;
-      border: 1px solid var(--border-color);
-    }
-
-    .ribbon-divider {
-      width: 1px;
-      height: 22px;
-      background-color: var(--border-color);
-      margin: 0 4px;
-    }
-
-    .icon-btn {
-      background: transparent;
-      color: var(--text-main);
-      border: 1px solid transparent;
-      width: 30px;
-      height: 30px;
-      border-radius: 5px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
       font-size: 13px;
-      transition: all 0.15s ease;
+      color: #fff;
+      box-shadow: 0 2px 8px var(--accent-glow);
     }
 
-    .icon-btn:hover {
-      background-color: var(--bg-card);
-      border-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .icon-btn svg {
-      width: 15px;
-      height: 15px;
-      fill: currentColor;
-    }
-
-    .ribbon-select {
-      background-color: var(--bg-panel);
+    .doc-title-input {
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid transparent;
       color: var(--text-main);
-      border: 1px solid var(--border-color);
+      font-size: 13.5px;
+      font-weight: 600;
       padding: 4px 8px;
-      border-radius: 5px;
-      font-size: 12px;
+      border-radius: 6px;
       outline: none;
-      cursor: pointer;
+      transition: all 0.15s ease;
+      width: 280px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.4);
     }
 
-    .ribbon-select:hover {
+    .doc-title-input:hover {
+      background: rgba(0, 0, 0, 0.4);
+      border-color: var(--border-color);
+    }
+
+    .doc-title-input:focus {
+      background: var(--bg-input);
       border-color: var(--accent);
     }
 
-    /* Right Action Buttons */
-    .action-buttons {
+    .save-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--text-muted);
+      padding: 3px 8px;
+      background: rgba(0, 0, 0, 0.35);
+      border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);
+    }
+
+    .pulse-dot {
+      width: 6px;
+      height: 6px;
+      background-color: var(--success);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--success);
+    }
+
+    .header-actions {
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
+    /* 3D Tactile Action Buttons */
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
-      padding: 7px 12px;
-      font-size: 12px;
+      padding: 6px 12px;
+      font-size: 11.5px;
       font-weight: 600;
       border-radius: 6px;
       border: 1px solid var(--border-color);
-      background-color: var(--bg-card);
+      border-bottom: 2.5px solid rgba(0, 0, 0, 0.45);
+      background: linear-gradient(180deg, #1e293b, #152033);
       color: var(--text-main);
       cursor: pointer;
-      transition: all 0.15s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      transition: all 0.08s ease;
+      white-space: nowrap;
     }
 
     .btn:hover {
-      background-color: #475569;
+      background: linear-gradient(180deg, #27354d, #1a273e);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn:active {
+      transform: translateY(2px);
+      border-bottom-width: 1px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      background: linear-gradient(180deg, #3b82f6, #1d4ed8);
       border-color: #2563eb;
+      border-bottom: 2.5px solid #172554;
       color: #fff;
-      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.35);
+      box-shadow: 0 3px 8px var(--accent-glow);
     }
 
     .btn-primary:hover {
-      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      background: linear-gradient(180deg, #60a5fa, #2563eb);
     }
 
     .btn-success {
-      background-color: rgba(16, 185, 129, 0.15);
-      border-color: rgba(16, 185, 129, 0.4);
-      color: #34d399;
+      background: linear-gradient(180deg, #059669, #047857);
+      border-color: #10b981;
+      border-bottom: 2.5px solid #064e3b;
+      color: #fff;
     }
 
-    .btn-success:hover {
-      background-color: rgba(16, 185, 129, 0.25);
+    .btn-warning {
+      background: linear-gradient(180deg, #d97706, #b45309);
+      border-color: #f59e0b;
+      border-bottom: 2.5px solid #78350f;
+      color: #fff;
     }
 
     .btn-danger {
-      background-color: rgba(239, 68, 68, 0.15);
-      border-color: rgba(239, 68, 68, 0.4);
-      color: #f87171;
+      background: linear-gradient(180deg, #dc2626, #b91c1c);
+      border-color: #ef4444;
+      border-bottom: 2.5px solid #7f1d1d;
+      color: #fff;
     }
 
-    .btn-danger:hover {
-      background-color: rgba(239, 68, 68, 0.25);
+    /* ================= 2. FORMATTING TOOLBAR ================= */
+    .formatting-toolbar {
+      height: var(--toolbar-height);
+      background: linear-gradient(180deg, #131c33, #0e1628);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 5px;
+      z-index: 90;
+      overflow-x: auto;
     }
 
-    .settings-trigger {
-      width: 34px;
-      height: 34px;
-      padding: 0;
+    .tool-group {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .ribbon-divider {
+      width: 1px;
+      height: 20px;
+      background-color: var(--border-color);
+      margin: 0 4px;
+      flex-shrink: 0;
+    }
+
+    .tool-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-main);
+      width: 28px;
+      height: 28px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.1s ease;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    .tool-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--border-color);
+    }
+
+    .tool-btn:active {
+      transform: translateY(1px);
+    }
+
+    .tool-btn.active {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.4);
+    }
+
+    /* Recessed Input Wells */
+    .tool-select, .form-control {
+      background-color: var(--bg-input);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+      border-top: 1.5px solid rgba(0, 0, 0, 0.6);
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+      padding: 4px 8px;
       border-radius: 6px;
+      font-size: 11.5px;
+      outline: none;
+      transition: border-color 0.15s ease;
     }
 
-    .settings-trigger svg {
-      width: 17px;
-      height: 17px;
-      fill: currentColor;
-      transition: transform 0.25s ease;
+    .tool-select {
+      height: 28px;
+      cursor: pointer;
     }
 
-    .settings-trigger:hover svg {
-      transform: rotate(45deg);
+    .tool-select:hover, .form-control:focus {
+      border-color: var(--accent);
     }
 
-    /* ================= MAIN WORKSPACE AREA ================= */
+    .color-swatch-wrapper {
+      position: relative;
+      width: 28px;
+      height: 28px;
+      border-radius: 5px;
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border-color);
+      border-top: 1.5px solid rgba(0, 0, 0, 0.5);
+      background: var(--bg-panel);
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
+    }
+
+    .color-swatch-wrapper input[type="color"] {
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      width: 48px;
+      height: 48px;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .color-swatch-indicator {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    }
+
+    /* ================= 3. WORKSPACE & SIDEBAR ================= */
     .workspace-body {
       display: flex;
       flex: 1;
-      height: calc(100vh - var(--header-height) - var(--statusbar-height));
+      height: calc(100vh - var(--header-height) - var(--toolbar-height) - var(--statusbar-height));
       overflow: hidden;
+      position: relative;
     }
 
-    /* Left Inspector Sidebar with Tabs */
     .sidebar {
       width: var(--sidebar-width);
-      background-color: var(--bg-panel);
+      background: linear-gradient(180deg, #10182b, #0b1120);
       border-right: 1px solid var(--border-color);
       display: flex;
       flex-direction: column;
       flex-shrink: 0;
+      transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 50;
+    }
+
+    .sidebar.collapsed {
+      width: 0;
+      overflow: hidden;
+      border-right-color: transparent;
     }
 
     .sidebar-tabs {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      background-color: var(--bg-input);
-      padding: 6px;
-      gap: 6px;
+      grid-template-columns: 1fr 1fr 1fr;
+      background-color: var(--bg-header);
+      padding: 5px;
+      gap: 4px;
       border-bottom: 1px solid var(--border-color);
     }
 
@@ -257,35 +395,37 @@
       background: transparent;
       color: var(--text-muted);
       border: none;
-      padding: 8px 10px;
-      font-size: 12px;
+      padding: 7px 4px;
+      font-size: 11px;
       font-weight: 700;
       border-radius: 6px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 5px;
       transition: all 0.15s ease;
     }
 
     .tab-btn.active {
-      background-color: var(--accent);
+      background: linear-gradient(180deg, #3b82f6, #2563eb);
       color: #ffffff;
-      box-shadow: 0 2px 6px rgba(59, 130, 246, 0.3);
+      border-top: 1px solid rgba(255,255,255,0.3);
+      border-bottom: 2px solid #1e3a8a;
+      box-shadow: 0 2px 6px var(--accent-glow);
     }
 
     .tab-badge {
-      background: rgba(0, 0, 0, 0.25);
+      background: rgba(0, 0, 0, 0.35);
       padding: 1px 6px;
-      border-radius: 10px;
-      font-size: 10px;
+      border-radius: 8px;
+      font-size: 9px;
     }
 
     .tab-pane {
       display: none;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
       padding: 14px;
       overflow-y: auto;
       flex: 1;
@@ -296,20 +436,23 @@
     }
 
     .panel-card {
-      background-color: rgba(15, 23, 42, 0.55);
+      background: var(--bg-card);
       border: 1px solid var(--border-color);
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 8px;
       padding: 12px;
       display: flex;
       flex-direction: column;
       gap: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(8px);
     }
 
     .panel-header {
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.7px;
+      letter-spacing: 0.6px;
       color: var(--text-muted);
       display: flex;
       align-items: center;
@@ -319,20 +462,19 @@
     }
 
     .saved-badge {
-      font-size: 10px;
+      font-size: 9.5px;
       padding: 2px 6px;
       border-radius: 10px;
       background-color: rgba(16, 185, 129, 0.15);
       color: #34d399;
       font-weight: 600;
       text-transform: none;
-      letter-spacing: 0;
     }
 
     .form-group {
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 4px;
     }
 
     .form-group label {
@@ -346,28 +488,19 @@
       gap: 6px;
     }
 
-    .form-control {
-      width: 100%;
-      background-color: var(--bg-input);
-      border: 1px solid var(--border-color);
-      color: var(--text-main);
-      padding: 7px 10px;
-      border-radius: 6px;
-      font-size: 12px;
-      outline: none;
-    }
-
-    .form-control:focus {
-      border-color: var(--accent);
-    }
-
     .grid-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 6px;
     }
 
-    /* Asset Thumbnail Gallery (Saved Letterheads & Stamps) */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+    }
+
+    /* 3D Asset Thumbnails */
     .asset-gallery {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -377,18 +510,26 @@
 
     .asset-thumb {
       position: relative;
-      height: 54px;
+      height: 52px;
       border-radius: 6px;
-      border: 2px solid var(--border-color);
+      border: 1.5px solid var(--border-color);
+      border-top: 1.5px solid rgba(255,255,255,0.2);
+      border-bottom: 2.5px solid rgba(0,0,0,0.6);
       background-color: #ffffff;
       overflow: hidden;
       cursor: pointer;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.35);
       transition: all 0.15s ease;
+    }
+
+    .asset-thumb:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
     }
 
     .asset-thumb.active {
       border-color: var(--accent);
-      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.35);
+      box-shadow: 0 0 0 2px var(--accent-glow), 0 4px 8px rgba(0,0,0,0.4);
     }
 
     .asset-thumb img {
@@ -406,7 +547,7 @@
       border-radius: 50%;
       background: rgba(239, 68, 68, 0.9);
       color: #fff;
-      font-size: 10px;
+      font-size: 9px;
       border: none;
       display: none;
       align-items: center;
@@ -418,7 +559,7 @@
       display: flex;
     }
 
-    /* History Tab List Cards */
+    /* History Cards */
     .history-list {
       display: flex;
       flex-direction: column;
@@ -426,18 +567,22 @@
     }
 
     .history-item {
-      background-color: rgba(15, 23, 42, 0.65);
+      background: var(--bg-card);
       border: 1px solid var(--border-color);
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      border-bottom: 2px solid rgba(0, 0, 0, 0.5);
       border-radius: 8px;
       padding: 10px;
       display: flex;
       flex-direction: column;
       gap: 6px;
-      transition: border-color 0.15s ease;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+      transition: all 0.15s ease;
     }
 
     .history-item:hover {
       border-color: var(--accent);
+      transform: translateY(-1px);
     }
 
     .history-item-top {
@@ -448,13 +593,13 @@
     }
 
     .history-ref {
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 700;
       color: #60a5fa;
     }
 
     .history-date {
-      font-size: 10px;
+      font-size: 9.5px;
       color: var(--text-muted);
     }
 
@@ -467,60 +612,160 @@
 
     .history-actions {
       display: flex;
-      gap: 6px;
-      margin-top: 4px;
+      gap: 5px;
+      margin-top: 3px;
     }
 
     .history-actions .btn {
       flex: 1;
-      padding: 5px 8px;
-      font-size: 11px;
+      padding: 4px 6px;
+      font-size: 10.5px;
     }
 
-    .empty-history {
-      text-align: center;
-      padding: 30px 12px;
-      color: var(--text-muted);
-      font-size: 12px;
-      border: 1px dashed var(--border-color);
-      border-radius: 8px;
-    }
-
-    /* Center Scrollable Canvas Viewport */
+    /* ================= 4. CANVAS VIEWPORT & 3D DESK VIEW ================= */
     .canvas-viewport {
       flex: 1;
       overflow: auto;
-      padding: 35px 20px 60px;
+      padding: 35px 20px 80px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 0);
-      background-size: 24px 24px;
+      background-image: 
+        radial-gradient(rgba(255, 255, 255, 0.05) 1.5px, transparent 0),
+        linear-gradient(180deg, #070b14 0%, #0a0f1d 100%);
+      background-size: 28px 28px, 100% 100%;
+      position: relative;
+      perspective: 1600px;
+      transition: perspective 0.4s ease;
+    }
+
+    /* Active 3D Desk Tilt Mode */
+    .canvas-viewport.desk-3d-active {
+      perspective: 1300px;
+      background-image: 
+        radial-gradient(rgba(59, 130, 246, 0.08) 2px, transparent 0),
+        radial-gradient(circle at 50% 30%, #172554 0%, #070b14 75%);
     }
 
     #pages-container {
       display: flex;
       flex-direction: column;
-      gap: 32px;
+      gap: 40px;
       transform-origin: top center;
-      transition: transform 0.15s ease;
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* A4 Page Paper Styling */
+    .canvas-viewport.desk-3d-active #pages-container {
+      transform: rotateX(24deg) rotateY(-8deg) rotateZ(1.5deg) scale(0.88);
+      transform-style: preserve-3d;
+    }
+
+    #pages-container.dual-view {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(210mm, 1fr));
+      gap: 32px;
+    }
+
+    /* External Page Wrapper */
+    .page-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+      position: relative;
+    }
+
+    .page-header-strip {
+      width: 210mm;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 10px;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(8px);
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .page-strip-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .strip-btn {
+      background: linear-gradient(180deg, #1e293b, #0f172a);
+      border: 1px solid var(--border-subtle);
+      border-bottom: 2px solid rgba(0,0,0,0.5);
+      color: var(--text-main);
+      padding: 2.5px 8px;
+      border-radius: 5px;
+      font-size: 10.5px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.1s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+    }
+
+    .strip-btn:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .strip-btn:active {
+      transform: translateY(1.5px);
+      border-bottom-width: 1px;
+    }
+
+    .strip-btn.active {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+    }
+
+    .strip-btn.danger:hover {
+      background: var(--danger);
+      color: #fff;
+    }
+
+    /* 3D Physical A4 Paper Styling (Thickness, Bevel & Stack Depth) */
     .page {
       width: 210mm;
       height: 297mm;
       background-color: #ffffff;
       position: relative;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      /* Physical paper thickness bevels & realistic multi-layer depth shadow */
+      border-right: 2.5px solid #cbd5e1;
+      border-bottom: 3.5px solid #94a3b8;
+      border-radius: 2px;
+      box-shadow: 
+        0 1px 2px rgba(0, 0, 0, 0.1),
+        0 8px 20px -4px rgba(0, 0, 0, 0.45),
+        0 24px 55px -10px rgba(0, 0, 0, 0.75),
+        -1px 0 2px rgba(255, 255, 255, 0.05);
       overflow: hidden;
       page-break-after: always;
-      border-radius: 2px;
+      user-select: text;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .canvas-viewport.desk-3d-active .page {
+      box-shadow: 
+        -25px 40px 75px -10px rgba(0, 0, 0, 0.85),
+        -5px 10px 25px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
     }
 
     .page.overflowing .content-area {
       outline: 2px dashed var(--danger) !important;
-      background-color: rgba(239, 68, 68, 0.04);
+      background-color: rgba(239, 68, 68, 0.03);
     }
 
     .bg-image {
@@ -543,7 +788,7 @@
       height: 820px;
       z-index: 2;
       outline: 1px dashed rgba(59, 130, 246, 0.35);
-      padding: 6px;
+      padding: 8px;
       font-family: Arial, sans-serif;
       font-size: 15px;
       line-height: 1.6;
@@ -562,45 +807,71 @@
       background-color: rgba(255, 255, 255, 0.45);
     }
 
-    .content-area table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 12px 0;
-      font-size: inherit;
+    /* 3D Commercial Tri-Fold Creases */
+    .trifold-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 15;
+      display: none;
     }
 
-    .content-area th, .content-area td {
-      border: 1px solid #1e293b;
-      padding: 7px 10px;
-      text-align: left;
+    .trifold-crease {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(255, 255, 255, 0.28));
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     }
 
-    .content-area th {
-      background-color: rgba(15, 23, 42, 0.07);
-      font-weight: bold;
+    .trifold-crease-1 { top: 33.33%; }
+    .trifold-crease-2 { top: 66.66%; }
+
+    /* Watermark Layer */
+    .watermark-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 78px;
+      font-weight: 900;
+      color: rgba(239, 68, 68, 0.10);
+      transform: rotate(-32deg);
+      pointer-events: none;
+      user-select: none;
+      z-index: 10;
+      text-transform: uppercase;
+      letter-spacing: 14px;
+      display: none;
     }
 
-    /* Draggable Stamp / Signature Overlay */
+    /* 3D Physical Stamp / Signature Layer with Drop Elevation */
     .stamp-overlay {
       position: absolute;
       bottom: 145px;
       right: 95px;
       width: 150px;
-      z-index: 3;
+      z-index: 20;
       cursor: grab;
       user-select: none;
       border: 1px dashed transparent;
       border-radius: 4px;
       display: none;
+      touch-action: none;
+      transition: transform 0.12s ease, filter 0.12s ease;
     }
 
-    .stamp-overlay:active {
+    .stamp-overlay:active, .stamp-overlay.dragging {
       cursor: grabbing;
+      transform: scale(1.05) translateY(-6px);
+      filter: drop-shadow(0 14px 14px rgba(0, 0, 0, 0.35));
     }
 
-    .stamp-overlay:hover {
+    .stamp-overlay:hover, .stamp-overlay.active {
       border-color: var(--accent);
-      background-color: rgba(59, 130, 246, 0.06);
+      background-color: rgba(59, 130, 246, 0.08);
     }
 
     .stamp-overlay img {
@@ -609,42 +880,158 @@
       pointer-events: none;
     }
 
-    /* Floating Page Badge */
-    .page-badge {
+    /* 3D Embossed Gold Foil Seal Overlay */
+    .gold-seal-overlay {
       position: absolute;
-      top: 10px;
-      right: 10px;
-      z-index: 10;
-      background: rgba(15, 23, 42, 0.85);
-      backdrop-filter: blur(4px);
-      color: #f8fafc;
-      font-size: 11px;
-      font-weight: 600;
-      padding: 4px 10px;
-      border-radius: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      bottom: 140px;
+      left: 100px;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fffbeb 0%, #fef08a 25%, #ca8a04 65%, #713f12 100%);
+      box-shadow: 
+        inset 2px 2px 3px rgba(255, 255, 255, 0.8),
+        inset -2px -2px 3px rgba(0, 0, 0, 0.5),
+        2px 5px 14px rgba(0, 0, 0, 0.25);
+      border: 3px dashed #854d0e;
+      z-index: 22;
+      display: none;
+      cursor: grab;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #78350f;
+      font-weight: 800;
+      font-size: 8.5px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 8px;
+      touch-action: none;
+    }
+
+    .gold-seal-overlay:active {
+      cursor: grabbing;
+      transform: scale(1.05) translateY(-4px);
+      box-shadow: 
+        inset 2px 2px 3px rgba(255, 255, 255, 0.8),
+        inset -2px -2px 3px rgba(0, 0, 0, 0.5),
+        4px 12px 20px rgba(0, 0, 0, 0.35);
+    }
+
+    .gold-seal-inner {
+      width: 82px;
+      height: 82px;
+      border-radius: 50%;
+      border: 1.5px solid #92400e;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+    }
+
+    /* Draggable Dynamic QR Code Overlay */
+    .qr-overlay {
+      position: absolute;
+      bottom: 60px;
+      left: 70px;
+      width: 80px;
+      height: 80px;
+      z-index: 20;
+      cursor: grab;
+      user-select: none;
+      border: 1px dashed rgba(0, 0, 0, 0.2);
+      border-radius: 4px;
+      display: none;
+      padding: 3px;
+      background: #ffffff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      touch-action: none;
+    }
+
+    .qr-overlay:active {
+      cursor: grabbing;
+      transform: scale(1.05) translateY(-4px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+    }
+
+    .qr-overlay canvas, .qr-overlay svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Commercial Tables Styling */
+    .content-area table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0;
+      font-size: 13.5px;
+    }
+
+    .content-area th, .content-area td {
+      border: 1px solid #334155;
+      padding: 6px 8px;
+      text-align: left;
+    }
+
+    .content-area th {
+      background-color: rgba(15, 23, 42, 0.08);
+      font-weight: bold;
+    }
+
+    .content-area .bilingual-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin: 10px 0;
+    }
+
+    /* ================= 5. FLOATING CONTEXTUAL SELECTION BUBBLE ================= */
+    .selection-bubble {
+      position: absolute;
+      background: linear-gradient(180deg, #1e293b, #0f172a);
+      border: 1px solid var(--border-color);
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      padding: 4px 6px;
+      display: none;
+      align-items: center;
+      gap: 4px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6);
+      z-index: 500;
+      backdrop-filter: blur(10px);
+    }
+
+    .selection-bubble.visible {
+      display: flex;
+    }
+
+    .bubble-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-main);
+      width: 26px;
+      height: 26px;
+      border-radius: 4px;
       display: flex;
       align-items: center;
-      gap: 8px;
-    }
-
-    .page-badge button {
-      background: var(--danger);
-      border: none;
-      color: #fff;
-      font-size: 10px;
-      font-weight: 600;
-      padding: 2px 6px;
-      border-radius: 10px;
+      justify-content: center;
       cursor: pointer;
+      font-size: 12px;
     }
 
-    /* ================= SETTINGS MODAL ================= */
+    .bubble-btn:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* ================= 6. MODALS ================= */
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(3px);
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(5px);
       z-index: 999;
       display: none;
       align-items: center;
@@ -657,20 +1044,21 @@
     }
 
     .modal-window {
-      background-color: var(--bg-panel);
+      background: linear-gradient(180deg, #151f35, #0f172a);
       border: 1px solid var(--border-color);
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 12px;
       width: 100%;
-      max-width: 560px;
+      max-width: 580px;
       max-height: 88vh;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65);
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8);
       overflow: hidden;
     }
 
     .modal-header {
-      padding: 16px 20px;
+      padding: 14px 18px;
       border-bottom: 1px solid var(--border-color);
       display: flex;
       align-items: center;
@@ -678,7 +1066,7 @@
     }
 
     .modal-header h2 {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 700;
       display: flex;
       align-items: center;
@@ -686,15 +1074,15 @@
     }
 
     .modal-body {
-      padding: 18px 20px;
+      padding: 16px 18px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
     }
 
     .modal-footer {
-      padding: 12px 20px;
+      padding: 12px 18px;
       border-top: 1px solid var(--border-color);
       background-color: var(--bg-input);
       display: flex;
@@ -702,44 +1090,36 @@
       align-items: center;
     }
 
-    .grid-4 {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
+    #sigPadCanvas {
+      width: 100%;
+      height: 220px;
+      background: #ffffff;
+      border: 2px dashed #94a3b8;
+      border-radius: 8px;
+      cursor: crosshair;
+      touch-action: none;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.15);
     }
 
-    /* ================= BOTTOM STATUS BAR ================= */
+    /* ================= 7. BOTTOM STATUS BAR ================= */
     .status-bar {
       height: var(--statusbar-height);
-      background-color: var(--bg-panel);
+      background: linear-gradient(180deg, #10182b, #0c1220);
       border-top: 1px solid var(--border-color);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 18px;
+      padding: 0 16px;
       font-size: 11px;
       color: var(--text-muted);
       z-index: 100;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.3);
     }
 
     .status-left, .status-right {
       display: flex;
       align-items: center;
-      gap: 16px;
-    }
-
-    .status-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .dot-online {
-      width: 7px;
-      height: 7px;
-      background-color: var(--success);
-      border-radius: 50%;
-      display: inline-block;
+      gap: 14px;
     }
 
     .overflow-warning {
@@ -753,15 +1133,16 @@
     .zoom-controls {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
 
     .zoom-btn {
       background: var(--bg-card);
       color: var(--text-main);
-      border: none;
-      width: 20px;
-      height: 20px;
+      border: 1px solid var(--border-subtle);
+      border-bottom: 2px solid rgba(0,0,0,0.5);
+      width: 22px;
+      height: 22px;
       border-radius: 4px;
       cursor: pointer;
       font-size: 12px;
@@ -774,13 +1155,17 @@
       background: var(--accent);
     }
 
-    /* ================= PRINT MEDIA SETUP ================= */
-    @media print {
-      @page {
-        size: A4;
-        margin: 0;
-      }
+    .zoom-btn:active {
+      transform: translateY(1px);
+    }
 
+    /* ================= 8. PRINT RESET ================= */
+    @page {
+      size: A4 portrait;
+      margin: 0mm;
+    }
+
+    @media print {
       body {
         background: transparent !important;
         height: auto !important;
@@ -788,7 +1173,7 @@
         display: block !important;
       }
 
-      .top-navbar, .sidebar, .status-bar, .page-badge, .modal-backdrop {
+      .app-header, .formatting-toolbar, .sidebar, .status-bar, .page-header-strip, .selection-bubble, .modal-backdrop {
         display: none !important;
       }
 
@@ -799,6 +1184,7 @@
         overflow: visible !important;
         height: auto !important;
         background: none !important;
+        perspective: none !important;
       }
 
       #pages-container {
@@ -807,12 +1193,19 @@
         gap: 0 !important;
       }
 
+      .page-wrapper {
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
       .page {
         box-shadow: none !important;
         border: none !important;
         width: 210mm !important;
         height: 297mm !important;
         page-break-after: always !important;
+        page-break-inside: avoid !important;
         margin: 0 !important;
       }
 
@@ -826,7 +1219,11 @@
         background-color: transparent !important;
       }
 
-      .stamp-overlay {
+      .trifold-overlay {
+        display: none !important;
+      }
+
+      .stamp-overlay, .qr-overlay, .gold-seal-overlay {
         border: none !important;
         background: transparent !important;
       }
@@ -835,26 +1232,62 @@
 </head>
 <body>
 
-  <!-- ================= TOP RIBBON NAVBAR ================= -->
-  <header class="top-navbar">
+  <!-- ================= 1. PRIMARY APP HEADER ================= -->
+  <header class="app-header">
     <div class="brand-section">
+      <button class="sidebar-toggle-btn" id="sidebarToggleBtn" onclick="toggleSidebar()" title="Toggle Sidebar (Ctrl+\)">
+        <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+      </button>
+
       <div class="brand-badge" id="navBrandBadge">AW</div>
-      <div class="brand-title">
-        <h1 id="navCompanyName">Azad Wattan General Trading Co.</h1>
-        <span>Official Letterhead & Document Studio</span>
+
+      <div class="doc-title-container">
+        <input type="text" id="docHeaderTitle" class="doc-title-input" value="AW/LTR/2026/001 - Port Clearance Letter" oninput="syncDocTitle(this.value)" title="Click to rename document">
+      </div>
+
+      <div class="save-indicator">
+        <span class="pulse-dot"></span>
+        <span id="saveStatus">Saved</span>
       </div>
     </div>
 
-    <!-- Center Rich Text Formatting Ribbon -->
-    <div class="formatting-ribbon">
-      <select class="ribbon-select" id="fontFamilySelect" onchange="changeFontFamily(this.value)" title="Font Family">
+    <div class="header-actions">
+      <button class="btn" onclick="toggleGuides()" title="Toggle safe margins guide outline">
+        <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="2 2"/></svg>
+        Guides
+      </button>
+
+      <button class="btn btn-success" onclick="addNewPage()" title="Add another A4 page">
+        <svg class="icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Page
+      </button>
+
+      <button class="btn btn-primary" onclick="printDocument()" title="Export or print A4 PDF">
+        <svg class="icon" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        Print / PDF
+      </button>
+
+      <button class="btn" onclick="openSettingsModal()" title="Studio Settings">
+        <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ================= 2. FORMATTING TOOLBAR ================= -->
+  <nav class="formatting-toolbar">
+    <!-- Font & Size -->
+    <div class="tool-group">
+      <select class="tool-select" id="fontFamilySelect" onchange="changeFontFamily(this.value)" title="Font Family">
         <option value="Arial, sans-serif">Arial</option>
         <option value="'Times New Roman', serif">Times New Roman</option>
         <option value="'Calibri', sans-serif">Calibri</option>
         <option value="'Georgia', serif">Georgia</option>
+        <option value="'Traditional Arabic', 'Amiri', Tahoma, sans-serif">Traditional Arabic</option>
+        <option value="'Amiri', serif">Amiri (Arabic Formal)</option>
       </select>
 
-      <select class="ribbon-select" id="fontSizeSelect" onchange="changeFontSize(this.value)" title="Font Size">
+      <select class="tool-select" id="fontSizeSelect" onchange="changeFontSize(this.value)" title="Font Size">
+        <option value="12px">12 px</option>
         <option value="13px">13 px</option>
         <option value="14px">14 px</option>
         <option value="15px" selected>15 px</option>
@@ -862,93 +1295,126 @@
         <option value="18px">18 px</option>
       </select>
 
-      <select class="ribbon-select" id="lineHeightSelect" onchange="changeLineHeight(this.value)" title="Line Spacing">
-        <option value="1.3">1.3x</option>
-        <option value="1.5">1.5x</option>
+      <select class="tool-select" id="lineHeightSelect" onchange="changeLineHeight(this.value)" title="Line Spacing">
+        <option value="1.2">1.2x</option>
+        <option value="1.4">1.4x</option>
         <option value="1.6" selected>1.6x</option>
         <option value="1.8">1.8x</option>
       </select>
+    </div>
 
-      <div class="ribbon-divider"></div>
+    <div class="ribbon-divider"></div>
 
-      <button class="icon-btn" onclick="formatDoc('bold')" title="Bold (Ctrl+B)"><b>B</b></button>
-      <button class="icon-btn" onclick="formatDoc('italic')" title="Italic (Ctrl+I)"><i>I</i></button>
-      <button class="icon-btn" onclick="formatDoc('underline')" title="Underline (Ctrl+U)"><u>U</u></button>
+    <!-- Text Formatting -->
+    <div class="tool-group">
+      <button class="tool-btn" onclick="formatDoc('bold')" title="Bold (Ctrl+B)"><b>B</b></button>
+      <button class="tool-btn" onclick="formatDoc('italic')" title="Italic (Ctrl+I)"><i>I</i></button>
+      <button class="tool-btn" onclick="formatDoc('underline')" title="Underline (Ctrl+U)"><u>U</u></button>
+      <button class="tool-btn" onclick="formatDoc('strikeThrough')" title="Strikethrough"><s>S</s></button>
+    </div>
 
-      <div class="ribbon-divider"></div>
+    <div class="ribbon-divider"></div>
 
-      <button class="icon-btn" onclick="formatDoc('justifyLeft')" title="Align Left">
-        <svg viewBox="0 0 24 24"><path d="M3 4h18v2H3V4zm0 5h12v2H3V9zm0 5h18v2H3v-2zm0 5h12v2H3v-2z"/></svg>
+    <!-- Color Controls -->
+    <div class="tool-group">
+      <div class="color-swatch-wrapper" title="Text Color">
+        <div class="color-swatch-indicator" id="textColorIndicator" style="background:#000000;"></div>
+        <input type="color" id="textColorPicker" value="#000000" onchange="applyTextColor(this.value)">
+      </div>
+
+      <div class="color-swatch-wrapper" title="Highlight Color">
+        <div class="color-swatch-indicator" id="hiliteColorIndicator" style="background:#ffff00;"></div>
+        <input type="color" id="hiliteColorPicker" value="#ffff00" onchange="applyHighlightColor(this.value)">
+      </div>
+    </div>
+
+    <div class="ribbon-divider"></div>
+
+    <!-- Alignments -->
+    <div class="tool-group">
+      <button class="tool-btn" onclick="formatDoc('justifyLeft')" title="Align Left">
+        <svg class="icon" viewBox="0 0 24 24"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="17" y1="18" x2="3" y2="18"/></svg>
       </button>
-      <button class="icon-btn" onclick="formatDoc('justifyCenter')" title="Align Center">
-        <svg viewBox="0 0 24 24"><path d="M3 4h18v2H3V4zm3 5h12v2H6V9zm-3 5h18v2H3v-2zm3 5h12v2H6v-2z"/></svg>
+      <button class="tool-btn" onclick="formatDoc('justifyCenter')" title="Align Center">
+        <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="10" x2="6" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="18" y1="18" x2="6" y2="18"/></svg>
       </button>
-      <button class="icon-btn" onclick="formatDoc('justifyFull')" title="Justify Full">
-        <svg viewBox="0 0 24 24"><path d="M3 4h18v2H3V4zm0 5h18v2H3V9zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+      <button class="tool-btn" onclick="formatDoc('justifyRight')" title="Align Right">
+        <svg class="icon" viewBox="0 0 24 24"><line x1="21" y1="10" x2="7" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="21" y1="18" x2="7" y2="18"/></svg>
       </button>
-
-      <div class="ribbon-divider"></div>
-
-      <button class="icon-btn" onclick="formatDoc('insertUnorderedList')" title="Bullet List">
-        <svg viewBox="0 0 24 24"><path d="M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-6c-.83 0-1.5.67-1.5 1.5S3.17 7.5 4 7.5 5.5 6.83 5.5 6 4.83 4.5 4 4.5zm0 12c-.83 0-1.5.68-1.5 1.5s.68 1.5 1.5 1.5 1.5-.68 1.5-1.5-.67-1.5-1.5-1.5zM7 19h14v-2H7v2zm0-6h14v-2H7v2zm0-8v2h14V5H7z"/></svg>
-      </button>
-      <button class="icon-btn" onclick="formatDoc('insertOrderedList')" title="Numbered List">
-        <svg viewBox="0 0 24 24"><path d="M2 17h2v.5H3v1h1v.5H2v1h3v-4H2v1zm1-9h1V4H2v1h1v3zm-1 3h1.8L2 13.1v.9h3v-1H3.2L5 10.9V10H2v1zm5-6v2h14V5H7zm0 14h14v-2H7v2zm0-6h14v-2H7v2z"/></svg>
-      </button>
-
-      <div class="ribbon-divider"></div>
-
-      <button class="btn" style="padding: 4px 10px;" onclick="insertCustomTable()" title="Insert Commercial Table">
-        + Table
+      <button class="tool-btn" onclick="formatDoc('justifyFull')" title="Justify">
+        <svg class="icon" viewBox="0 0 24 24"><line x1="21" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="21" y1="18" x2="3" y2="18"/></svg>
       </button>
     </div>
 
-    <!-- Right Action Bar (Includes Settings Icon) -->
-    <div class="action-buttons">
-      <button class="btn" onclick="toggleGuides()" title="Show/Hide Blue Safe Zone Border">Guides</button>
-      <button class="btn btn-success" onclick="addNewPage()">+ Page</button>
-      <button class="btn btn-primary" onclick="printDocument()">Print / PDF</button>
-      <button class="btn settings-trigger" onclick="openSettingsModal()" title="Application Settings">
-        <svg viewBox="0 0 24 24">
-          <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
-        </svg>
+    <div class="ribbon-divider"></div>
+
+    <!-- RTL & Lists -->
+    <div class="tool-group">
+      <button class="strip-btn" id="rtlToggleBtn" onclick="toggleRTL()" title="Toggle Right-To-Left for Arabic">
+        ⇄ RTL
+      </button>
+      <button class="tool-btn" onclick="formatDoc('insertUnorderedList')" title="Bullet List">
+        <svg class="icon" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+      </button>
+      <button class="tool-btn" onclick="formatDoc('insertOrderedList')" title="Numbered List">
+        <svg class="icon" viewBox="0 0 24 24"><line x1="10" y1="6" x2="21" y2="6"/><line x1="10" y1="12" x2="21" y2="12"/><line x1="10" y1="18" x2="21" y2="18"/><path d="M4 6h1v4"/><path d="M4 10h2"/></svg>
+      </button>
+      <button class="tool-btn" onclick="formatDoc('insertHorizontalRule')" title="Horizontal Divider Line">―</button>
+    </div>
+
+    <div class="ribbon-divider"></div>
+
+    <!-- Tables & Undo/Redo -->
+    <div class="tool-group">
+      <button class="tool-btn" onclick="formatDoc('undo')" title="Undo (Ctrl+Z)">
+        <svg class="icon" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+      </button>
+      <button class="tool-btn" onclick="formatDoc('redo')" title="Redo (Ctrl+Y)">
+        <svg class="icon" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+      </button>
+
+      <button class="strip-btn" onclick="insertCustomTable()" title="Insert basic table">+ Table</button>
+      <button class="strip-btn" style="background:linear-gradient(180deg, #d97706, #b45309); color:#fff;" onclick="insertCommercialInvoiceTable()" title="Insert Smart VAT Trade Table">
+        📊 Smart Trade Table
       </button>
     </div>
-  </header>
+  </nav>
 
-  <!-- ================= MAIN WORKSPACE ================= -->
+  <!-- ================= 3. MAIN WORKSPACE ================= -->
   <div class="workspace-body">
 
-    <!-- Left Sidebar Inspector with EDITOR & HISTORY Tabs -->
+    <!-- Collapsible Sidebar Inspector -->
     <aside class="sidebar">
       <div class="sidebar-tabs">
         <button class="tab-btn active" id="tabBtnEditor" onclick="switchSidebarTab('editor')">
-          <span>✏️ Editor</span>
+          <span>Design</span>
+        </button>
+        <button class="tab-btn" id="tabBtnTrade" onclick="switchSidebarTab('trade')">
+          <span>Trade & Tools</span>
         </button>
         <button class="tab-btn" id="tabBtnHistory" onclick="switchSidebarTab('history')">
-          <span>🗂️ History</span>
+          <span>History</span>
           <span class="tab-badge" id="historyCountBadge">0</span>
         </button>
       </div>
 
-      <!-- TAB 1: EDITOR & SAVED STATIONERY ASSETS -->
+      <!-- TAB 1: DESIGN & STATIONERY -->
       <div class="tab-pane active" id="tabPaneEditor">
-
-        <!-- Document Metadata & Templates -->
+        <!-- Templates & Document Ref -->
         <div class="panel-card">
-          <div class="panel-header">
-            <span>Document & Templates</span>
-          </div>
+          <div class="panel-header"><span>Document Meta & Templates</span></div>
 
           <div class="form-group">
-            <label>Quick Commercial Template</label>
+            <label>Template Presets</label>
             <select id="templateSelect" class="form-control" onchange="applyTemplate(this.value)">
               <option value="">-- Choose Preset --</option>
-              <option value="default">Standard Business Letter</option>
-              <option value="loi">Letter of Intent (LOI)</option>
-              <option value="noc">Customs / Port NOC</option>
-              <option value="packing">Cargo & Container Declaration</option>
-              <option value="receipt">Official Payment Receipt</option>
+              <option value="default">Standard Commercial Letter</option>
+              <option value="loi">Letter of Intent (LOI - Purchase)</option>
+              <option value="noc">Customs / Port NOC (Container Release)</option>
+              <option value="packing">Container & Cargo Packing Declaration</option>
+              <option value="receipt">Official Commercial Receipt</option>
+              <option value="bilingual">Bilingual Authorization (English / Arabic)</option>
+              <option value="proforma">Commercial Quotation / Proforma</option>
             </select>
           </div>
 
@@ -956,129 +1422,280 @@
             <label>Reference Number</label>
             <div class="input-row">
               <input type="text" id="refInput" class="form-control" value="AW/LTR/2026/001" oninput="syncMetadata()">
-              <button class="btn" onclick="incrementRef()" title="Increment Reference Number">+1</button>
+              <button class="btn" onclick="incrementRef()">+1</button>
             </div>
           </div>
 
           <button class="btn btn-success" style="width:100%;" onclick="saveLetterToHistory()">
-            💾 Save Letter to History
+            💾 Save Document to History
           </button>
         </div>
 
-        <!-- Saved Letterhead Backgrounds (Auto-Saved Forever) -->
+        <!-- Saved Letterhead Backgrounds -->
         <div class="panel-card">
           <div class="panel-header">
             <span>Saved Letterheads</span>
-            <span class="saved-badge" id="bgSavedBadge">Auto-Saved</span>
+            <span class="saved-badge" id="bgSavedBadge">IndexedDB</span>
           </div>
 
           <div class="grid-2">
-            <button class="btn" onclick="document.getElementById('bgFileInput').click()">+ Upload New BG</button>
-            <button class="btn" onclick="toggleBgVisibility()">Show / Hide BG</button>
+            <button class="btn" onclick="document.getElementById('bgFileInput').click()">+ Upload BG</button>
+            <button class="btn" onclick="toggleBgVisibility()">Toggle BG</button>
           </div>
           <input type="file" id="bgFileInput" accept="image/*" style="display:none" onchange="uploadBackground(event)">
 
           <div class="form-group">
-            <label>Click a saved letterhead below to switch:</label>
+            <label>Click saved background to switch:</label>
             <div class="asset-gallery" id="bgGallery"></div>
           </div>
         </div>
 
-        <!-- Saved Stamps / Signatures (Auto-Saved Forever) -->
+        <!-- Saved Stamps, Signatures & 3D Gold Seal -->
         <div class="panel-card">
           <div class="panel-header">
-            <span>Saved Stamps & Signatures</span>
-            <span class="saved-badge" id="stampSavedBadge">Auto-Saved</span>
+            <span>Stamps, Signs & 3D Seal</span>
+            <span class="saved-badge" id="stampSavedBadge">IndexedDB</span>
           </div>
 
-          <div class="grid-2">
-            <button class="btn" onclick="document.getElementById('stampFileInput').click()">+ Upload Stamp</button>
-            <button class="btn" onclick="toggleStamp()">Show / Hide</button>
+          <div class="grid-3">
+            <button class="btn" onclick="document.getElementById('stampFileInput').click()">+ Upload</button>
+            <button class="btn btn-warning" onclick="openSignaturePadModal()">✍️ Sign</button>
+            <button class="btn" onclick="toggleStamp()">Toggle</button>
           </div>
           <input type="file" id="stampFileInput" accept="image/*" style="display:none" onchange="uploadStamp(event)">
 
-          <div class="form-group">
-            <label>Click a saved stamp below to apply:</label>
-            <div class="asset-gallery" id="stampGallery"></div>
+          <div class="form-group" style="margin-top:2px;">
+            <button class="btn" style="background:linear-gradient(180deg,#ca8a04,#854d0e); color:#fff; width:100%;" onclick="toggle3DGoldSeal()">
+              🏅 Toggle 3D Embossed Gold Seal
+            </button>
           </div>
 
           <div class="form-group">
-            <label>Stamp Size (<span id="stampSizeVal">150</span>px)</label>
-            <input type="range" id="stampSizeRange" min="80" max="260" value="150" oninput="resizeStamp(this.value)">
+            <label>Click stamp/signature to apply:</label>
+            <div class="asset-gallery" id="stampGallery"></div>
+          </div>
+
+          <div class="grid-2">
+            <div class="form-group">
+              <label>Target Page</label>
+              <select id="stampPageSelect" class="form-control" onchange="reassignStampToPage(this.value)">
+                <option value="last">Last Page (Auto)</option>
+                <option value="1">Page 1</option>
+                <option value="2">Page 2</option>
+                <option value="3">Page 3</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Size (<span id="stampSizeVal">150</span>px)</label>
+              <input type="range" id="stampSizeRange" min="80" max="280" value="150" oninput="resizeStamp(this.value)">
+            </div>
           </div>
         </div>
 
         <button class="btn btn-danger" style="width:100%;" onclick="resetEditor()">
           Clear Current Draft
         </button>
-
       </div>
 
-      <!-- TAB 2: ALL-TIME SAVED LETTERS HISTORY -->
-      <div class="tab-pane" id="tabPaneHistory">
+      <!-- TAB 2: TRADE & SECURITY TOOLS -->
+      <div class="tab-pane" id="tabPaneTrade">
+        <!-- Verification QR Code -->
         <div class="panel-card">
-          <div class="panel-header">
-            <span>All-Time Saved Archive</span>
-            <button class="btn btn-success" style="padding:3px 8px; font-size:10px;" onclick="saveLetterToHistory()">+ Save Current</button>
+          <div class="panel-header"><span>Verifiable QR Code</span></div>
+          <p style="font-size:11px; color:var(--text-muted);">
+            Auto-generate a verifiable QR code containing company details, reference number, and date.
+          </p>
+
+          <div class="grid-2">
+            <button class="btn btn-primary" onclick="generateDocQRCode()">⚡ Refresh QR</button>
+            <button class="btn" onclick="toggleQRCodeOverlay()">Show / Hide</button>
           </div>
 
           <div class="form-group">
-            <input type="text" id="historySearchInput" class="form-control" placeholder="🔍 Search by Ref No, Recipient, Subject..." oninput="renderHistoryList()">
+            <label>Target Page</label>
+            <select id="qrPageSelect" class="form-control" onchange="reassignQRToPage(this.value)">
+              <option value="1">Page 1</option>
+              <option value="last">Last Page (Auto)</option>
+            </select>
           </div>
+
+          <div class="form-group">
+            <label>Custom Verification URL (Optional)</label>
+            <input type="text" id="qrCustomUrl" class="form-control" placeholder="https://azadwattan.com/verify?ref=..." oninput="generateDocQRCode()">
+          </div>
+        </div>
+
+        <!-- 3D Envelope Tri-Fold Preview & Security Watermarks -->
+        <div class="panel-card">
+          <div class="panel-header"><span>3D Envelope Fold & Watermarks</span></div>
+
+          <div class="form-group">
+            <button class="strip-btn" id="trifoldBtn" style="padding:6px 10px; width:100%; justify-content:center;" onclick="toggleTriFoldOverlay()">
+              ✉️ Toggle 3D Commercial DL Fold Lines
+            </button>
+          </div>
+
+          <div class="form-group">
+            <label>Watermark Preset</label>
+            <select id="watermarkSelect" class="form-control" onchange="applyWatermark(this.value)">
+              <option value="none">None (Clean Document)</option>
+              <option value="ORIGINAL">ORIGINAL</option>
+              <option value="DRAFT">DRAFT</option>
+              <option value="CONFIDENTIAL">CONFIDENTIAL</option>
+              <option value="COPY">COPY</option>
+              <option value="CANCELLED">CANCELLED</option>
+              <option value="custom">Custom Text...</option>
+            </select>
+          </div>
+
+          <div class="form-group" id="customWatermarkGroup" style="display:none;">
+            <label>Custom Text</label>
+            <input type="text" id="customWatermarkInput" class="form-control" placeholder="e.g., DUPLICATE" oninput="applyWatermark('custom')">
+          </div>
+        </div>
+
+        <!-- Trade Utilities -->
+        <div class="panel-card">
+          <div class="panel-header"><span>Commercial Table Calculator</span></div>
+          <p style="font-size:11px; color:var(--text-muted);">
+            Calculate line items, 5% UAE VAT, and generate amount in English words for trade documents.
+          </p>
+          <button class="btn btn-warning" onclick="recalculateActiveTradeTable()">
+            🔄 Recalculate Table Totals & VAT
+          </button>
+        </div>
+      </div>
+
+      <!-- TAB 3: ARCHIVE & HISTORY -->
+      <div class="tab-pane" id="tabPaneHistory">
+        <div class="panel-card">
+          <div class="panel-header">
+            <span>Archived Documents</span>
+            <button class="btn btn-success" style="padding:2px 7px; font-size:10px;" onclick="saveLetterToHistory()">+ Save Current</button>
+          </div>
+          <input type="text" id="historySearchInput" class="form-control" placeholder="🔍 Search Ref, Recipient, Subject..." oninput="renderHistoryList()">
         </div>
 
         <div class="history-list" id="historyListContainer"></div>
       </div>
-
     </aside>
 
-    <!-- Center A4 Canvas Viewport -->
-    <main class="canvas-viewport">
+    <!-- Center Canvas Viewport -->
+    <main class="canvas-viewport" id="canvasViewport">
       <div id="pages-container">
-        <div class="page" id="page-1">
-          <div class="page-badge"><span>Page 1 of 1</span></div>
-          <img class="bg-image" src="AL JAMEEL LOI EDIT.jpg" alt="Letterhead Background">
-
-          <div class="content-area" contenteditable="true" oninput="handleEditorInput()">
-            <p><strong>Date:</strong> <span class="doc-date">October 30, 2026</span></p>
-            <p><strong>Ref No:</strong> <span class="doc-ref">AW/LTR/2026/001</span></p>
-            <br>
-            <p><strong>To:</strong> <span class="doc-recipient">[Recipient Name / Company Name]</span></p>
-            <p><strong>Subject:</strong> <span class="doc-subject">[Insert Subject Here]</span></p>
-            <br>
-            <p>Dear Sir/Madam,</p>
-            <br>
-            <p>Type your letter content here. The text area is calibrated to fit between the top header and the stamp/footer area at the bottom.</p>
-            <br><br><br>
-            <p>Sincerely,</p>
-            <br><br>
-            <p><strong class="doc-signatory">Authorized Signatory</strong><br><span class="doc-company">Azad Wattan General Trading Co.</span></p>
+        <!-- PAGE 1 WRAPPER -->
+        <div class="page-wrapper" id="page-wrapper-1">
+          <div class="page-header-strip">
+            <span>Page 1 of 1</span>
+            <div class="page-strip-actions">
+              <button class="strip-btn" onclick="duplicateCurrentPage(1)" title="Duplicate Page">📄 Clone</button>
+              <button class="strip-btn danger" onclick="removePageWrapper(1)" title="Remove Page">✕ Remove</button>
+            </div>
           </div>
 
-          <!-- Draggable Stamp Layer -->
-          <div class="stamp-overlay" id="stampOverlay">
-            <img id="stampImg" src="" alt="Company Stamp">
+          <div class="page" id="page-1">
+            <!-- 3D Tri-Fold Creases -->
+            <div class="trifold-overlay">
+              <div class="trifold-crease trifold-crease-1"></div>
+              <div class="trifold-crease trifold-crease-2"></div>
+            </div>
+
+            <div class="watermark-overlay" id="watermarkPage1">CONFIDENTIAL</div>
+            <img class="bg-image" src="" alt="Letterhead Background">
+
+            <div class="content-area" contenteditable="true" oninput="handleEditorInput()">
+              <p><strong>Date:</strong> <span class="doc-date">November 07, 2026</span></p>
+              <p><strong>Ref No:</strong> <span class="doc-ref">AW/LTR/2026/001</span></p>
+              <br>
+              <p><strong>To:</strong> <span class="doc-recipient">[Recipient Name / Company Name]</span></p>
+              <p><strong>Subject:</strong> <span class="doc-subject">[Insert Official Subject Here]</span></p>
+              <br>
+              <p>Dear Sir/Madam,</p>
+              <br>
+              <p>We are writing from <strong>Azad Wattan General Trading Co.</strong> with reference to our ongoing commercial shipments and agreements. The text area is calibrated between the official top letterhead and bottom margins.</p>
+              <br><br><br>
+              <p>Sincerely,</p>
+              <br><br>
+              <p><strong class="doc-signatory">Authorized Signatory</strong><br><span class="doc-company">Azad Wattan General Trading Co.</span></p>
+            </div>
+
+            <!-- Draggable Stamp Overlay -->
+            <div class="stamp-overlay" id="stampOverlay">
+              <img id="stampImg" src="" alt="Company Stamp">
+            </div>
+
+            <!-- 3D Embossed Gold Seal Overlay -->
+            <div class="gold-seal-overlay" id="goldSealOverlay">
+              <div class="gold-seal-inner">
+                <span>★ AZAD WATTAN ★</span>
+                <span style="font-size:14px;">⚖️</span>
+                <span>OFFICIAL SEAL</span>
+              </div>
+            </div>
+
+            <!-- Draggable Verification QR Code Overlay -->
+            <div class="qr-overlay" id="qrOverlay">
+              <div id="qrCanvasContainer"></div>
+            </div>
           </div>
         </div>
       </div>
-    </main>
 
+      <!-- Floating Contextual Selection Bubble -->
+      <div class="selection-bubble" id="selectionBubble">
+        <button class="bubble-btn" onclick="formatDoc('bold')" title="Bold"><b>B</b></button>
+        <button class="bubble-btn" onclick="formatDoc('italic')" title="Italic"><i>I</i></button>
+        <button class="bubble-btn" onclick="formatDoc('underline')" title="Underline"><u>U</u></button>
+        <button class="bubble-btn" onclick="formatDoc('strikeThrough')" title="Strikethrough"><s>S</s></button>
+        <div style="width:1px; height:16px; background:var(--border-color); margin:0 2px;"></div>
+        <button class="bubble-btn" onclick="formatDoc('formatBlock', '<h2>')" title="Heading 2">H2</button>
+        <button class="bubble-btn" onclick="formatDoc('formatBlock', '<p>')" title="Paragraph">¶</button>
+      </div>
+    </main>
   </div>
 
-  <!-- ================= SETTINGS MODAL ================= -->
-  <div class="modal-backdrop" id="settingsModal">
+  <!-- ================= 4. DIGITAL SIGNATURE PAD MODAL ================= -->
+  <div class="modal-backdrop" id="sigPadModal">
     <div class="modal-window">
       <div class="modal-header">
-        <h2>⚙️ Application Settings — Azad Wattan Studio</h2>
-        <button class="btn" style="padding:4px 9px;" onclick="closeSettingsModal()">✕</button>
+        <h2>✍️ Draw Digital Signature — Azad Wattan Studio</h2>
+        <button class="btn" style="padding:3px 8px;" onclick="closeSignaturePadModal()">✕</button>
       </div>
 
       <div class="modal-body">
-        <!-- Company Branding & Signatory Defaults -->
+        <p style="font-size:11px; color:var(--text-muted);">
+          Sign below using your mouse, trackpad, or touchscreen. Your signature is converted to a high-quality transparent stamp automatically.
+        </p>
+
+        <canvas id="sigPadCanvas" width="540" height="220"></canvas>
+
+        <div class="grid-2">
+          <button class="btn" onclick="clearSignatureCanvas()">Clear Signature</button>
+          <button class="btn btn-success" onclick="saveSignaturePadAsStamp()">Save & Apply as Stamp</button>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <span style="font-size:11px; color:var(--text-muted);">Saved in IndexedDB storage.</span>
+        <button class="btn" onclick="closeSignaturePadModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 5. SETTINGS MODAL ================= -->
+  <div class="modal-backdrop" id="settingsModal">
+    <div class="modal-window">
+      <div class="modal-header">
+        <h2>⚙️ Studio Settings & Calibration</h2>
+        <button class="btn" style="padding:3px 8px;" onclick="closeSettingsModal()">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Company Profile -->
         <div class="panel-card">
-          <div class="panel-header"><span>Company Profile & Defaults</span></div>
+          <div class="panel-header"><span>Company Profile Defaults</span></div>
           <div class="form-group">
-            <label>Company Name (Used in Header, Templates & Sign-off)</label>
+            <label>Company Name</label>
             <input type="text" id="setCompanyName" class="form-control" value="Azad Wattan General Trading Co.">
           </div>
           <div class="grid-2">
@@ -1093,10 +1710,10 @@
           </div>
         </div>
 
-        <!-- Text Box Calibration / Margins -->
+        <!-- Margins Calibration -->
         <div class="panel-card">
-          <div class="panel-header"><span>Text Safe-Zone Calibration (Pixels)</span></div>
-          <div class="grid-4">
+          <div class="panel-header"><span>Safe-Zone Margins Calibration (Pixels)</span></div>
+          <div class="grid-2">
             <div class="form-group">
               <label>Top (px)</label>
               <input type="number" id="setMarginTop" class="form-control" value="130">
@@ -1105,6 +1722,8 @@
               <label>Left (px)</label>
               <input type="number" id="setMarginLeft" class="form-control" value="70">
             </div>
+          </div>
+          <div class="grid-2">
             <div class="form-group">
               <label>Width (px)</label>
               <input type="number" id="setMarginWidth" class="form-control" value="650">
@@ -1116,43 +1735,48 @@
           </div>
         </div>
 
-        <!-- Backup & Restore Data -->
+        <!-- Full Backup & Storage -->
         <div class="panel-card">
-          <div class="panel-header"><span>Full Backup, Export & Storage Management</span></div>
-          <p style="font-size:11px; color:var(--text-muted);">
-            Export all saved letters, uploaded letterheads, stamps, and settings into a single JSON backup file, or restore from a backup on any computer.
-          </p>
+          <div class="panel-header"><span>Backup, Restore & Reset</span></div>
           <div class="grid-2">
-            <button class="btn btn-primary" onclick="exportFullBackup()">⬇️ Export Full Backup (.json)</button>
+            <button class="btn btn-primary" onclick="exportFullBackup()">⬇️ Export Backup (.json)</button>
             <button class="btn" onclick="document.getElementById('importBackupInput').click()">⬆️ Import Backup (.json)</button>
             <input type="file" id="importBackupInput" accept=".json" style="display:none" onchange="importFullBackup(event)">
           </div>
           <div class="grid-2" style="margin-top:4px;">
             <button class="btn btn-danger" onclick="clearSavedAssets()">Clear Saved Images</button>
-            <button class="btn btn-danger" onclick="clearAllHistory()">Clear All Letter History</button>
+            <button class="btn btn-danger" onclick="clearAllHistory()">Clear All Letters</button>
           </div>
         </div>
       </div>
 
       <div class="modal-footer">
-        <span style="font-size:11px; color:var(--text-muted);">All settings & images persist automatically in browser storage.</span>
-        <div style="display:flex; gap:8px;">
+        <span style="font-size:11px; color:var(--text-muted);">IndexedDB Powered Database.</span>
+        <div style="display:flex; gap:6px;">
           <button class="btn" onclick="closeSettingsModal()">Cancel</button>
-          <button class="btn btn-primary" onclick="saveAppSettings()">Save & Apply Settings</button>
+          <button class="btn btn-primary" onclick="saveAppSettings()">Save & Apply</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ================= BOTTOM STATUS BAR ================= -->
+  <!-- ================= 6. BOTTOM STATUS BAR ================= -->
   <footer class="status-bar">
     <div class="status-left">
-      <span class="status-pill"><span class="dot-online"></span> <span id="saveStatus">Auto-saved locally</span></span>
       <span id="wordCountStatus">Words: 0</span>
-      <span id="overflowAlert" class="overflow-warning">⚠️ Text exceeds safe print area! Reduce font size or add a page.</span>
+      <span id="overflowAlert" class="overflow-warning">⚠️ Text exceeds safe print area!</span>
     </div>
 
     <div class="status-right">
+      <!-- 3D Desk Perspective View Toggle -->
+      <button class="strip-btn" id="desk3dBtn" onclick="toggle3DDeskMode()" title="Toggle 3D Executive Desk Perspective">
+        🕶️ 3D Desk View
+      </button>
+
+      <button class="strip-btn" id="viewModeBtn" onclick="toggleDualView()" title="Toggle Single or Side-by-Side View">
+        ⊞ Dual View
+      </button>
+
       <span>A4 Portrait (210mm × 297mm)</span>
       <div class="zoom-controls">
         <button class="zoom-btn" onclick="adjustZoom(-0.1)" title="Zoom Out">−</button>
@@ -1162,18 +1786,106 @@
     </div>
   </footer>
 
+  <!-- ================= 7. JAVASCRIPT APPLICATION LOGIC ================= -->
   <script>
-    // Persistent Storage Keys
-    const DRAFT_KEY = 'aw_letterhead_draft_v3';
-    const HISTORY_KEY = 'aw_letterhead_history_v3';
-    const BG_LIST_KEY = 'aw_letterhead_bg_list_v3';
-    const ACTIVE_BG_KEY = 'aw_letterhead_active_bg_v3';
-    const STAMP_LIST_KEY = 'aw_letterhead_stamp_list_v3';
-    const ACTIVE_STAMP_KEY = 'aw_letterhead_active_stamp_v3';
-    const SETTINGS_KEY = 'aw_letterhead_settings_v3';
+    /* =========================================================
+       1. STORAGE ENGINE (INDEXEDDB WITH LOCALSTORAGE FALLBACK)
+       ========================================================= */
+    const DB_NAME = 'aw_letterhead_studio_db';
+    const DB_VERSION = 1;
+    const STORE_NAME = 'keyval_store';
+
+    let idb = null;
+
+    function initIndexedDB() {
+      return new Promise((resolve) => {
+        if (!window.indexedDB) {
+          resolve(false);
+          return;
+        }
+        const req = indexedDB.open(DB_NAME, DB_VERSION);
+        req.onupgradeneeded = function(e) {
+          const db = e.target.result;
+          if (!db.objectStoreNames.contains(STORE_NAME)) {
+            db.createObjectStore(STORE_NAME);
+          }
+        };
+        req.onsuccess = function(e) {
+          idb = e.target.result;
+          resolve(true);
+        };
+        req.onerror = function() {
+          resolve(false);
+        };
+      });
+    }
+
+    async function dbSet(key, value) {
+      if (idb) {
+        return new Promise((resolve) => {
+          try {
+            const tx = idb.transaction(STORE_NAME, 'readwrite');
+            tx.objectStore(STORE_NAME).put(value, key);
+            tx.oncomplete = () => resolve(true);
+            tx.onerror = () => { localStorage.setItem(key, JSON.stringify(value)); resolve(false); };
+          } catch(e) {
+            localStorage.setItem(key, JSON.stringify(value));
+            resolve(false);
+          }
+        });
+      } else {
+        localStorage.setItem(key, JSON.stringify(value));
+      }
+    }
+
+    async function dbGet(key) {
+      if (idb) {
+        return new Promise((resolve) => {
+          try {
+            const tx = idb.transaction(STORE_NAME, 'readonly');
+            const req = tx.objectStore(STORE_NAME).get(key);
+            req.onsuccess = () => resolve(req.result !== undefined ? req.result : JSON.parse(localStorage.getItem(key) || 'null'));
+            req.onerror = () => resolve(JSON.parse(localStorage.getItem(key) || 'null'));
+          } catch(e) {
+            resolve(JSON.parse(localStorage.getItem(key) || 'null'));
+          }
+        });
+      } else {
+        return JSON.parse(localStorage.getItem(key) || 'null');
+      }
+    }
+
+    async function dbRemove(key) {
+      if (idb) {
+        return new Promise((resolve) => {
+          try {
+            const tx = idb.transaction(STORE_NAME, 'readwrite');
+            tx.objectStore(STORE_NAME).delete(key);
+            tx.oncomplete = () => resolve(true);
+          } catch(e) {
+            localStorage.removeItem(key);
+            resolve(true);
+          }
+        });
+      }
+      localStorage.removeItem(key);
+    }
+
+    /* Storage Keys */
+    const DRAFT_KEY = 'aw_draft_v6';
+    const HISTORY_KEY = 'aw_history_v6';
+    const BG_LIST_KEY = 'aw_bg_list_v6';
+    const ACTIVE_BG_KEY = 'aw_active_bg_v6';
+    const STAMP_LIST_KEY = 'aw_stamp_list_v6';
+    const ACTIVE_STAMP_KEY = 'aw_active_stamp_v6';
+    const SETTINGS_KEY = 'aw_settings_v6';
 
     let bgVisible = true;
+    let isRTL = false;
+    let is3DDeskMode = false;
+    let isTriFoldActive = false;
     let currentZoom = 1;
+    let currentWatermark = 'none';
 
     let appSettings = {
       companyName: 'Azad Wattan General Trading Co.',
@@ -1194,49 +1906,422 @@
       return name.split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0].toUpperCase()).join('') || 'AW';
     }
 
-    // Initialize Application on Load
-    window.addEventListener('DOMContentLoaded', () => {
-      loadAppSettings();
-      migrateLegacyAssetsIfAny();
+    /* =========================================================
+       2. INITIALIZATION ON PAGE LOAD
+       ========================================================= */
+    window.addEventListener('DOMContentLoaded', async () => {
+      await initIndexedDB();
+      await loadAppSettings();
 
-      // Restore Draft Content or Initialize Default Date & Branding
-      const savedDraft = localStorage.getItem(DRAFT_KEY);
+      // Restore Saved Draft
+      const savedDraft = await dbGet(DRAFT_KEY);
       if (savedDraft) {
         document.getElementById('pages-container').innerHTML = savedDraft;
         const currentRef = document.querySelector('.doc-ref');
-        if (currentRef) document.getElementById('refInput').value = currentRef.innerText.trim();
+        if (currentRef) {
+          document.getElementById('refInput').value = currentRef.innerText.trim();
+          document.getElementById('docHeaderTitle').value = `${currentRef.innerText.trim()} - Commercial Letter`;
+        }
       } else {
         document.querySelectorAll('.doc-date').forEach(el => el.innerText = getFormattedDate());
         applyBrandingToDocument();
       }
 
-      // Restore Saved Letterhead & Stamp Automatically (No Re-Upload Needed)
-      restoreSavedStationery();
-
+      await restoreSavedStationery();
       applyAreaMargins();
       attachPageEvents();
       renderHistoryList();
       updatePageBadges();
       checkOverflowAndStats();
+      generateDocQRCode();
+      initSignaturePad();
+      initSelectionBubble();
+      init3DDeskParallax();
+
+      // Keyboard shortcut for sidebar toggle (Ctrl+\)
+      window.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === '\\') {
+          e.preventDefault();
+          toggleSidebar();
+        }
+      });
     });
 
-    // Migrate any background/stamp uploaded in previous versions automatically
-    function migrateLegacyAssetsIfAny() {
-      const oldBg = localStorage.getItem('al_jameel_letterhead_bg_base64');
-      if (oldBg && !localStorage.getItem(BG_LIST_KEY)) {
-        const list = [{ id: 'bg_default', name: 'Saved Letterhead 1', dataUrl: oldBg }];
-        localStorage.setItem(BG_LIST_KEY, JSON.stringify(list));
-        localStorage.setItem(ACTIVE_BG_KEY, oldBg);
-      }
-      const oldStamp = localStorage.getItem('al_jameel_letterhead_stamp_base64');
-      if (oldStamp && !localStorage.getItem(STAMP_LIST_KEY)) {
-        const list = [{ id: 'st_default', name: 'Saved Stamp 1', dataUrl: oldStamp }];
-        localStorage.setItem(STAMP_LIST_KEY, JSON.stringify(list));
-        localStorage.setItem(ACTIVE_STAMP_KEY, oldStamp);
+    /* =========================================================
+       3. 3D DESK VIEWPORT & PARALLAX TRACKING
+       ========================================================= */
+    function toggle3DDeskMode() {
+      is3DDeskMode = !is3DDeskMode;
+      const viewport = document.getElementById('canvasViewport');
+      const btn = document.getElementById('desk3dBtn');
+      viewport.classList.toggle('desk-3d-active', is3DDeskMode);
+      btn.classList.toggle('active', is3DDeskMode);
+      btn.innerText = is3DDeskMode ? '🕶️ Exit 3D View' : '🕶️ 3D Desk View';
+
+      if (!is3DDeskMode) {
+        document.getElementById('pages-container').style.transform = `scale(${currentZoom})`;
       }
     }
 
-    // Compress image via HTML5 Canvas so multiple high-res letterheads fit in localStorage forever
+    function init3DDeskParallax() {
+      const viewport = document.getElementById('canvasViewport');
+      viewport.addEventListener('mousemove', (e) => {
+        if (!is3DDeskMode) return;
+        const rect = viewport.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5; // -0.5 to 0.5
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+        const tiltX = (24 + (y * 8)).toFixed(2);
+        const tiltY = (-8 + (x * 12)).toFixed(2);
+        document.getElementById('pages-container').style.transform = 
+          `rotateX(${tiltX}deg) rotateY(${tiltY}deg) rotateZ(1.5deg) scale(${0.88 * currentZoom})`;
+      });
+    }
+
+    function toggleTriFoldOverlay() {
+      isTriFoldActive = !isTriFoldActive;
+      const btn = document.getElementById('trifoldBtn');
+      btn.classList.toggle('active', isTriFoldActive);
+      document.querySelectorAll('.trifold-overlay').forEach(el => {
+        el.style.display = isTriFoldActive ? 'block' : 'none';
+      });
+    }
+
+    function toggle3DGoldSeal() {
+      const seal = document.getElementById('goldSealOverlay');
+      if (!seal) return;
+      const isVisible = (seal.style.display === 'flex');
+      seal.style.display = isVisible ? 'none' : 'flex';
+      handleEditorInput();
+    }
+
+    /* =========================================================
+       4. SIDEBAR & VIEW CONTROLS
+       ========================================================= */
+    function toggleSidebar() {
+      const sidebar = document.querySelector('.sidebar');
+      sidebar.classList.toggle('collapsed');
+      const isCollapsed = sidebar.classList.contains('collapsed');
+      document.getElementById('sidebarToggleBtn').style.color = isCollapsed ? 'var(--text-muted)' : 'var(--accent)';
+    }
+
+    function toggleDualView() {
+      const container = document.getElementById('pages-container');
+      container.classList.toggle('dual-view');
+      const isDual = container.classList.contains('dual-view');
+      document.getElementById('viewModeBtn').innerText = isDual ? '⊟ Single View' : '⊞ Dual View';
+    }
+
+    function syncDocTitle(val) {
+      document.title = `${val} - Letterhead Studio Enterprise 3D`;
+      handleEditorInput();
+    }
+
+    /* =========================================================
+       5. CONTEXTUAL SELECTION BUBBLE
+       ========================================================= */
+    function initSelectionBubble() {
+      const bubble = document.getElementById('selectionBubble');
+      document.addEventListener('selectionchange', () => {
+        const sel = window.getSelection();
+        if (!sel || sel.isCollapsed || sel.rangeCount === 0) {
+          bubble.classList.remove('visible');
+          return;
+        }
+
+        const range = sel.getRangeAt(0);
+        const node = range.commonAncestorContainer;
+        const contentArea = (node.nodeType === 1 ? node : node.parentElement)?.closest('.content-area');
+
+        if (contentArea) {
+          const rect = range.getBoundingClientRect();
+          if (rect.width > 0 && rect.height > 0) {
+            bubble.style.top = `${rect.top - 42}px`;
+            bubble.style.left = `${rect.left + (rect.width / 2) - 80}px`;
+            bubble.classList.add('visible');
+            return;
+          }
+        }
+        bubble.classList.remove('visible');
+      });
+    }
+
+    /* =========================================================
+       6. DRAGGABLE HANDLER (MOUSE + TOUCH + STYLUS)
+       ========================================================= */
+    function makeDraggable(el) {
+      let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+
+      const onStart = (e) => {
+        const evt = e.touches ? e.touches[0] : e;
+        pos3 = evt.clientX;
+        pos4 = evt.clientY;
+        el.classList.add('dragging');
+        document.addEventListener(e.touches ? 'touchmove' : 'mousemove', onMove);
+        document.addEventListener(e.touches ? 'touchend' : 'mouseup', onEnd);
+      };
+
+      const onMove = (e) => {
+        const evt = e.touches ? e.touches[0] : e;
+        pos1 = pos3 - evt.clientX;
+        pos2 = pos4 - evt.clientY;
+        pos3 = evt.clientX;
+        pos4 = evt.clientY;
+        el.style.top = (el.offsetTop - pos2) + "px";
+        el.style.left = (el.offsetLeft - pos1) + "px";
+        el.style.bottom = "auto";
+        el.style.right = "auto";
+      };
+
+      const onEnd = () => {
+        el.classList.remove('dragging');
+        document.removeEventListener('mousemove', onMove);
+        document.removeEventListener('mouseup', onEnd);
+        document.removeEventListener('touchmove', onMove);
+        document.removeEventListener('touchend', onEnd);
+        handleEditorInput();
+      };
+
+      el.addEventListener('mousedown', onStart);
+      el.addEventListener('touchstart', onStart, { passive: true });
+    }
+
+    /* =========================================================
+       7. DIGITAL SIGNATURE PAD
+       ========================================================= */
+    let sigCanvas, sigCtx, isDrawing = false;
+
+    function initSignaturePad() {
+      sigCanvas = document.getElementById('sigPadCanvas');
+      if (!sigCanvas) return;
+      sigCtx = sigCanvas.getContext('2d');
+      sigCtx.lineWidth = 2.8;
+      sigCtx.lineCap = 'round';
+      sigCtx.lineJoin = 'round';
+      sigCtx.strokeStyle = '#0f172a';
+
+      const getPos = (e) => {
+        const rect = sigCanvas.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        return {
+          x: (clientX - rect.left) * (sigCanvas.width / rect.width),
+          y: (clientY - rect.top) * (sigCanvas.height / rect.height)
+        };
+      };
+
+      const start = (e) => {
+        e.preventDefault();
+        isDrawing = true;
+        const p = getPos(e);
+        sigCtx.beginPath();
+        sigCtx.moveTo(p.x, p.y);
+      };
+
+      const move = (e) => {
+        if (!isDrawing) return;
+        e.preventDefault();
+        const p = getPos(e);
+        sigCtx.lineTo(p.x, p.y);
+        sigCtx.stroke();
+      };
+
+      const stop = () => { isDrawing = false; };
+
+      sigCanvas.addEventListener('mousedown', start);
+      sigCanvas.addEventListener('mousemove', move);
+      window.addEventListener('mouseup', stop);
+
+      sigCanvas.addEventListener('touchstart', start, { passive: false });
+      sigCanvas.addEventListener('touchmove', move, { passive: false });
+      window.addEventListener('touchend', stop);
+    }
+
+    function openSignaturePadModal() {
+      document.getElementById('sigPadModal').classList.add('open');
+      clearSignatureCanvas();
+    }
+
+    function closeSignaturePadModal() {
+      document.getElementById('sigPadModal').classList.remove('open');
+    }
+
+    function clearSignatureCanvas() {
+      if (sigCtx && sigCanvas) {
+        sigCtx.clearRect(0, 0, sigCanvas.width, sigCanvas.height);
+      }
+    }
+
+    async function saveSignaturePadAsStamp() {
+      if (!sigCanvas) return;
+      const dataUrl = sigCanvas.toDataURL('image/png');
+      let stampList = (await dbGet(STAMP_LIST_KEY)) || [];
+      const newItem = {
+        id: 'st_sig_' + Date.now(),
+        name: 'Signature ' + new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' }),
+        dataUrl: dataUrl
+      };
+      stampList.unshift(newItem);
+      await dbSet(STAMP_LIST_KEY, stampList);
+      await dbSet(ACTIVE_STAMP_KEY, dataUrl);
+
+      const stampImg = document.getElementById('stampImg');
+      if (stampImg) {
+        stampImg.src = dataUrl;
+        document.getElementById('stampOverlay').style.display = 'block';
+      }
+      renderAssetGalleries();
+      closeSignaturePadModal();
+      handleEditorInput();
+    }
+
+    /* =========================================================
+       8. VERIFICATION QR CODE GENERATOR (OFFLINE SVG)
+       ========================================================= */
+    function generateDocQRCode() {
+      const container = document.getElementById('qrCanvasContainer');
+      if (!container) return;
+
+      const ref = document.getElementById('refInput').value.trim();
+      const comp = appSettings.companyName;
+      const date = document.querySelector('.doc-date')?.innerText || getFormattedDate();
+      const customUrl = document.getElementById('qrCustomUrl')?.value.trim();
+
+      const payload = customUrl || `AUTHENTIC TRADE DOCUMENT\nIssuer: ${comp}\nRef: ${ref}\nDate: ${date}\nStatus: Officially Signed`;
+
+      const size = 25;
+      let hash = 0;
+      for (let i = 0; i < payload.length; i++) {
+        hash = ((hash << 5) - hash) + payload.charCodeAt(i);
+        hash |= 0;
+      }
+
+      let svg = `<svg viewBox="0 0 ${size} ${size}" fill="#000000" xmlns="http://www.w3.org/2000/svg">`;
+
+      const drawCorner = (x, y) => {
+        svg += `<rect x="${x}" y="${y}" width="7" height="7" fill="#000000"/>`;
+        svg += `<rect x="${x+1}" y="${y+1}" width="5" height="5" fill="#ffffff"/>`;
+        svg += `<rect x="${x+2}" y="${y+2}" width="3" height="3" fill="#000000"/>`;
+      };
+
+      drawCorner(0, 0);
+      drawCorner(size - 7, 0);
+      drawCorner(0, size - 7);
+
+      let seed = Math.abs(hash);
+      for (let r = 0; r < size; r++) {
+        for (let c = 0; c < size; c++) {
+          const isCornerTL = (r < 8 && c < 8);
+          const isCornerTR = (r < 8 && c >= size - 8);
+          const isCornerBL = (r >= size - 8 && c < 8);
+          if (!isCornerTL && !isCornerTR && !isCornerBL) {
+            seed = (seed * 9301 + 49297) % 233280;
+            if ((seed / 233280) > 0.52) {
+              svg += `<rect x="${c}" y="${r}" width="1" height="1"/>`;
+            }
+          }
+        }
+      }
+      svg += `</svg>`;
+      container.innerHTML = svg;
+    }
+
+    function toggleQRCodeOverlay() {
+      const qr = document.getElementById('qrOverlay');
+      if (!qr) return;
+      qr.style.display = (qr.style.display === 'none' || !qr.style.display) ? 'block' : 'none';
+      handleEditorInput();
+    }
+
+    function reassignQRToPage(val) {
+      const qr = document.getElementById('qrOverlay');
+      if (!qr) return;
+      const pages = document.querySelectorAll('.page');
+      const targetPage = (val === 'last') ? pages[pages.length - 1] : document.getElementById(`page-${val}`);
+      if (targetPage) {
+        targetPage.appendChild(qr);
+        handleEditorInput();
+      }
+    }
+
+    /* =========================================================
+       9. WATERMARKS
+       ========================================================= */
+    function applyWatermark(type) {
+      currentWatermark = type;
+      let text = '';
+      if (type === 'custom') {
+        document.getElementById('customWatermarkGroup').style.display = 'block';
+        text = document.getElementById('customWatermarkInput').value.trim() || 'VERIFIED';
+      } else {
+        document.getElementById('customWatermarkGroup').style.display = 'none';
+        if (type !== 'none') text = type;
+      }
+
+      document.querySelectorAll('.watermark-overlay').forEach(el => {
+        if (!text || type === 'none') {
+          el.style.display = 'none';
+        } else {
+          el.style.display = 'flex';
+          el.innerText = text;
+        }
+      });
+      handleEditorInput();
+    }
+
+    /* =========================================================
+       10. STATIONERY & ASSETS
+       ========================================================= */
+    async function restoreSavedStationery() {
+      const activeBg = await dbGet(ACTIVE_BG_KEY);
+      if (activeBg) {
+        document.querySelectorAll('.bg-image').forEach(img => img.src = activeBg);
+      }
+      const activeStamp = await dbGet(ACTIVE_STAMP_KEY);
+      if (activeStamp) {
+        const stampImg = document.getElementById('stampImg');
+        if (stampImg) {
+          stampImg.src = activeStamp;
+          document.getElementById('stampOverlay').style.display = 'block';
+        }
+      }
+      await renderAssetGalleries();
+    }
+
+    async function renderAssetGalleries() {
+      const bgList = (await dbGet(BG_LIST_KEY)) || [];
+      const activeBg = (await dbGet(ACTIVE_BG_KEY)) || '';
+      const bgGallery = document.getElementById('bgGallery');
+      document.getElementById('bgSavedBadge').innerText = `${bgList.length} Saved`;
+
+      if (bgList.length === 0) {
+        bgGallery.innerHTML = `<div style="grid-column:span 3; font-size:10.5px; color:var(--text-muted);">No background saved.</div>`;
+      } else {
+        bgGallery.innerHTML = bgList.map(item => `
+          <div class="asset-thumb ${item.dataUrl === activeBg ? 'active' : ''}" onclick="selectSavedBg('${item.id}')" title="${item.name}">
+            <img src="${item.dataUrl}" alt="${item.name}">
+            <button class="del-asset" onclick="deleteSavedBg(event, '${item.id}')">✕</button>
+          </div>
+        `).join('');
+      }
+
+      const stampList = (await dbGet(STAMP_LIST_KEY)) || [];
+      const activeStamp = (await dbGet(ACTIVE_STAMP_KEY)) || '';
+      const stampGallery = document.getElementById('stampGallery');
+      document.getElementById('stampSavedBadge').innerText = `${stampList.length} Saved`;
+
+      if (stampList.length === 0) {
+        stampGallery.innerHTML = `<div style="grid-column:span 3; font-size:10.5px; color:var(--text-muted);">No stamp saved.</div>`;
+      } else {
+        stampGallery.innerHTML = stampList.map(item => `
+          <div class="asset-thumb ${item.dataUrl === activeStamp ? 'active' : ''}" onclick="selectSavedStamp('${item.id}')" title="${item.name}">
+            <img src="${item.dataUrl}" alt="${item.name}">
+            <button class="del-asset" onclick="deleteSavedStamp(event, '${item.id}')">✕</button>
+          </div>
+        `).join('');
+      }
+    }
+
     function compressImageFile(file, maxWidth, quality, isPng, callback) {
       const reader = new FileReader();
       reader.onload = function(e) {
@@ -1254,85 +2339,22 @@
           const ctx = canvas.getContext('2d');
           ctx.drawImage(img, 0, 0, w, h);
           const mime = isPng ? 'image/png' : 'image/jpeg';
-          const dataUrl = canvas.toDataURL(mime, quality);
-          callback(dataUrl);
+          callback(canvas.toDataURL(mime, quality));
         };
         img.src = e.target.result;
       };
       reader.readAsDataURL(file);
     }
 
-    // Restore Active Letterhead & Stamp + Render Galleries
-    function restoreSavedStationery() {
-      const activeBg = localStorage.getItem(ACTIVE_BG_KEY);
-      if (activeBg) {
-        document.querySelectorAll('.bg-image').forEach(img => img.src = activeBg);
-      }
-      const activeStamp = localStorage.getItem(ACTIVE_STAMP_KEY);
-      if (activeStamp) {
-        const stampImg = document.getElementById('stampImg');
-        if (stampImg) {
-          stampImg.src = activeStamp;
-          document.getElementById('stampOverlay').style.display = 'block';
-        }
-      }
-      renderAssetGalleries();
-    }
-
-    function renderAssetGalleries() {
-      // Letterhead Gallery
-      const bgList = JSON.parse(localStorage.getItem(BG_LIST_KEY) || '[]');
-      const activeBg = localStorage.getItem(ACTIVE_BG_KEY) || '';
-      const bgGallery = document.getElementById('bgGallery');
-      document.getElementById('bgSavedBadge').innerText = `${bgList.length} Saved`;
-
-      if (bgList.length === 0) {
-        bgGallery.innerHTML = `<div style="grid-column:span 3; font-size:11px; color:var(--text-muted);">No custom BG uploaded yet. Upload once to save permanently.</div>`;
-      } else {
-        bgGallery.innerHTML = bgList.map(item => `
-          <div class="asset-thumb ${item.dataUrl === activeBg ? 'active' : ''}" onclick="selectSavedBg('${item.id}')" title="${item.name}">
-            <img src="${item.dataUrl}" alt="${item.name}">
-            <button class="del-asset" onclick="deleteSavedBg(event, '${item.id}')" title="Delete">✕</button>
-          </div>
-        `).join('');
-      }
-
-      // Stamp Gallery
-      const stampList = JSON.parse(localStorage.getItem(STAMP_LIST_KEY) || '[]');
-      const activeStamp = localStorage.getItem(ACTIVE_STAMP_KEY) || '';
-      const stampGallery = document.getElementById('stampGallery');
-      document.getElementById('stampSavedBadge').innerText = `${stampList.length} Saved`;
-
-      if (stampList.length === 0) {
-        stampGallery.innerHTML = `<div style="grid-column:span 3; font-size:11px; color:var(--text-muted);">No stamp uploaded yet. Upload once to save permanently.</div>`;
-      } else {
-        stampGallery.innerHTML = stampList.map(item => `
-          <div class="asset-thumb ${item.dataUrl === activeStamp ? 'active' : ''}" onclick="selectSavedStamp('${item.id}')" title="${item.name}">
-            <img src="${item.dataUrl}" alt="${item.name}">
-            <button class="del-asset" onclick="deleteSavedStamp(event, '${item.id}')" title="Delete">✕</button>
-          </div>
-        `).join('');
-      }
-    }
-
-    // Upload & Permanently Save Letterhead Background
-    function uploadBackground(event) {
+    async function uploadBackground(event) {
       const file = event.target.files[0];
       if (!file) return;
-      compressImageFile(file, 1650, 0.84, false, (dataUrl) => {
-        const bgList = JSON.parse(localStorage.getItem(BG_LIST_KEY) || '[]');
-        const newItem = {
-          id: 'bg_' + Date.now(),
-          name: file.name,
-          dataUrl: dataUrl
-        };
+      compressImageFile(file, 1800, 0.88, false, async (dataUrl) => {
+        let bgList = (await dbGet(BG_LIST_KEY)) || [];
+        const newItem = { id: 'bg_' + Date.now(), name: file.name, dataUrl: dataUrl };
         bgList.unshift(newItem);
-        try {
-          localStorage.setItem(BG_LIST_KEY, JSON.stringify(bgList.slice(0, 8)));
-          localStorage.setItem(ACTIVE_BG_KEY, dataUrl);
-        } catch (err) {
-          alert('Browser storage full! Please delete an old letterhead thumbnail first.');
-        }
+        await dbSet(BG_LIST_KEY, bgList);
+        await dbSet(ACTIVE_BG_KEY, dataUrl);
         document.querySelectorAll('.bg-image').forEach(img => img.src = dataUrl);
         renderAssetGalleries();
         handleEditorInput();
@@ -1340,47 +2362,41 @@
       event.target.value = '';
     }
 
-    function selectSavedBg(id) {
-      const bgList = JSON.parse(localStorage.getItem(BG_LIST_KEY) || '[]');
+    async function selectSavedBg(id) {
+      const bgList = (await dbGet(BG_LIST_KEY)) || [];
       const found = bgList.find(x => x.id === id);
       if (found) {
-        localStorage.setItem(ACTIVE_BG_KEY, found.dataUrl);
+        await dbSet(ACTIVE_BG_KEY, found.dataUrl);
         document.querySelectorAll('.bg-image').forEach(img => img.src = found.dataUrl);
         renderAssetGalleries();
         handleEditorInput();
       }
     }
 
-    function deleteSavedBg(e, id) {
+    async function deleteSavedBg(e, id) {
       e.stopPropagation();
-      let bgList = JSON.parse(localStorage.getItem(BG_LIST_KEY) || '[]');
+      let bgList = (await dbGet(BG_LIST_KEY)) || [];
       bgList = bgList.filter(x => x.id !== id);
-      localStorage.setItem(BG_LIST_KEY, JSON.stringify(bgList));
+      await dbSet(BG_LIST_KEY, bgList);
       if (bgList.length > 0) {
-        localStorage.setItem(ACTIVE_BG_KEY, bgList[0].dataUrl);
+        await dbSet(ACTIVE_BG_KEY, bgList[0].dataUrl);
         document.querySelectorAll('.bg-image').forEach(img => img.src = bgList[0].dataUrl);
       } else {
-        localStorage.removeItem(ACTIVE_BG_KEY);
+        await dbRemove(ACTIVE_BG_KEY);
       }
       renderAssetGalleries();
     }
 
-    // Upload & Permanently Save Stamp PNG
-    function uploadStamp(event) {
+    async function uploadStamp(event) {
       const file = event.target.files[0];
       if (!file) return;
-      compressImageFile(file, 600, 0.9, true, (dataUrl) => {
-        const stampList = JSON.parse(localStorage.getItem(STAMP_LIST_KEY) || '[]');
-        const newItem = {
-          id: 'st_' + Date.now(),
-          name: file.name,
-          dataUrl: dataUrl
-        };
+      compressImageFile(file, 700, 0.92, true, async (dataUrl) => {
+        let stampList = (await dbGet(STAMP_LIST_KEY)) || [];
+        const newItem = { id: 'st_' + Date.now(), name: file.name, dataUrl: dataUrl };
         stampList.unshift(newItem);
-        try {
-          localStorage.setItem(STAMP_LIST_KEY, JSON.stringify(stampList.slice(0, 10)));
-          localStorage.setItem(ACTIVE_STAMP_KEY, dataUrl);
-        } catch (err) {}
+        await dbSet(STAMP_LIST_KEY, stampList);
+        await dbSet(ACTIVE_STAMP_KEY, dataUrl);
+
         const stampImg = document.getElementById('stampImg');
         if (stampImg) {
           stampImg.src = dataUrl;
@@ -1392,11 +2408,11 @@
       event.target.value = '';
     }
 
-    function selectSavedStamp(id) {
-      const stampList = JSON.parse(localStorage.getItem(STAMP_LIST_KEY) || '[]');
+    async function selectSavedStamp(id) {
+      const stampList = (await dbGet(STAMP_LIST_KEY)) || [];
       const found = stampList.find(x => x.id === id);
       if (found) {
-        localStorage.setItem(ACTIVE_STAMP_KEY, found.dataUrl);
+        await dbSet(ACTIVE_STAMP_KEY, found.dataUrl);
         const stampImg = document.getElementById('stampImg');
         if (stampImg) {
           stampImg.src = found.dataUrl;
@@ -1407,311 +2423,192 @@
       }
     }
 
-    function deleteSavedStamp(e, id) {
+    async function deleteSavedStamp(e, id) {
       e.stopPropagation();
-      let stampList = JSON.parse(localStorage.getItem(STAMP_LIST_KEY) || '[]');
+      let stampList = (await dbGet(STAMP_LIST_KEY)) || [];
       stampList = stampList.filter(x => x.id !== id);
-      localStorage.setItem(STAMP_LIST_KEY, JSON.stringify(stampList));
+      await dbSet(STAMP_LIST_KEY, stampList);
       if (stampList.length > 0) {
-        localStorage.setItem(ACTIVE_STAMP_KEY, stampList[0].dataUrl);
+        await dbSet(ACTIVE_STAMP_KEY, stampList[0].dataUrl);
         document.getElementById('stampImg').src = stampList[0].dataUrl;
       } else {
-        localStorage.removeItem(ACTIVE_STAMP_KEY);
+        await dbRemove(ACTIVE_STAMP_KEY);
         document.getElementById('stampOverlay').style.display = 'none';
       }
       renderAssetGalleries();
     }
 
-    // Sidebar Tab Switching (Editor vs. History)
-    function switchSidebarTab(tab) {
-      document.getElementById('tabBtnEditor').classList.toggle('active', tab === 'editor');
-      document.getElementById('tabBtnHistory').classList.toggle('active', tab === 'history');
-      document.getElementById('tabPaneEditor').classList.toggle('active', tab === 'editor');
-      document.getElementById('tabPaneHistory').classList.toggle('active', tab === 'history');
-      if (tab === 'history') renderHistoryList();
-    }
-
-    // Save Current Letter to All-Time History
-    function saveLetterToHistory() {
-      const ref = document.getElementById('refInput').value.trim() || 'AW/LTR/2026/001';
-      const recipientEl = document.querySelector('.doc-recipient');
-      const subjectEl = document.querySelector('.doc-subject');
-      const recipient = recipientEl ? recipientEl.innerText.replace(/[\[\]]/g, '').trim() : 'General Recipient';
-      const subject = subjectEl ? subjectEl.innerText.replace(/[\[\]]/g, '').trim() : 'Official Letter';
-
-      const history = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
-      const entry = {
-        id: 'ltr_' + Date.now(),
-        ref: ref,
-        recipient: recipient,
-        subject: subject,
-        timestamp: new Date().toLocaleString([], { year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit' }),
-        html: document.getElementById('pages-container').innerHTML
-      };
-
-      history.unshift(entry);
-      localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
-      renderHistoryList();
-      switchSidebarTab('history');
-    }
-
-    function renderHistoryList() {
-      const history = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
-      document.getElementById('historyCountBadge').innerText = history.length;
-
-      const query = (document.getElementById('historySearchInput')?.value || '').toLowerCase().trim();
-      const filtered = history.filter(item =>
-        item.ref.toLowerCase().includes(query) ||
-        item.recipient.toLowerCase().includes(query) ||
-        item.subject.toLowerCase().includes(query)
-      );
-
-      const container = document.getElementById('historyListContainer');
-      if (filtered.length === 0) {
-        container.innerHTML = `<div class="empty-history">No saved letters found.<br>Click <b>"Save Letter to History"</b> to store letters here permanently.</div>`;
-        return;
-      }
-
-      container.innerHTML = filtered.map(item => `
-        <div class="history-item">
-          <div class="history-item-top">
-            <span class="history-ref">${item.ref}</span>
-            <span class="history-date">${item.timestamp}</span>
-          </div>
-          <div class="history-meta">
-            <strong>To:</strong> ${item.recipient}<br>
-            <strong>Sub:</strong> ${item.subject}
-          </div>
-          <div class="history-actions">
-            <button class="btn btn-primary" onclick="loadHistoryLetter('${item.id}')">📂 Load</button>
-            <button class="btn" onclick="duplicateHistoryLetter('${item.id}')">📄 Clone</button>
-            <button class="btn btn-danger" style="flex:0.4;" onclick="deleteHistoryLetter('${item.id}')" title="Delete">🗑️</button>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    function loadHistoryLetter(id) {
-      const history = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
-      const found = history.find(x => x.id === id);
-      if (!found) return;
-      document.getElementById('pages-container').innerHTML = found.html;
-      document.getElementById('refInput').value = found.ref;
-      restoreSavedStationery();
-      attachPageEvents();
-      updatePageBadges();
-      handleEditorInput();
-    }
-
-    function duplicateHistoryLetter(id) {
-      loadHistoryLetter(id);
-      incrementRef();
-      document.querySelectorAll('.doc-date').forEach(el => el.innerText = getFormattedDate());
-      switchSidebarTab('editor');
-    }
-
-    function deleteHistoryLetter(id) {
-      if (!confirm('Remove this letter from your saved history?')) return;
-      let history = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
-      history = history.filter(x => x.id !== id);
-      localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
-      renderHistoryList();
-    }
-
-    // Settings Modal Functions
-    function loadAppSettings() {
-      const saved = localStorage.getItem(SETTINGS_KEY);
-      if (saved) {
-        try { appSettings = { ...appSettings, ...JSON.parse(saved) }; } catch (e) {}
-      }
-      document.getElementById('navCompanyName').innerText = appSettings.companyName;
-      document.getElementById('navBrandBadge').innerText = getInitials(appSettings.companyName);
-      document.title = `Letterhead Studio - ${appSettings.companyName}`;
-
-      document.getElementById('setCompanyName').value = appSettings.companyName;
-      document.getElementById('setRefPrefix').value = appSettings.refPrefix;
-      document.getElementById('setSignatory').value = appSettings.signatory;
-      document.getElementById('setMarginTop').value = appSettings.marginTop;
-      document.getElementById('setMarginLeft').value = appSettings.marginLeft;
-      document.getElementById('setMarginWidth').value = appSettings.marginWidth;
-      document.getElementById('setMarginHeight').value = appSettings.marginHeight;
-    }
-
-    function openSettingsModal() {
-      loadAppSettings();
-      document.getElementById('settingsModal').classList.add('open');
-    }
-
-    function closeSettingsModal() {
-      document.getElementById('settingsModal').classList.remove('open');
-    }
-
-    function saveAppSettings() {
-      appSettings.companyName = document.getElementById('setCompanyName').value.trim() || 'Azad Wattan General Trading Co.';
-      appSettings.refPrefix = document.getElementById('setRefPrefix').value.trim() || 'AW/LTR/2026/';
-      appSettings.signatory = document.getElementById('setSignatory').value.trim() || 'Authorized Signatory';
-      appSettings.marginTop = parseInt(document.getElementById('setMarginTop').value, 10) || 130;
-      appSettings.marginLeft = parseInt(document.getElementById('setMarginLeft').value, 10) || 70;
-      appSettings.marginWidth = parseInt(document.getElementById('setMarginWidth').value, 10) || 650;
-      appSettings.marginHeight = parseInt(document.getElementById('setMarginHeight').value, 10) || 820;
-
-      localStorage.setItem(SETTINGS_KEY, JSON.stringify(appSettings));
-      loadAppSettings();
-      applyBrandingToDocument();
-      applyAreaMargins();
-      handleEditorInput();
-      closeSettingsModal();
-    }
-
-    function applyBrandingToDocument() {
-      document.querySelectorAll('.doc-company').forEach(el => el.innerText = appSettings.companyName);
-      document.querySelectorAll('.doc-signatory').forEach(el => el.innerText = appSettings.signatory);
-    }
-
-    function applyAreaMargins() {
-      document.querySelectorAll('.content-area').forEach(area => {
-        area.style.top = appSettings.marginTop + 'px';
-        area.style.left = appSettings.marginLeft + 'px';
-        area.style.width = appSettings.marginWidth + 'px';
-        area.style.height = appSettings.marginHeight + 'px';
+    function toggleBgVisibility() {
+      bgVisible = !bgVisible;
+      document.querySelectorAll('.bg-image').forEach(img => {
+        img.style.visibility = bgVisible ? 'visible' : 'hidden';
       });
-      checkOverflowAndStats();
     }
 
-    // Export & Import Full JSON Backup
-    function exportFullBackup() {
-      const backup = {
-        exportedAt: new Date().toISOString(),
-        settings: appSettings,
-        history: JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]'),
-        bgList: JSON.parse(localStorage.getItem(BG_LIST_KEY) || '[]'),
-        activeBg: localStorage.getItem(ACTIVE_BG_KEY),
-        stampList: JSON.parse(localStorage.getItem(STAMP_LIST_KEY) || '[]'),
-        activeStamp: localStorage.getItem(ACTIVE_STAMP_KEY)
-      };
-      const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = `Azad_Wattan_Letterhead_Backup_${new Date().toISOString().slice(0,10)}.json`;
-      a.click();
-    }
-
-    function importFullBackup(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        try {
-          const data = JSON.parse(e.target.result);
-          if (data.settings) localStorage.setItem(SETTINGS_KEY, JSON.stringify(data.settings));
-          if (data.history) localStorage.setItem(HISTORY_KEY, JSON.stringify(data.history));
-          if (data.bgList) localStorage.setItem(BG_LIST_KEY, JSON.stringify(data.bgList));
-          if (data.activeBg) localStorage.setItem(ACTIVE_BG_KEY, data.activeBg);
-          if (data.stampList) localStorage.setItem(STAMP_LIST_KEY, JSON.stringify(data.stampList));
-          if (data.activeStamp) localStorage.setItem(ACTIVE_STAMP_KEY, data.activeStamp);
-          alert('Backup restored! Reloading studio...');
-          location.reload();
-        } catch (err) {
-          alert('Invalid backup JSON file.');
-        }
-      };
-      reader.readAsText(file);
-    }
-
-    function clearSavedAssets() {
-      if (!confirm('Delete all saved letterhead backgrounds and stamps from browser storage?')) return;
-      localStorage.removeItem(BG_LIST_KEY);
-      localStorage.removeItem(ACTIVE_BG_KEY);
-      localStorage.removeItem(STAMP_LIST_KEY);
-      localStorage.removeItem(ACTIVE_STAMP_KEY);
-      renderAssetGalleries();
-    }
-
-    function clearAllHistory() {
-      if (!confirm('Delete ALL saved letters from History permanently?')) return;
-      localStorage.removeItem(HISTORY_KEY);
-      renderHistoryList();
-    }
-
-    // Core Editor Formatting & Event Handlers
-    function attachPageEvents() {
-      document.querySelectorAll('.content-area').forEach(area => {
-        area.onpaste = function(e) {
-          e.preventDefault();
-          const text = (e.originalEvent || e).clipboardData.getData('text/plain');
-          document.execCommand('insertText', false, text);
-        };
-      });
+    function toggleStamp() {
       const stamp = document.getElementById('stampOverlay');
-      if (stamp) makeDraggable(stamp);
+      if (!stamp) return;
+      stamp.style.display = (stamp.style.display === 'none' || !stamp.style.display) ? 'block' : 'none';
     }
 
-    function formatDoc(cmd, value = null) {
-      document.execCommand(cmd, false, value);
+    function resizeStamp(val) {
+      document.getElementById('stampSizeVal').innerText = val;
+      const stamp = document.getElementById('stampOverlay');
+      if (stamp) stamp.style.width = val + 'px';
       handleEditorInput();
     }
 
-    function changeFontFamily(font) {
-      document.querySelectorAll('.content-area').forEach(el => el.style.fontFamily = font);
-      handleEditorInput();
-    }
-
-    function changeFontSize(size) {
-      document.querySelectorAll('.content-area').forEach(el => el.style.fontSize = size);
-      handleEditorInput();
-    }
-
-    function changeLineHeight(lh) {
-      document.querySelectorAll('.content-area').forEach(el => el.style.lineHeight = lh);
-      handleEditorInput();
-    }
-
-    function toggleGuides() {
-      document.body.classList.toggle('hide-guides');
-    }
-
-    function adjustZoom(delta) {
-      currentZoom = Math.min(1.25, Math.max(0.5, +(currentZoom + delta).toFixed(2)));
-      document.getElementById('pages-container').style.transform = `scale(${currentZoom})`;
-      document.getElementById('zoomLabel').innerText = `${Math.round(currentZoom * 100)}%`;
-    }
-
-    function insertCustomTable() {
-      const rows = prompt('Number of rows:', '4');
-      const cols = prompt('Number of columns:', '4');
-      if (!rows || !cols) return;
-
-      let html = '<table><thead><tr>';
-      for (let c = 0; c < cols; c++) html += `<th>Header ${c + 1}</th>`;
-      html += '</tr></thead><tbody>';
-      for (let r = 0; r < rows - 1; r++) {
-        html += '<tr>';
-        for (let c = 0; c < cols; c++) html += '<td>Data</td>';
-        html += '</tr>';
+    function reassignStampToPage(val) {
+      const stamp = document.getElementById('stampOverlay');
+      if (!stamp) return;
+      const pages = document.querySelectorAll('.page');
+      const targetPage = (val === 'last') ? pages[pages.length - 1] : document.getElementById(`page-${val}`);
+      if (targetPage) {
+        targetPage.appendChild(stamp);
+        handleEditorInput();
       }
-      html += '</tbody></table><p><br></p>';
+    }
 
+    /* =========================================================
+       11. COMMERCIAL VAT TABLE & NUMBER TO WORDS
+       ========================================================= */
+    function numberToWords(num) {
+      const a = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+      const b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+
+      function inWords(n) {
+        if ((n = n.toString()).length > 9) return 'overflow';
+        let nArray = ('000000000' + n).substr(-9).match(/^(\d{2})(\d{2})(\d{2})(\d{1})(\d{2})$/);
+        if (!nArray) return '';
+        let str = '';
+        str += (nArray[1] != 0) ? (a[Number(nArray[1])] || b[nArray[1][0]] + ' ' + a[nArray[1][1]]) + ' Crore ' : '';
+        str += (nArray[2] != 0) ? (a[Number(nArray[2])] || b[nArray[2][0]] + ' ' + a[nArray[2][1]]) + ' Lakh ' : '';
+        str += (nArray[3] != 0) ? (a[Number(nArray[3])] || b[nArray[3][0]] + ' ' + a[nArray[3][1]]) + ' Thousand ' : '';
+        str += (nArray[4] != 0) ? (a[Number(nArray[4])] || b[nArray[4][0]] + ' ' + a[nArray[4][1]]) + ' Hundred ' : '';
+        str += (nArray[5] != 0) ? ((str != '') ? 'and ' : '') + (a[Number(nArray[5])] || b[nArray[5][0]] + ' ' + a[nArray[5][1]]) : '';
+        return str.trim();
+      }
+
+      const parts = num.toFixed(2).split('.');
+      const dollars = inWords(parseInt(parts[0], 10));
+      const cents = parseInt(parts[1], 10);
+      let res = `US Dollars ${dollars || 'Zero'}`;
+      if (cents > 0) res += ` and ${cents}/100 Cents`;
+      res += ' Only';
+      return res;
+    }
+
+    function insertCommercialInvoiceTable() {
+      const html = `
+        <table class="smart-trade-table">
+          <thead>
+            <tr>
+              <th style="width:5%;">#</th>
+              <th>Description / Specification</th>
+              <th style="width:12%;">HS Code</th>
+              <th style="width:10%;">Qty</th>
+              <th style="width:15%;">Unit Price ($)</th>
+              <th style="width:18%;">Total ($)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="trade-row">
+              <td>1</td>
+              <td>Prime Commercial Commodities A-Grade</td>
+              <td>8471.30</td>
+              <td class="col-qty">100</td>
+              <td class="col-price">150.00</td>
+              <td class="col-total">15,000.00</td>
+            </tr>
+            <tr class="trade-row">
+              <td>2</td>
+              <td>Export Standard Materials & Spares</td>
+              <td>8504.40</td>
+              <td class="col-qty">50</td>
+              <td class="col-price">80.00</td>
+              <td class="col-total">4,000.00</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="5" style="text-align:right; font-weight:bold;">Subtotal:</td>
+              <td id="calcSubtotal">$19,000.00</td>
+            </tr>
+            <tr>
+              <td colspan="5" style="text-align:right; font-weight:bold;">UAE VAT (5%):</td>
+              <td id="calcVat">$950.00</td>
+            </tr>
+            <tr>
+              <td colspan="5" style="text-align:right; font-weight:bold; background:rgba(15,23,42,0.06);">Grand Total:</td>
+              <td id="calcGrandTotal" style="font-weight:bold; background:rgba(15,23,42,0.06);">$19,950.00</td>
+            </tr>
+          </tfoot>
+        </table>
+        <p style="margin-top:6px;"><strong>Amount in Words:</strong> <span id="calcWords">US Dollars Nineteen Thousand Nine Hundred and Fifty Only</span></p>
+        <p><br></p>
+      `;
       const activeArea = document.querySelector('.content-area');
       activeArea.focus();
       document.execCommand('insertHTML', false, html);
       handleEditorInput();
     }
 
-    function syncMetadata() {
-      const val = document.getElementById('refInput').value;
-      document.querySelectorAll('.doc-ref').forEach(el => el.innerText = val);
+    function recalculateActiveTradeTable() {
+      const rows = document.querySelectorAll('.trade-row');
+      if (rows.length === 0) return;
+
+      let subtotal = 0;
+      rows.forEach(r => {
+        const qty = parseFloat(r.querySelector('.col-qty')?.innerText.replace(/,/g, '') || 0);
+        const price = parseFloat(r.querySelector('.col-price')?.innerText.replace(/,/g, '') || 0);
+        const total = qty * price;
+        const totalEl = r.querySelector('.col-total');
+        if (totalEl) totalEl.innerText = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        subtotal += total;
+      });
+
+      const vat = subtotal * 0.05;
+      const grandTotal = subtotal + vat;
+
+      const subtotalEl = document.getElementById('calcSubtotal');
+      if (subtotalEl) subtotalEl.innerText = '$' + subtotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+      const vatEl = document.getElementById('calcVat');
+      if (vatEl) vatEl.innerText = '$' + vat.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+      const grandEl = document.getElementById('calcGrandTotal');
+      if (grandEl) grandEl.innerText = '$' + grandTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+      const wordsEl = document.getElementById('calcWords');
+      if (wordsEl) wordsEl.innerText = numberToWords(grandTotal);
+
       handleEditorInput();
     }
 
-    function incrementRef() {
-      const input = document.getElementById('refInput');
-      input.value = input.value.replace(/(\d+)$/, (match) => {
-        return String(parseInt(match, 10) + 1).padStart(match.length, '0');
+    /* =========================================================
+       12. ARABIC & RTL TOGGLE
+       ========================================================= */
+    function toggleRTL() {
+      isRTL = !isRTL;
+      const btn = document.getElementById('rtlToggleBtn');
+      btn.style.background = isRTL ? 'var(--accent)' : 'linear-gradient(180deg, #1e293b, #0f172a)';
+      btn.style.color = isRTL ? '#fff' : 'var(--text-main)';
+
+      document.querySelectorAll('.content-area').forEach(area => {
+        area.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+        area.style.textAlign = isRTL ? 'right' : 'left';
       });
-      syncMetadata();
+
+      if (isRTL) {
+        document.getElementById('fontFamilySelect').value = "'Traditional Arabic', 'Amiri', Tahoma, sans-serif";
+        changeFontFamily("'Traditional Arabic', 'Amiri', Tahoma, sans-serif");
+      }
+      handleEditorInput();
     }
 
-    // Commercial Templates with Dynamic Azad Wattan Branding
+    /* =========================================================
+       13. TEMPLATES
+       ========================================================= */
     function applyTemplate(type) {
       if (!type) return;
       const dateStr = getFormattedDate();
@@ -1730,7 +2627,7 @@
           <br>
           <p>Dear Sir/Madam,</p>
           <br>
-          <p>Type your letter content here. The text area is calibrated to fit between the top header and the stamp/footer area at the bottom.</p>
+          <p>Type your letter content here. The text area is calibrated between the official header and bottom margins.</p>
           <br><br><br>
           <p>Sincerely,</p>
           <br><br>
@@ -1751,7 +2648,7 @@
               <tr><th>Commodity / Specification</th><th>Origin</th><th>Quantity</th><th>Target Price / Incoterms</th></tr>
             </thead>
             <tbody>
-              <tr><td>[Specify Product & Grade]</td><td>[Origin Country]</td><td>[e.g., 5 x 40' FCL]</td><td>[USD / MT CIF Jebel Ali]</td></tr>
+              <tr><td>[Specify Product & Grade]</td><td>[Origin Country]</td><td>[5 x 40' FCL]</td><td>[USD / MT CIF Jebel Ali]</td></tr>
             </tbody>
           </table>
           <p><strong>Packing:</strong> Export Standard Containerized Packing<br>
@@ -1798,14 +2695,13 @@
           <p>Please find below the verified container and cargo dispatch summary:</p>
           <table>
             <thead>
-              <tr><th>Container / Truck No.</th><th>Seal No.</th><th>Packages / Cartons</th><th>Net Weight (KG)</th><th>Gross Weight (KG)</th></tr>
+              <tr><th>Container No.</th><th>Seal No.</th><th>Packages</th><th>Net Wt (KG)</th><th>Gross Wt (KG)</th></tr>
             </thead>
             <tbody>
               <tr><td>[CONT-001]</td><td>[SEAL-01]</td><td>[1,200 CTNS]</td><td>[22,000.00]</td><td>[23,400.00]</td></tr>
-              <tr><td>[CONT-002]</td><td>[SEAL-02]</td><td>[1,200 CTNS]</td><td>[22,000.00]</td><td>[23,400.00]</td></tr>
             </tbody>
           </table>
-          <p><strong>Route / Destination:</strong> Jebel Ali &rarr; Bandar Abbas &rarr; [Final Border Point]<br>
+          <p><strong>Route:</strong> Jebel Ali &rarr; Bandar Abbas &rarr; [Final Border Point]<br>
           <strong>Remarks:</strong> All packages inspected and loaded in sound export condition.</p>
           <br><br>
           <p><strong class="doc-signatory">${sig}</strong><br><span class="doc-company">${comp}</span></p>
@@ -1817,9 +2713,7 @@
           <p><strong>To:</strong> <span class="doc-recipient">[Payer / Client Company Name]</span></p>
           <p><strong>Subject:</strong> <span class="doc-subject">OFFICIAL PAYMENT CONFIRMATION & RECEIPT</span></p>
           <br>
-          <p>Dear Sir/Madam,</p>
-          <br>
-          <p>We hereby acknowledge with thanks the receipt of payment as per the following settlement breakdown:</p>
+          <p>We hereby acknowledge receipt of payment as per the following settlement:</p>
           <table>
             <thead>
               <tr><th>Invoice / Reference</th><th>Payment Mode</th><th>Currency</th><th>Amount Received</th></tr>
@@ -1829,8 +2723,61 @@
             </tbody>
           </table>
           <p><strong>Remaining Balance:</strong> [USD / AED 0.00]</p>
+          <br><br>
+          <p>Sincerely,</p>
           <br>
-          <p>Thank you for your continued business.</p>
+          <p><strong class="doc-signatory">${sig}</strong><br><span class="doc-company">${comp}</span></p>
+        `,
+        bilingual: `
+          <div class="bilingual-grid">
+            <div dir="ltr">
+              <p><strong>Date:</strong> ${dateStr}</p>
+              <p><strong>Ref:</strong> ${refStr}</p>
+              <p><strong>To:</strong> Director of Ports & Customs</p>
+              <br>
+              <p><strong>Subject: Official Clearance Authorization</strong></p>
+              <br>
+              <p>We, <strong>${comp}</strong>, hereby authorize the appointed customs broker to submit, clear, and collect delivery orders on our behalf.</p>
+              <br><br>
+              <p><strong>Authorized Signatory</strong><br>${comp}</p>
+            </div>
+            <div dir="rtl" style="font-family:'Traditional Arabic', Amiri, Tahoma; font-size:16px;">
+              <p><strong>التاريخ:</strong> ${dateStr}</p>
+              <p><strong>الإشارة:</strong> ${refStr}</p>
+              <p><strong>إلى:</strong> إدارة الموانئ والجمارك الموقرة</p>
+              <br>
+              <p><strong>الموضوع: تفويض رسمي للتخليص الجمركي</strong></p>
+              <br>
+              <p>تفوض شركة <strong>${comp}</strong> المخلص الجمركي المعتمد باستلام ومتابعة كافة أذونات التسليم والإفراج الجمركي نيابة عنا.</p>
+              <br><br>
+              <p><strong>المفوض بالتوقيع</strong><br>${comp}</p>
+            </div>
+          </div>
+        `,
+        proforma: `
+          <p><strong>Date:</strong> <span class="doc-date">${dateStr}</span></p>
+          <p><strong>Ref No:</strong> <span class="doc-ref">${refStr}</span></p>
+          <br>
+          <p><strong>To:</strong> <span class="doc-recipient">[Buyer Company Name]</span></p>
+          <p><strong>Subject:</strong> <span class="doc-subject">PROFORMA INVOICE / COMMERCIAL QUOTATION</span></p>
+          <br>
+          <table class="smart-trade-table">
+            <thead>
+              <tr><th>#</th><th>Description</th><th>HS Code</th><th>Qty</th><th>Price ($)</th><th>Total ($)</th></tr>
+            </thead>
+            <tbody>
+              <tr class="trade-row">
+                <td>1</td><td>Export Grade Commodities</td><td>1001.99</td><td class="col-qty">100</td><td class="col-price">250.00</td><td class="col-total">25,000.00</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr><td colspan="5" style="text-align:right;">Subtotal:</td><td id="calcSubtotal">$25,000.00</td></tr>
+              <tr><td colspan="5" style="text-align:right;">UAE VAT (5%):</td><td id="calcVat">$1,250.00</td></tr>
+              <tr><td colspan="5" style="text-align:right; font-weight:bold;">Grand Total:</td><td id="calcGrandTotal" style="font-weight:bold;">$26,250.00</td></tr>
+            </tfoot>
+          </table>
+          <p><strong>Validity:</strong> 14 Days from issuance date.<br>
+          <strong>Delivery Term:</strong> CIF Jebel Ali / Bandar Abbas Incoterms 2020.</p>
           <br><br>
           <p><strong class="doc-signatory">${sig}</strong><br><span class="doc-company">${comp}</span></p>
         `
@@ -1838,102 +2785,405 @@
 
       if (templates[type]) {
         firstArea.innerHTML = templates[type];
+        generateDocQRCode();
         handleEditorInput();
       }
     }
 
-    function toggleBgVisibility() {
-      bgVisible = !bgVisible;
-      document.querySelectorAll('.bg-image').forEach(img => {
-        img.style.visibility = bgVisible ? 'visible' : 'hidden';
+    /* =========================================================
+       14. HISTORY ARCHIVE
+       ========================================================= */
+    async function saveLetterToHistory() {
+      const ref = document.getElementById('refInput').value.trim() || 'AW/LTR/2026/001';
+      const recipientEl = document.querySelector('.doc-recipient');
+      const subjectEl = document.querySelector('.doc-subject');
+      const recipient = recipientEl ? recipientEl.innerText.replace(/[\[\]]/g, '').trim() : 'General Recipient';
+      const subject = subjectEl ? subjectEl.innerText.replace(/[\[\]]/g, '').trim() : 'Official Letter';
+
+      let history = (await dbGet(HISTORY_KEY)) || [];
+      const entry = {
+        id: 'ltr_' + Date.now(),
+        ref: ref,
+        recipient: recipient,
+        subject: subject,
+        timestamp: new Date().toLocaleString([], { year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit' }),
+        html: document.getElementById('pages-container').innerHTML
+      };
+
+      history.unshift(entry);
+      await dbSet(HISTORY_KEY, history);
+      renderHistoryList();
+      switchSidebarTab('history');
+    }
+
+    async function renderHistoryList() {
+      const history = (await dbGet(HISTORY_KEY)) || [];
+      document.getElementById('historyCountBadge').innerText = history.length;
+
+      const query = (document.getElementById('historySearchInput')?.value || '').toLowerCase().trim();
+      const filtered = history.filter(item =>
+        item.ref.toLowerCase().includes(query) ||
+        item.recipient.toLowerCase().includes(query) ||
+        item.subject.toLowerCase().includes(query)
+      );
+
+      const container = document.getElementById('historyListContainer');
+      if (filtered.length === 0) {
+        container.innerHTML = `<div style="text-align:center; padding:30px 12px; color:var(--text-muted); font-size:11.5px; border:1px dashed var(--border-color); border-radius:8px;">No archived documents found.</div>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map(item => `
+        <div class="history-item">
+          <div class="history-item-top">
+            <span class="history-ref">${item.ref}</span>
+            <span class="history-date">${item.timestamp}</span>
+          </div>
+          <div class="history-meta">
+            <strong>To:</strong> ${item.recipient}<br>
+            <strong>Sub:</strong> ${item.subject}
+          </div>
+          <div class="history-actions">
+            <button class="btn btn-primary" onclick="loadHistoryLetter('${item.id}')">📂 Load</button>
+            <button class="btn" onclick="duplicateHistoryLetter('${item.id}')">📄 Clone</button>
+            <button class="btn btn-danger" style="flex:0.4;" onclick="deleteHistoryLetter('${item.id}')">🗑️</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    async function loadHistoryLetter(id) {
+      const history = (await dbGet(HISTORY_KEY)) || [];
+      const found = history.find(x => x.id === id);
+      if (!found) return;
+      document.getElementById('pages-container').innerHTML = found.html;
+      document.getElementById('refInput').value = found.ref;
+      document.getElementById('docHeaderTitle').value = `${found.ref} - ${found.subject}`;
+      await restoreSavedStationery();
+      attachPageEvents();
+      updatePageBadges();
+      handleEditorInput();
+      generateDocQRCode();
+    }
+
+    async function duplicateHistoryLetter(id) {
+      await loadHistoryLetter(id);
+      incrementRef();
+      document.querySelectorAll('.doc-date').forEach(el => el.innerText = getFormattedDate());
+      switchSidebarTab('editor');
+    }
+
+    async function deleteHistoryLetter(id) {
+      if (!confirm('Remove this document from history?')) return;
+      let history = (await dbGet(HISTORY_KEY)) || [];
+      history = history.filter(x => x.id !== id);
+      await dbSet(HISTORY_KEY, history);
+      renderHistoryList();
+    }
+
+    /* =========================================================
+       15. SETTINGS & MARGINS
+       ========================================================= */
+    async function loadAppSettings() {
+      const saved = await dbGet(SETTINGS_KEY);
+      if (saved) appSettings = { ...appSettings, ...saved };
+
+      document.getElementById('navBrandBadge').innerText = getInitials(appSettings.companyName);
+
+      document.getElementById('setCompanyName').value = appSettings.companyName;
+      document.getElementById('setRefPrefix').value = appSettings.refPrefix;
+      document.getElementById('setSignatory').value = appSettings.signatory;
+      document.getElementById('setMarginTop').value = appSettings.marginTop;
+      document.getElementById('setMarginLeft').value = appSettings.marginLeft;
+      document.getElementById('setMarginWidth').value = appSettings.marginWidth;
+      document.getElementById('setMarginHeight').value = appSettings.marginHeight;
+    }
+
+    function openSettingsModal() {
+      loadAppSettings();
+      document.getElementById('settingsModal').classList.add('open');
+    }
+
+    function closeSettingsModal() {
+      document.getElementById('settingsModal').classList.remove('open');
+    }
+
+    async function saveAppSettings() {
+      appSettings.companyName = document.getElementById('setCompanyName').value.trim() || 'Azad Wattan General Trading Co.';
+      appSettings.refPrefix = document.getElementById('setRefPrefix').value.trim() || 'AW/LTR/2026/';
+      appSettings.signatory = document.getElementById('setSignatory').value.trim() || 'Authorized Signatory';
+      appSettings.marginTop = parseInt(document.getElementById('setMarginTop').value, 10) || 130;
+      appSettings.marginLeft = parseInt(document.getElementById('setMarginLeft').value, 10) || 70;
+      appSettings.marginWidth = parseInt(document.getElementById('setMarginWidth').value, 10) || 650;
+      appSettings.marginHeight = parseInt(document.getElementById('setMarginHeight').value, 10) || 820;
+
+      await dbSet(SETTINGS_KEY, appSettings);
+      await loadAppSettings();
+      applyBrandingToDocument();
+      applyAreaMargins();
+      handleEditorInput();
+      closeSettingsModal();
+    }
+
+    function applyBrandingToDocument() {
+      document.querySelectorAll('.doc-company').forEach(el => el.innerText = appSettings.companyName);
+      document.querySelectorAll('.doc-signatory').forEach(el => el.innerText = appSettings.signatory);
+    }
+
+    function applyAreaMargins() {
+      document.querySelectorAll('.content-area').forEach(area => {
+        area.style.top = appSettings.marginTop + 'px';
+        area.style.left = appSettings.marginLeft + 'px';
+        area.style.width = appSettings.marginWidth + 'px';
+        area.style.height = appSettings.marginHeight + 'px';
       });
+      checkOverflowAndStats();
     }
 
-    function toggleStamp() {
-      const stamp = document.getElementById('stampOverlay');
-      if (!stamp) return;
-      stamp.style.display = (stamp.style.display === 'none' || !stamp.style.display) ? 'block' : 'none';
+    /* =========================================================
+       16. BACKUP & EXPORT
+       ========================================================= */
+    async function exportFullBackup() {
+      const backup = {
+        exportedAt: new Date().toISOString(),
+        version: '6.0-enterprise-3d',
+        settings: appSettings,
+        history: (await dbGet(HISTORY_KEY)) || [],
+        bgList: (await dbGet(BG_LIST_KEY)) || [],
+        activeBg: await dbGet(ACTIVE_BG_KEY),
+        stampList: (await dbGet(STAMP_LIST_KEY)) || [],
+        activeStamp: await dbGet(ACTIVE_STAMP_KEY)
+      };
+      const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `Azad_Wattan_Enterprise_Backup_${new Date().toISOString().slice(0,10)}.json`;
+      a.click();
     }
 
-    function resizeStamp(val) {
-      document.getElementById('stampSizeVal').innerText = val;
+    function importFullBackup(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = async function(e) {
+        try {
+          const data = JSON.parse(e.target.result);
+          if (data.settings) await dbSet(SETTINGS_KEY, data.settings);
+          if (data.history) await dbSet(HISTORY_KEY, data.history);
+          if (data.bgList) await dbSet(BG_LIST_KEY, data.bgList);
+          if (data.activeBg) await dbSet(ACTIVE_BG_KEY, data.activeBg);
+          if (data.stampList) await dbSet(STAMP_LIST_KEY, data.stampList);
+          if (data.activeStamp) await dbSet(ACTIVE_STAMP_KEY, data.activeStamp);
+          alert('Backup successfully restored! Reloading studio...');
+          location.reload();
+        } catch (err) {
+          alert('Invalid JSON backup file.');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    async function clearSavedAssets() {
+      if (!confirm('Clear all saved letterhead backgrounds and stamps from database?')) return;
+      await dbRemove(BG_LIST_KEY);
+      await dbRemove(ACTIVE_BG_KEY);
+      await dbRemove(STAMP_LIST_KEY);
+      await dbRemove(ACTIVE_STAMP_KEY);
+      renderAssetGalleries();
+    }
+
+    async function clearAllHistory() {
+      if (!confirm('Permanently delete all letters from history?')) return;
+      await dbRemove(HISTORY_KEY);
+      renderHistoryList();
+    }
+
+    /* =========================================================
+       17. PAGE MANAGEMENT & EDITING
+       ========================================================= */
+    function switchSidebarTab(tab) {
+      ['editor', 'trade', 'history'].forEach(t => {
+        document.getElementById(`tabBtn${t.charAt(0).toUpperCase() + t.slice(1)}`).classList.toggle('active', t === tab);
+        document.getElementById(`tabPane${t.charAt(0).toUpperCase() + t.slice(1)}`).classList.toggle('active', t === tab);
+      });
+      if (tab === 'history') renderHistoryList();
+    }
+
+    function attachPageEvents() {
+      document.querySelectorAll('.content-area').forEach(area => {
+        area.onpaste = function(e) {
+          e.preventDefault();
+          const text = (e.originalEvent || e).clipboardData.getData('text/plain');
+          document.execCommand('insertText', false, text);
+        };
+      });
+
       const stamp = document.getElementById('stampOverlay');
-      if (stamp) stamp.style.width = val + 'px';
+      if (stamp) makeDraggable(stamp);
+
+      const qr = document.getElementById('qrOverlay');
+      if (qr) makeDraggable(qr);
+
+      const seal = document.getElementById('goldSealOverlay');
+      if (seal) makeDraggable(seal);
+    }
+
+    function formatDoc(cmd, value = null) {
+      document.execCommand(cmd, false, value);
       handleEditorInput();
     }
 
-    function makeDraggable(el) {
-      let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-      el.onmousedown = function(e) {
-        e.preventDefault();
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        document.onmouseup = function() {
-          document.onmouseup = null;
-          document.onmousemove = null;
-          handleEditorInput();
-        };
-        document.onmousemove = function(e) {
-          e.preventDefault();
-          pos1 = pos3 - e.clientX;
-          pos2 = pos4 - e.clientY;
-          pos3 = e.clientX;
-          pos4 = e.clientY;
-          el.style.top = (el.offsetTop - pos2) + "px";
-          el.style.left = (el.offsetLeft - pos1) + "px";
-          el.style.bottom = "auto";
-          el.style.right = "auto";
-        };
-      };
+    function applyTextColor(val) {
+      document.getElementById('textColorIndicator').style.background = val;
+      formatDoc('foreColor', val);
+    }
+
+    function applyHighlightColor(val) {
+      document.getElementById('hiliteColorIndicator').style.background = val;
+      formatDoc('hiliteColor', val);
+    }
+
+    function changeFontFamily(font) {
+      document.querySelectorAll('.content-area').forEach(el => el.style.fontFamily = font);
+      handleEditorInput();
+    }
+
+    function changeFontSize(size) {
+      document.querySelectorAll('.content-area').forEach(el => el.style.fontSize = size);
+      handleEditorInput();
+    }
+
+    function changeLineHeight(lh) {
+      document.querySelectorAll('.content-area').forEach(el => el.style.lineHeight = lh);
+      handleEditorInput();
+    }
+
+    function toggleGuides() {
+      document.body.classList.toggle('hide-guides');
+    }
+
+    function adjustZoom(delta) {
+      currentZoom = Math.min(1.4, Math.max(0.45, +(currentZoom + delta).toFixed(2)));
+      if (!is3DDeskMode) {
+        document.getElementById('pages-container').style.transform = `scale(${currentZoom})`;
+      } else {
+        document.getElementById('pages-container').style.transform = `rotateX(24deg) rotateY(-8deg) rotateZ(1.5deg) scale(${0.88 * currentZoom})`;
+      }
+      document.getElementById('zoomLabel').innerText = `${Math.round(currentZoom * 100)}%`;
+    }
+
+    function insertCustomTable() {
+      const rows = prompt('Number of rows:', '4');
+      const cols = prompt('Number of columns:', '4');
+      if (!rows || !cols) return;
+
+      let html = '<table><thead><tr>';
+      for (let c = 0; c < cols; c++) html += `<th>Header ${c + 1}</th>`;
+      html += '</tr></thead><tbody>';
+      for (let r = 0; r < rows - 1; r++) {
+        html += '<tr>';
+        for (let c = 0; c < cols; c++) html += '<td>Data</td>';
+        html += '</tr>';
+      }
+      html += '</tbody></table><p><br></p>';
+
+      const activeArea = document.querySelector('.content-area');
+      activeArea.focus();
+      document.execCommand('insertHTML', false, html);
+      handleEditorInput();
+    }
+
+    function syncMetadata() {
+      const val = document.getElementById('refInput').value;
+      document.querySelectorAll('.doc-ref').forEach(el => el.innerText = val);
+      document.getElementById('docHeaderTitle').value = `${val} - Commercial Document`;
+      generateDocQRCode();
+      handleEditorInput();
+    }
+
+    function incrementRef() {
+      const input = document.getElementById('refInput');
+      input.value = input.value.replace(/(\d+)$/, (match) => {
+        return String(parseInt(match, 10) + 1).padStart(match.length, '0');
+      });
+      syncMetadata();
     }
 
     function addNewPage() {
       const container = document.getElementById('pages-container');
-      const pageCount = container.querySelectorAll('.page').length + 1;
-      const firstBgSrc = document.querySelector('.bg-image').src;
+      const wrappers = container.querySelectorAll('.page-wrapper');
+      const pageCount = wrappers.length + 1;
+      const firstBg = document.querySelector('.bg-image');
+      const firstBgSrc = firstBg ? firstBg.src : '';
 
-      const pageDiv = document.createElement('div');
-      pageDiv.className = 'page';
-      pageDiv.id = `page-${pageCount}`;
-      pageDiv.innerHTML = `
-        <div class="page-badge">
+      const wrapperDiv = document.createElement('div');
+      wrapperDiv.className = 'page-wrapper';
+      wrapperDiv.id = `page-wrapper-${pageCount}`;
+      wrapperDiv.innerHTML = `
+        <div class="page-header-strip">
           <span>Page ${pageCount}</span>
-          <button onclick="removePage(this)">Remove</button>
+          <div class="page-strip-actions">
+            <button class="strip-btn" onclick="duplicateCurrentPage(${pageCount})">📄 Clone</button>
+            <button class="strip-btn danger" onclick="removePageWrapper(${pageCount})">✕ Remove</button>
+          </div>
         </div>
-        <img class="bg-image" src="${firstBgSrc}" alt="Letterhead Background" style="visibility: ${bgVisible ? 'visible' : 'hidden'}">
-        <div class="content-area" contenteditable="true" oninput="handleEditorInput()">
-          <p><strong>Ref No:</strong> <span class="doc-ref">${document.getElementById('refInput').value}</span> (Continued - Page ${pageCount})</p>
-          <br>
-          <p>Continue typing here...</p>
+        <div class="page" id="page-${pageCount}">
+          <div class="trifold-overlay" style="display:${isTriFoldActive ? 'block' : 'none'};">
+            <div class="trifold-crease trifold-crease-1"></div>
+            <div class="trifold-crease trifold-crease-2"></div>
+          </div>
+          <div class="watermark-overlay" id="watermarkPage${pageCount}">${currentWatermark !== 'none' ? currentWatermark : ''}</div>
+          <img class="bg-image" src="${firstBgSrc}" alt="Letterhead Background" style="visibility: ${bgVisible ? 'visible' : 'hidden'}">
+          <div class="content-area" contenteditable="true" oninput="handleEditorInput()" ${isRTL ? 'dir="rtl" style="text-align:right;"' : ''}>
+            <p><strong>Ref No:</strong> <span class="doc-ref">${document.getElementById('refInput').value}</span> (Continued - Page ${pageCount})</p>
+            <br>
+            <p>Continue typing here...</p>
+          </div>
         </div>
       `;
-      container.appendChild(pageDiv);
+      container.appendChild(wrapperDiv);
       applyAreaMargins();
       attachPageEvents();
       updatePageBadges();
       handleEditorInput();
     }
 
-    function removePage(btn) {
-      const page = btn.closest('.page');
-      if (page) {
-        page.remove();
+    function duplicateCurrentPage(pageIndex) {
+      const srcWrapper = document.getElementById(`page-wrapper-${pageIndex}`);
+      if (!srcWrapper) return;
+      addNewPage();
+      const wrappers = document.querySelectorAll('.page-wrapper');
+      const newWrapper = wrappers[wrappers.length - 1];
+      const srcContent = srcWrapper.querySelector('.content-area').innerHTML;
+      newWrapper.querySelector('.content-area').innerHTML = srcContent;
+      handleEditorInput();
+    }
+
+    function removePageWrapper(pageIndex) {
+      const wrappers = document.querySelectorAll('.page-wrapper');
+      if (wrappers.length <= 1) {
+        alert('You must have at least one page in your document.');
+        return;
+      }
+      const wrapper = document.getElementById(`page-wrapper-${pageIndex}`);
+      if (wrapper) {
+        wrapper.remove();
         updatePageBadges();
         handleEditorInput();
       }
     }
 
     function updatePageBadges() {
-      const pages = document.querySelectorAll('.page');
-      pages.forEach((p, idx) => {
-        const span = p.querySelector('.page-badge span');
-        if (span) span.innerText = `Page ${idx + 1} of ${pages.length}`;
+      const wrappers = document.querySelectorAll('.page-wrapper');
+      wrappers.forEach((w, idx) => {
+        const span = w.querySelector('.page-header-strip span');
+        if (span) span.innerText = `Page ${idx + 1} of ${wrappers.length}`;
       });
     }
 
-    function handleEditorInput() {
+    async function handleEditorInput() {
       checkOverflowAndStats();
-      localStorage.setItem(DRAFT_KEY, document.getElementById('pages-container').innerHTML);
+      await dbSet(DRAFT_KEY, document.getElementById('pages-container').innerHTML);
       document.getElementById('saveStatus').innerText = 'Saved ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     }
 
@@ -1958,25 +3208,18 @@
       document.getElementById('overflowAlert').style.display = anyOverflow ? 'inline-flex' : 'none';
     }
 
-    function resetEditor() {
-      if (!confirm('Clear current draft text? (Your saved letterheads, stamps, and history will remain intact)')) return;
-      localStorage.removeItem(DRAFT_KEY);
+    async function resetEditor() {
+      if (!confirm('Clear current draft text? (Your background, stamps, and history will remain intact)')) return;
+      await dbRemove(DRAFT_KEY);
       location.reload();
     }
 
     function printDocument() {
-      const ref = (document.getElementById('refInput').value || 'Letter').replace(/[^a-zA-Z0-9-_]/g, '-');
-      const recipientEl = document.querySelector('.doc-recipient');
-      let recipient = recipientEl ? recipientEl.innerText.replace(/[\[\]]/g, '').trim() : '';
-      recipient = recipient.replace(/[^a-zA-Z0-9-_ ]/g, '').trim().replace(/\s+/g, '_');
-
+      const title = (document.getElementById('docHeaderTitle').value || 'Letter').replace(/[^a-zA-Z0-9-_ ]/g, '').trim().replace(/\s+/g, '_');
       const originalTitle = document.title;
-      document.title = recipient && recipient !== 'Recipient_Name__Company_Name'
-        ? `${ref}_${recipient}`
-        : `${ref}_Azad_Wattan`;
-
+      document.title = title || 'Azad_Wattan_Trade_Letter';
       window.print();
-      setTimeout(() => { document.title = originalTitle; }, 1000);
+      setTimeout(() => { document.title = originalTitle; }, 1200);
     }
   </script>
 </body>
