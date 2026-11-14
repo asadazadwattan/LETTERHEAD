@@ -1592,9 +1592,10 @@
             <span class="saved-badge" id="bgSavedBadge">IndexedDB</span>
           </div>
 
-          <div class="grid-2">
-            <button class="btn" onclick="document.getElementById('bgFileInput').click()">+ Upload BG</button>
+          <div class="grid-3" style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:6px;">
+            <button class="btn btn-primary" onclick="document.getElementById('bgFileInput').click()">+ Upload BG</button>
             <button class="btn" onclick="toggleBgVisibility()">Toggle BG</button>
+            <button class="btn" onclick="loadSampleCorporateStationery()" title="Load Sample Executive Stationery">Sample BG</button>
           </div>
           <input type="file" id="bgFileInput" accept="image/*" style="display:none" onchange="uploadBackground(event)">
 
@@ -1964,8 +1965,8 @@
               <button class="btn btn-primary" style="flex:1;" onclick="testAndConnectFirebase()">
                 ⚡ Connect & Test Firebase
               </button>
-              <button class="btn" style="flex:1;" onclick="pushAllToFirebase()">
-                ⬆️ Push Local to Cloud
+              <button class="btn" style="flex:1.2;" onclick="pushAllToFirebase()" title="Push active draft, history, letterheads, and stamps to Firebase">
+                ⬆️ Push All to Cloud (Stationery + Docs)
               </button>
               <button class="btn" style="flex:1;" onclick="pullFromFirebase(true)">
                 ⬇️ Pull from Cloud
@@ -1973,12 +1974,60 @@
             </div>
           </div>
 
-          <!-- Quick Setup Guide Info -->
-          <div style="font-size:11px; line-height:1.5; color:var(--text-muted); padding:6px 10px; border-left:3px solid var(--accent); background:rgba(59,130,246,0.06); border-radius:4px;">
+          <!-- Cross-Device 1-Click Sync Link Card -->
+          <div class="panel-card" style="border:1px solid rgba(59,130,246,0.35); background:rgba(59,130,246,0.04);">
+            <div class="panel-header">
+              <span>📱 New Device / Browser 1-Click Sync</span>
+              <span class="saved-badge" style="background:#2563eb; color:#fff;">Cross-Device</span>
+            </div>
+            <div style="font-size:11px; line-height:1.5; color:var(--text-muted); margin-bottom:8px;">
+              Open this studio on another phone, tablet, laptop, or GitHub Pages browser and automatically connect with all your letterheads, stamps, and letters:
+            </div>
+            <div style="display:flex; gap:6px; flex-wrap:wrap;">
+              <button class="btn btn-primary" style="flex:1.2;" onclick="copySyncShareLink()">
+                🔗 Copy 1-Click Sync Link
+              </button>
+              <button class="btn" style="flex:1;" onclick="showSyncQrCodeModal()">
+                📲 Show Sync QR Code
+              </button>
+            </div>
+            <div id="syncLinkCopyFeedback" style="display:none; font-size:11px; color:#10b981; font-weight:600; margin-top:6px; text-align:center;">
+              ✓ 1-Click Sync Link copied! Open it on your new device or browser to sync instantly.
+            </div>
+          </div>
+
+          <!-- Firebase Realtime Database Security Rules -->
+          <div class="panel-card">
+            <div class="panel-header">
+              <span>Firebase Database Security Rules</span>
+              <button class="btn" style="padding:2px 8px; font-size:10px;" onclick="copyFirebaseRules()">📋 Copy Rules</button>
+            </div>
+            <div style="font-size:11px; line-height:1.4; color:var(--text-muted); margin-bottom:6px;">
+              In Firebase Console &gt; <b>Realtime Database</b> &gt; <b>Rules</b> tab, paste these rules to enable read/write access for your devices:
+            </div>
+            <textarea id="firebaseRulesSnippet" class="form-control" rows="8" readonly style="font-family:monospace; font-size:11px; background:var(--bg-input); color:var(--text-primary);">{
+  "rules": {
+    "azad_wattan_studio": {
+      "$channelId": {
+        ".read": true,
+        ".write": true
+      }
+    }
+  }
+}</textarea>
+          </div>
+
+          <!-- Quick Setup & GitHub Pages Static Asset Guide Info -->
+          <div style="font-size:11px; line-height:1.5; color:var(--text-muted); padding:8px 10px; border-left:3px solid var(--accent); background:rgba(59,130,246,0.06); border-radius:4px; margin-bottom:6px;">
             <strong>Quick Setup (100% Free):</strong><br>
             1. Go to <a href="https://console.firebase.google.com" target="_blank" style="color:var(--accent);">console.firebase.google.com</a> and create a project.<br>
-            2. Click <b>Build &gt; Realtime Database</b> &gt; Create Database (Choose Test Mode or allow read/write rules).<br>
+            2. Click <b>Build &gt; Realtime Database</b> &gt; Create Database (Choose Test Mode or paste rules above).<br>
             3. In Project Settings &gt; General &gt; Your Apps, register a Web App (<code>&lt;/&gt;</code>) and paste the config snippet above.
+          </div>
+
+          <div style="font-size:11px; line-height:1.5; color:var(--text-muted); padding:8px 10px; border-left:3px solid #10b981; background:rgba(16,185,129,0.06); border-radius:4px;">
+            <strong>GitHub Pages Static Asset Fallback (No-Cloud Alternative):</strong><br>
+            If you want letterheads and stamps to appear automatically on GitHub Pages without using Firebase, simply commit your image as <code>letterhead.jpg</code> (or <code>assets/letterhead.jpg</code>) and your stamp as <code>stamp.png</code> in your GitHub repository! The studio will auto-detect and load them on any device.
           </div>
         </div>
 
@@ -2066,6 +2115,34 @@
           <button class="btn" onclick="closeSettingsModal()">Cancel</button>
           <button class="btn btn-primary" onclick="saveAllSettingsAndSync()">Save & Apply</button>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 5B. CROSS-DEVICE SYNC QR MODAL ================= -->
+  <div class="modal-backdrop" id="syncQrModal">
+    <div class="modal-window" style="max-width:440px;">
+      <div class="modal-header">
+        <h2>📲 Device Sync QR Code</h2>
+        <button class="btn" style="padding:3px 8px;" onclick="closeSyncQrModal()">✕</button>
+      </div>
+      <div class="modal-body" style="text-align:center; padding:18px 20px;">
+        <p style="font-size:12px; color:var(--text-muted); margin-bottom:14px; line-height:1.5;">
+          Point your mobile phone or tablet camera at this QR code to instantly open the studio with all letterheads, stamps, and letters synced:
+        </p>
+        <div style="background:#ffffff; padding:12px; border-radius:12px; display:inline-block; box-shadow:0 6px 20px rgba(0,0,0,0.15); margin-bottom:14px;">
+          <img id="syncQrCodeImg" src="" alt="Sync QR Code" style="width:200px; height:200px; display:block;">
+        </div>
+        <div class="form-group" style="text-align:left;">
+          <label style="font-size:11px;">Or copy and send this 1-click sync link:</label>
+          <div style="display:flex; gap:6px;">
+            <input type="text" id="syncQrUrlInput" class="form-control" readonly style="font-size:11px;">
+            <button class="btn btn-primary" onclick="copySyncShareLink(true)">Copy</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" onclick="closeSyncQrModal()">Done</button>
       </div>
     </div>
   </div>
@@ -2206,6 +2283,21 @@
     let fbDebounceTimer = null;
     let lastLocalEditTimestamp = 0;
     let isApplyingRemoteChange = false;
+    let lastLocalAssetUpdate = 0;
+
+    /* =========================================================
+       DEFAULT FIREBASE CONFIG (OPTIONAL)
+       If you want ANY device or browser opening your GitHub Pages site
+       to automatically connect to your cloud database and load your
+       letterheads, stamps & letters with zero setup, paste your config below:
+       ========================================================= */
+    const DEFAULT_FIREBASE_CONFIG = {
+      enabled: false, // Set to true after pasting credentials below
+      apiKey: '',
+      databaseURL: '',
+      projectId: '',
+      channelId: 'azad_wattan_main'
+    };
 
     let gdriveTokenClient = null;
     let gdriveAccessToken = null;
@@ -2249,6 +2341,10 @@
        ========================================================= */
     window.addEventListener('DOMContentLoaded', async () => {
       await initIndexedDB();
+
+      // 1. Check if URL contains 1-click sync hash (#sync=...) from another device
+      await checkAndApplySyncUrl();
+
       await loadAppSettings();
 
       // Restore Saved Draft
@@ -2265,7 +2361,10 @@
         applyBrandingToDocument();
       }
 
+      // Restore Local Stationery & probe GitHub Pages repository static assets
       await restoreSavedStationery();
+      await checkRepositoryDefaultAssets();
+
       applyAreaMargins();
       attachPageEvents();
       renderHistoryList();
@@ -2519,6 +2618,7 @@
       renderAssetGalleries();
       closeSignaturePadModal();
       handleEditorInput();
+      syncAssetsToFirebase();
     }
 
     /* =========================================================
@@ -2704,6 +2804,7 @@
         document.querySelectorAll('.bg-image').forEach(img => img.src = dataUrl);
         renderAssetGalleries();
         handleEditorInput();
+        syncAssetsToFirebase();
       });
       event.target.value = '';
     }
@@ -2716,6 +2817,7 @@
         document.querySelectorAll('.bg-image').forEach(img => img.src = found.dataUrl);
         renderAssetGalleries();
         handleEditorInput();
+        syncAssetsToFirebase();
       }
     }
 
@@ -2731,6 +2833,7 @@
         await dbRemove(ACTIVE_BG_KEY);
       }
       renderAssetGalleries();
+      syncAssetsToFirebase();
     }
 
     async function uploadStamp(event) {
@@ -2750,6 +2853,7 @@
         }
         renderAssetGalleries();
         handleEditorInput();
+        syncAssetsToFirebase();
       });
       event.target.value = '';
     }
@@ -2766,6 +2870,7 @@
         }
         renderAssetGalleries();
         handleEditorInput();
+        syncAssetsToFirebase();
       }
     }
 
@@ -2782,6 +2887,7 @@
         document.getElementById('stampOverlay').style.display = 'none';
       }
       renderAssetGalleries();
+      syncAssetsToFirebase();
     }
 
     function toggleBgVisibility() {
@@ -3295,7 +3401,14 @@
        FIREBASE REALTIME DATABASE LIVE SYNC ENGINE
        ========================================================= */
     async function loadFirebaseSettings() {
-      const saved = await dbGet(FIREBASE_CONFIG_KEY);
+      let saved = await dbGet(FIREBASE_CONFIG_KEY);
+
+      // If no local config saved yet in this browser, fallback to DEFAULT_FIREBASE_CONFIG if enabled
+      if ((!saved || (!saved.apiKey && !saved.databaseURL)) && DEFAULT_FIREBASE_CONFIG.enabled && (DEFAULT_FIREBASE_CONFIG.databaseURL || DEFAULT_FIREBASE_CONFIG.apiKey)) {
+        saved = { ...DEFAULT_FIREBASE_CONFIG };
+        await dbSet(FIREBASE_CONFIG_KEY, saved);
+      }
+
       if (saved) firebaseConfig = { ...firebaseConfig, ...saved };
 
       const enableCheckbox = document.getElementById('fbEnableSync');
@@ -3428,9 +3541,25 @@
           clientConnectedAt: Date.now(),
           companyName: appSettings.companyName,
           clientVersion: '6.0-live'
-        }).then(() => {
+        }).then(async () => {
           updateCloudStatus('synced', '🔥 Firebase Live');
           setupFirebaseRealtimeListeners();
+
+          // Auto-sync checks for new device vs existing device:
+          const localBg = await dbGet(ACTIVE_BG_KEY);
+          const localDraft = await dbGet(DRAFT_KEY);
+
+          // If this device is completely empty (e.g. brand new device/browser), auto-pull from cloud
+          if (!localBg || !localDraft) {
+            await pullFromFirebase(false);
+          } else {
+            // If this device has local letterhead but cloud has no assets yet, auto-push to cloud
+            const remoteAssetsSnap = await firebaseDb.ref(`azad_wattan_studio/${channel}/assets`).once('value');
+            if (!remoteAssetsSnap.exists()) {
+              await syncAssetsToFirebase();
+            }
+          }
+
           if (!silent) alert('Firebase Realtime Database successfully connected! Live cloud sync is active.');
         }).catch(err => {
           console.error('Firebase DB ping failed:', err);
@@ -3495,6 +3624,52 @@
           renderHistoryList();
         }
       });
+
+      // 3. Listen for remote stationery assets (letterhead background & stamps)
+      firebaseDb.ref(`azad_wattan_studio/${channel}/assets`).on('value', async snapshot => {
+        const remoteAssets = snapshot.val();
+        if (!remoteAssets) return;
+        if (remoteAssets.updatedAt && remoteAssets.updatedAt === lastLocalAssetUpdate) return;
+
+        let hasStationeryChanges = false;
+        if (remoteAssets.bgList && Array.isArray(remoteAssets.bgList)) {
+          await dbSet(BG_LIST_KEY, remoteAssets.bgList);
+          hasStationeryChanges = true;
+        }
+        if (remoteAssets.activeBg !== undefined) {
+          if (remoteAssets.activeBg) {
+            await dbSet(ACTIVE_BG_KEY, remoteAssets.activeBg);
+            document.querySelectorAll('.bg-image').forEach(img => img.src = remoteAssets.activeBg);
+          } else {
+            await dbRemove(ACTIVE_BG_KEY);
+            document.querySelectorAll('.bg-image').forEach(img => img.src = '');
+          }
+          hasStationeryChanges = true;
+        }
+        if (remoteAssets.stampList && Array.isArray(remoteAssets.stampList)) {
+          await dbSet(STAMP_LIST_KEY, remoteAssets.stampList);
+          hasStationeryChanges = true;
+        }
+        if (remoteAssets.activeStamp !== undefined) {
+          if (remoteAssets.activeStamp) {
+            await dbSet(ACTIVE_STAMP_KEY, remoteAssets.activeStamp);
+            const stampImg = document.getElementById('stampImg');
+            if (stampImg) {
+              stampImg.src = remoteAssets.activeStamp;
+              document.getElementById('stampOverlay').style.display = 'block';
+            }
+          } else {
+            await dbRemove(ACTIVE_STAMP_KEY);
+            document.getElementById('stampOverlay').style.display = 'none';
+          }
+          hasStationeryChanges = true;
+        }
+
+        if (hasStationeryChanges) {
+          await renderAssetGalleries();
+          showSyncToast('Stationery updated from cloud');
+        }
+      });
     }
 
     function scheduleFirebaseDraftSync() {
@@ -3536,6 +3711,25 @@
         .catch(err => console.error('Error deleting from Firebase:', err));
     }
 
+    async function syncAssetsToFirebase() {
+      if (!firebaseDb || !firebaseConfig.enabled || isApplyingRemoteChange) return;
+      try {
+        lastLocalAssetUpdate = Date.now();
+        const channel = firebaseConfig.channelId || 'azad_wattan_main';
+        const assetsPayload = {
+          bgList: (await dbGet(BG_LIST_KEY)) || [],
+          activeBg: (await dbGet(ACTIVE_BG_KEY)) || '',
+          stampList: (await dbGet(STAMP_LIST_KEY)) || [],
+          activeStamp: (await dbGet(ACTIVE_STAMP_KEY)) || '',
+          updatedAt: lastLocalAssetUpdate
+        };
+        await firebaseDb.ref(`azad_wattan_studio/${channel}/assets`).set(assetsPayload);
+        updateCloudStatus('synced', '🔥 Firebase Live');
+      } catch (err) {
+        console.error('Firebase asset sync error:', err);
+      }
+    }
+
     async function pushAllToFirebase() {
       if (!firebaseDb || !firebaseConfig.enabled) {
         alert('Please enable and connect Firebase first.');
@@ -3548,24 +3742,35 @@
         const historyObj = {};
         history.forEach(item => { if (item.id) historyObj[item.id] = item; });
 
+        lastLocalAssetUpdate = Date.now();
         const fullCloudPayload = {
           meta: {
-            pushedAt: Date.now(),
+            pushedAt: lastLocalAssetUpdate,
             companyName: appSettings.companyName,
-            refPrefix: appSettings.refPrefix
+            refPrefix: appSettings.refPrefix,
+            clientVersion: '6.0-live'
           },
           draft: {
             html: document.getElementById('pages-container').innerHTML,
             ref: document.getElementById('refInput').value.trim(),
             title: document.getElementById('docHeaderTitle').value.trim(),
-            updatedAt: Date.now()
+            updatedAt: lastLocalAssetUpdate
           },
-          history: historyObj
+          history: historyObj,
+          assets: {
+            bgList: (await dbGet(BG_LIST_KEY)) || [],
+            activeBg: (await dbGet(ACTIVE_BG_KEY)) || '',
+            stampList: (await dbGet(STAMP_LIST_KEY)) || [],
+            activeStamp: (await dbGet(ACTIVE_STAMP_KEY)) || '',
+            updatedAt: lastLocalAssetUpdate
+          }
         };
 
         await firebaseDb.ref(`azad_wattan_studio/${channel}`).set(fullCloudPayload);
         updateCloudStatus('synced', '🔥 Firebase Live');
-        alert(`Successfully pushed entire studio (active draft + ${history.length} letters) to Firebase!`);
+        const bgCount = fullCloudPayload.assets.bgList.length;
+        const stampCount = fullCloudPayload.assets.stampList.length;
+        alert(`Successfully pushed entire studio to Firebase!\n• ${bgCount} Letterhead Background(s)\n• ${stampCount} Stamp(s) & Signature(s)\n• Active Draft Document\n• ${history.length} Saved Letters in History`);
       } catch (err) {
         alert('Failed pushing to Firebase: ' + err.message);
         updateCloudStatus('error', 'Push Failed');
@@ -3589,6 +3794,32 @@
           return;
         }
 
+        // 1. Restore Cloud Stationery Assets (Letterheads & Stamps)
+        if (data.assets) {
+          if (data.assets.bgList && Array.isArray(data.assets.bgList)) {
+            await dbSet(BG_LIST_KEY, data.assets.bgList);
+          }
+          if (data.assets.activeBg !== undefined) {
+            if (data.assets.activeBg) {
+              await dbSet(ACTIVE_BG_KEY, data.assets.activeBg);
+            } else {
+              await dbRemove(ACTIVE_BG_KEY);
+            }
+          }
+          if (data.assets.stampList && Array.isArray(data.assets.stampList)) {
+            await dbSet(STAMP_LIST_KEY, data.assets.stampList);
+          }
+          if (data.assets.activeStamp !== undefined) {
+            if (data.assets.activeStamp) {
+              await dbSet(ACTIVE_STAMP_KEY, data.assets.activeStamp);
+            } else {
+              await dbRemove(ACTIVE_STAMP_KEY);
+            }
+          }
+          await restoreSavedStationery();
+        }
+
+        // 2. Restore Draft Document
         if (data.draft && data.draft.html) {
           document.getElementById('pages-container').innerHTML = data.draft.html;
           if (data.draft.ref) document.getElementById('refInput').value = data.draft.ref;
@@ -3599,6 +3830,7 @@
           checkOverflowAndStats();
         }
 
+        // 3. Restore History
         if (data.history) {
           const pulledHistory = Object.values(data.history);
           await dbSet(HISTORY_KEY, pulledHistory);
@@ -3606,11 +3838,351 @@
         }
 
         updateCloudStatus('synced', '🔥 Firebase Live');
-        if (interactive) alert('Successfully pulled latest draft and history from Firebase cloud database!');
+        if (interactive) {
+          const bgCount = data.assets?.bgList?.length || 0;
+          const stampCount = data.assets?.stampList?.length || 0;
+          const histCount = Object.keys(data.history || {}).length;
+          alert(`Successfully pulled from Firebase cloud!\n• ${bgCount} Letterhead background(s)\n• ${stampCount} Stamp(s) & Signature(s)\n• Active Draft Document\n• ${histCount} Letters in history`);
+        }
       } catch (err) {
         alert('Failed pulling from Firebase: ' + err.message);
         updateCloudStatus('error', 'Pull Failed');
       }
+    }
+
+    /* ---------------------------------------------------------
+       Cross-Device 1-Click Sync & Asset Fallback Helpers
+       --------------------------------------------------------- */
+    function generateSyncShareLink() {
+      if (!firebaseConfig.apiKey && !firebaseConfig.databaseURL) {
+        alert('Please enter and connect your Firebase configuration first in the Settings panel.');
+        return null;
+      }
+      const syncData = {
+        k: firebaseConfig.apiKey || '',
+        u: firebaseConfig.databaseURL || '',
+        p: firebaseConfig.projectId || '',
+        c: firebaseConfig.channelId || 'azad_wattan_main'
+      };
+      const jsonStr = JSON.stringify(syncData);
+      const b64 = btoa(unescape(encodeURIComponent(jsonStr)));
+      return `${window.location.origin}${window.location.pathname}#sync=${encodeURIComponent(b64)}`;
+    }
+
+    async function copySyncShareLink(isModal = false) {
+      const link = generateSyncShareLink();
+      if (!link) return;
+      try {
+        await navigator.clipboard.writeText(link);
+        if (isModal) {
+          alert('✓ 1-Click Sync Link copied to clipboard! Send it to your other device.');
+        } else {
+          const feedback = document.getElementById('syncLinkCopyFeedback');
+          if (feedback) {
+            feedback.style.display = 'block';
+            setTimeout(() => { feedback.style.display = 'none'; }, 4000);
+          }
+          showSyncToast('✓ 1-Click Sync Link copied to clipboard!');
+        }
+      } catch (err) {
+        prompt('Copy this sync link and open it on your other device:', link);
+      }
+    }
+
+    function showSyncQrCodeModal() {
+      const link = generateSyncShareLink();
+      if (!link) return;
+      const qrImg = document.getElementById('syncQrCodeImg');
+      const input = document.getElementById('syncQrUrlInput');
+      if (qrImg) {
+        qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=10&data=${encodeURIComponent(link)}`;
+      }
+      if (input) {
+        input.value = link;
+      }
+      document.getElementById('syncQrModal').classList.add('open');
+    }
+
+    function closeSyncQrModal() {
+      document.getElementById('syncQrModal').classList.remove('open');
+    }
+
+    function copyFirebaseRules() {
+      const snippet = document.getElementById('firebaseRulesSnippet');
+      if (!snippet) return;
+      navigator.clipboard.writeText(snippet.value).then(() => {
+        showSyncToast('✓ Firebase Rules copied to clipboard!');
+      }).catch(() => {
+        snippet.select();
+        document.execCommand('copy');
+        showSyncToast('✓ Rules copied!');
+      });
+    }
+
+    async function checkAndApplySyncUrl() {
+      const hash = window.location.hash;
+      if (!hash || !hash.includes('sync=')) return false;
+
+      try {
+        const raw = hash.split('sync=')[1];
+        if (!raw) return false;
+
+        let jsonStr = '';
+        try {
+          jsonStr = decodeURIComponent(escape(atob(decodeURIComponent(raw))));
+        } catch (e) {
+          jsonStr = atob(decodeURIComponent(raw));
+        }
+
+        const data = JSON.parse(jsonStr);
+        const apiKey = data.k || data.apiKey || '';
+        const databaseURL = data.u || data.databaseURL || '';
+        const projectId = data.p || data.projectId || '';
+        const channelId = data.c || data.channelId || 'azad_wattan_main';
+
+        if (apiKey || databaseURL) {
+          firebaseConfig.enabled = true;
+          firebaseConfig.apiKey = apiKey;
+          firebaseConfig.databaseURL = databaseURL;
+          firebaseConfig.projectId = projectId;
+          firebaseConfig.channelId = channelId;
+
+          await dbSet(FIREBASE_CONFIG_KEY, firebaseConfig);
+
+          // Clean URL hash so credentials are not kept in browser history
+          if (window.history && window.history.replaceState) {
+            window.history.replaceState(null, document.title, window.location.pathname + window.location.search);
+          }
+
+          showSyncToast('☁️ Cloud database connected from sync link!');
+          return true;
+        }
+      } catch (err) {
+        console.warn('Failed parsing sync link from URL hash:', err);
+      }
+      return false;
+    }
+
+    async function checkRepositoryDefaultAssets() {
+      try {
+        const existingBg = await dbGet(ACTIVE_BG_KEY);
+        const bgList = (await dbGet(BG_LIST_KEY)) || [];
+        if (!existingBg && bgList.length === 0) {
+          const candidateBgPaths = [
+            'assets/letterhead.jpg',
+            'assets/letterhead.png',
+            'letterhead.jpg',
+            'letterhead.png'
+          ];
+          for (const path of candidateBgPaths) {
+            const dataUrl = await tryLoadImage(path);
+            if (dataUrl) {
+              const item = { id: 'bg_repo_default', name: 'Repository Letterhead', dataUrl: dataUrl };
+              await dbSet(BG_LIST_KEY, [item]);
+              await dbSet(ACTIVE_BG_KEY, dataUrl);
+              document.querySelectorAll('.bg-image').forEach(img => img.src = dataUrl);
+              await renderAssetGalleries();
+              break;
+            }
+          }
+        }
+
+        const existingStamp = await dbGet(ACTIVE_STAMP_KEY);
+        const stampList = (await dbGet(STAMP_LIST_KEY)) || [];
+        if (!existingStamp && stampList.length === 0) {
+          const candidateStampPaths = [
+            'assets/stamp.png',
+            'stamp.png',
+            'assets/signature.png',
+            'signature.png'
+          ];
+          for (const path of candidateStampPaths) {
+            const dataUrl = await tryLoadImage(path);
+            if (dataUrl) {
+              const item = { id: 'st_repo_default', name: 'Repository Stamp', dataUrl: dataUrl };
+              await dbSet(STAMP_LIST_KEY, [item]);
+              await dbSet(ACTIVE_STAMP_KEY, dataUrl);
+              const stampImg = document.getElementById('stampImg');
+              if (stampImg) {
+                stampImg.src = dataUrl;
+                document.getElementById('stampOverlay').style.display = 'block';
+              }
+              await renderAssetGalleries();
+              break;
+            }
+          }
+        }
+      } catch (e) {
+        console.warn('Repo asset check skipped:', e);
+      }
+    }
+
+    function tryLoadImage(src) {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => {
+          try {
+            const canvas = document.createElement('canvas');
+            canvas.width = img.naturalWidth || img.width;
+            canvas.height = img.naturalHeight || img.height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0);
+            resolve(canvas.toDataURL(src.endsWith('.png') ? 'image/png' : 'image/jpeg'));
+          } catch (e) {
+            resolve(src);
+          }
+        };
+        img.onerror = () => resolve(null);
+        img.src = src;
+      });
+    }
+
+    async function loadSampleCorporateStationery() {
+      // 1. Generate Letterhead Canvas
+      const canvas = document.createElement('canvas');
+      canvas.width = 1240;
+      canvas.height = 1754;
+      const ctx = canvas.getContext('2d');
+
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Top Modern Header
+      ctx.fillStyle = '#0f172a';
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(canvas.width, 0);
+      ctx.lineTo(canvas.width, 110);
+      ctx.lineTo(0, 150);
+      ctx.closePath();
+      ctx.fill();
+
+      // Gold Ribbon
+      ctx.fillStyle = '#d97706';
+      ctx.beginPath();
+      ctx.moveTo(0, 150);
+      ctx.lineTo(canvas.width, 110);
+      ctx.lineTo(canvas.width, 124);
+      ctx.lineTo(0, 164);
+      ctx.closePath();
+      ctx.fill();
+
+      // Blue Accent
+      ctx.fillStyle = '#0284c7';
+      ctx.fillRect(0, 164, canvas.width, 4);
+
+      // Bottom Footer
+      ctx.fillStyle = '#0f172a';
+      ctx.beginPath();
+      ctx.moveTo(0, canvas.height - 45);
+      ctx.lineTo(canvas.width, canvas.height - 75);
+      ctx.lineTo(canvas.width, canvas.height);
+      ctx.lineTo(0, canvas.height);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.fillStyle = '#d97706';
+      ctx.beginPath();
+      ctx.moveTo(0, canvas.height - 45);
+      ctx.lineTo(canvas.width, canvas.height - 75);
+      ctx.lineTo(canvas.width, canvas.height - 67);
+      ctx.lineTo(0, canvas.height - 37);
+      ctx.closePath();
+      ctx.fill();
+
+      const bgDataUrl = canvas.toDataURL('image/jpeg', 0.9);
+      let bgList = (await dbGet(BG_LIST_KEY)) || [];
+      const newBg = { id: 'bg_sample_' + Date.now(), name: 'Modern Executive Letterhead', dataUrl: bgDataUrl };
+      bgList.unshift(newBg);
+      await dbSet(BG_LIST_KEY, bgList);
+      await dbSet(ACTIVE_BG_KEY, bgDataUrl);
+      document.querySelectorAll('.bg-image').forEach(img => img.src = bgDataUrl);
+
+      // 2. Generate Corporate Stamp Canvas
+      const sCanvas = document.createElement('canvas');
+      sCanvas.width = 320;
+      sCanvas.height = 320;
+      const sCtx = sCanvas.getContext('2d');
+
+      sCtx.strokeStyle = '#1e3a8a';
+      sCtx.lineWidth = 5;
+      sCtx.beginPath();
+      sCtx.arc(160, 160, 145, 0, Math.PI * 2);
+      sCtx.stroke();
+
+      sCtx.lineWidth = 2;
+      sCtx.beginPath();
+      sCtx.arc(160, 160, 135, 0, Math.PI * 2);
+      sCtx.stroke();
+
+      sCtx.fillStyle = '#1e3a8a';
+      sCtx.font = 'bold 20px sans-serif';
+      sCtx.textAlign = 'center';
+      sCtx.textBaseline = 'middle';
+      sCtx.fillText('AZAD WATTAN TRADING', 160, 125);
+
+      sCtx.font = 'bold 14px sans-serif';
+      sCtx.fillText('★ OFFICIAL SEAL ★', 160, 160);
+
+      sCtx.font = '600 13px sans-serif';
+      sCtx.fillText('DOCUMENT VERIFIED', 160, 195);
+
+      const stampDataUrl = sCanvas.toDataURL('image/png');
+      let stampList = (await dbGet(STAMP_LIST_KEY)) || [];
+      const newStamp = { id: 'st_sample_' + Date.now(), name: 'Official Executive Stamp', dataUrl: stampDataUrl };
+      stampList.unshift(newStamp);
+      await dbSet(STAMP_LIST_KEY, stampList);
+      await dbSet(ACTIVE_STAMP_KEY, stampDataUrl);
+
+      const stampImg = document.getElementById('stampImg');
+      if (stampImg) {
+        stampImg.src = stampDataUrl;
+        document.getElementById('stampOverlay').style.display = 'block';
+      }
+
+      await renderAssetGalleries();
+      syncAssetsToFirebase();
+      showSyncToast('✓ Sample letterhead & stamp loaded!');
+    }
+
+    function showSyncToast(message, type = 'success') {
+      let toast = document.getElementById('syncToastNotification');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'syncToastNotification';
+        toast.style.cssText = `
+          position: fixed;
+          bottom: 24px;
+          left: 50%;
+          transform: translateX(-50%) translateY(30px);
+          background: #0f172a;
+          color: #f8fafc;
+          padding: 10px 20px;
+          border-radius: 9999px;
+          font-size: 12px;
+          font-weight: 600;
+          box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.15);
+          z-index: 100000;
+          opacity: 0;
+          pointer-events: none;
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        `;
+        document.body.appendChild(toast);
+      }
+      const icon = type === 'error' ? '⚠️' : '☁️';
+      toast.innerHTML = `<span>${icon}</span><span>${message}</span>`;
+      toast.style.opacity = '1';
+      toast.style.transform = 'translateX(-50%) translateY(0)';
+
+      clearTimeout(toast._timer);
+      toast._timer = setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(-50%) translateY(20px)';
+      }, 3500);
     }
 
     /* =========================================================
@@ -3879,6 +4451,7 @@
         exportedAt: new Date().toISOString(),
         version: '6.0-enterprise-3d',
         settings: appSettings,
+        draft: await dbGet(DRAFT_KEY),
         history: (await dbGet(HISTORY_KEY)) || [],
         bgList: (await dbGet(BG_LIST_KEY)) || [],
         activeBg: await dbGet(ACTIVE_BG_KEY),
@@ -3900,6 +4473,7 @@
         try {
           const data = JSON.parse(e.target.result);
           if (data.settings) await dbSet(SETTINGS_KEY, data.settings);
+          if (data.draft) await dbSet(DRAFT_KEY, data.draft);
           if (data.history) await dbSet(HISTORY_KEY, data.history);
           if (data.bgList) await dbSet(BG_LIST_KEY, data.bgList);
           if (data.activeBg) await dbSet(ACTIVE_BG_KEY, data.activeBg);
@@ -3921,6 +4495,7 @@
       await dbRemove(STAMP_LIST_KEY);
       await dbRemove(ACTIVE_STAMP_KEY);
       renderAssetGalleries();
+      syncAssetsToFirebase();
     }
 
     async function clearAllHistory() {
